@@ -40,11 +40,11 @@ For example, use the ADB to push the JSON file to **/sdcard/Download**.
 7. Now, enjoy this app.
 
 ## Result
-<img src="Result_1.jpg">
-<img src="Result_2.jpg">
-<img src="Result_3.jpg">
-<img src="Result_4.jpg">
-<img src="Result_5.jpg">
+![result](https://github.com/HMS-Core/hms-nearby-demo/blob/master/BeaconManager/Result_1.jpg)
+![result](https://github.com/HMS-Core/hms-nearby-demo/blob/master/BeaconManager/Result_2.jpg)
+![result](https://github.com/HMS-Core/hms-nearby-demo/blob/master/BeaconManager/Result_3.jpg)
+![result](https://github.com/HMS-Core/hms-nearby-demo/blob/master/BeaconManager/Result_4.jpg)
+![result](https://github.com/HMS-Core/hms-nearby-demo/blob/master/BeaconManager/Result_5.jpg)
 
 ## License
  BeaconManager sample is licensed under the [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
