@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:orientation="vertical"
+    tools:context=".ui.ViewBeaconActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableStart="@mipmap/ic_notification_overlay"
+                        android:drawablePadding="@dimen/drawable_padding"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:text="@string/beacon_details" />
+
+                    <TextView
+                        android:id="@+id/tv_beacon_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:text="Active"
+                        android:background="@android:color/holo_red_light"
+                        android:visibility="invisible" />
+                </RelativeLayout>
+
+                <!-- beacon id -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_beacon_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="BeaconType"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_beacon_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="BeaconId"
+                        android:textSize="10sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/drawable_padding"
+                        android:layout_marginBottom="@dimen/drawable_padding"
+                        android:background="@color/colorPrimary" />
+                </LinearLayout>
+
+                <!-- description -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <!-- description -->
+                        <ImageView
+                            android:id="@+id/iv_beacon_desc_show"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/btn_rating_star_on_pressed_holo_dark" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/iv_beacon_desc_show"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/beacon_desc"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_beacon_desc"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/beacon_desc_tip"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/drawable_padding"
+                        android:layout_marginBottom="@dimen/drawable_padding"
+                        android:background="@color/colorPrimary" />
+                </LinearLayout>
+
+                <!-- mobility -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_beacon_mobility1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/btn_rating_star_on_pressed_holo_dark" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_toEndOf="@id/iv_beacon_mobility1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/beacon_mobility"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_beacon_mobility"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:text="Stable"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/drawable_padding"
+                        android:layout_marginBottom="@dimen/drawable_padding"
+                        android:background="@color/colorPrimary" />
+                </LinearLayout>
+
+                <!-- place -->
+                <LinearLayout
+                    android:id="@+id/ll_beacon_place_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_beacon_place_group_img1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/btn_rating_star_on_pressed_holo_dark" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_toEndOf="@id/iv_beacon_place_group_img1"
+                            android:orientation="vertical">
+
+                            <!-- place id -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Place:"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_beacon_place"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Place information"
+                                android:textSize="14sp" />
+
+                            <!-- indoor level -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Indoor level:"
+                                    android:textSize="10sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_beacon_indoor_level"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/drawable_padding"
+                        android:layout_marginBottom="@dimen/drawable_padding"
+                        android:background="@color/colorPrimary" />
+                </LinearLayout>
+
+                <!-- longitude latitude -->
+                <LinearLayout
+                    android:id="@+id/ll_beacon_longitude_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_beacon_indoor_level_img1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/btn_rating_star_on_pressed_holo_dark" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_toEndOf="@id/iv_beacon_indoor_level_img1"
+                            android:orientation="vertical"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Longitude / Latitude"
+                                android:textSize="10sp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <!-- longitude -->
+                                <TextView
+                                    android:id="@+id/tv_beacon_longitude"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0.0"
+                                    android:inputType="number|numberDecimal"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:text=" / "
+                                    android:textSize="10sp" />
+
+                                <!-- latitude -->
+                                <TextView
+                                    android:id="@+id/tv_beacon_latitude"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:text="0.0"
+                                    android:inputType="number|numberDecimal"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/drawable_padding"
+                        android:layout_marginBottom="@dimen/drawable_padding"
+                        android:background="@color/colorPrimary" />
+                </LinearLayout>
+
+                <!-- properties -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_beacon_properties1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/btn_rating_star_on_pressed_holo_dark" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/iv_beacon_properties1"
+                            android:orientation="vertical">
+
+                            <!-- properties head tips -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerVertical="true"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/beacon_properties"
+                                        android:textSize="10sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/beacon_properties_tip"
+                                        android:textSize="10sp" />
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            <!-- all properties -->
+                            <com.huawei.hms.nearby.beaconmanager.ui.ExpandListView
+                                android:id="@+id/lv_show_beacon_properties"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/drawable_padding"
+                        android:layout_marginBottom="@dimen/drawable_padding"
+                        android:background="@color/colorPrimary" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- attachments -->
+            <LinearLayout
+                android:id="@+id/ll_beacon_attachments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableStart="@mipmap/ic_notification_overlay"
+                        android:drawablePadding="@dimen/drawable_padding"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:text="@string/beacon_attachments" />
+
+                    <ImageView
+                        android:id="@+id/iv_show_beacon_attachments"
+                        android:clickable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/expander_open_holo_light" />
+                </RelativeLayout>
+
+                <com.huawei.hms.nearby.beaconmanager.ui.ExpandListView
+                    android:id="@+id/lv_beacon_attachments"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/beacon_show_no_attachment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No Attachments"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
+

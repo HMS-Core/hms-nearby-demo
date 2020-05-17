@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">BeaconManager</string>
+    <string name="my_beacons">My Beacons</string>
+    <string name="my_beacons_title">My Beacons</string>
+    <string name="beacon_details">Beacon Details</string>
+    <string name="beacon_desc">Beacon Description</string>
+    <string name="beacon_desc_tip">Please describe you beacon for administration</string>
+    <string name="beacon_mobility">Mobility</string>
+    <string name="beacon_properties">Properties</string>
+    <string name="beacon_properties_tip">Please categorise you beacon</string>
+    <string name="beacon_attachments">Beacon Attachments</string>
+    <string name="beacon_configuration_title">Beacon Configuration</string>
+    <string name="beacon_registration_title">Beacon Registration</string>
+    <string name="beacon_update">Update</string>
+    <string name="beacon_activate">Activate</string>
+    <string name="beacon_deactivate">Deactivate</string>
+    <string name="beacon_decommission">Abandon</string>
+    <string name="beacon_delete">Delete</string>
+    <string name="no_beacon_found">No beacon found</string>
+</resources>
