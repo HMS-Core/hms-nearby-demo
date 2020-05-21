@@ -1,7 +1,7 @@
 # NearbyMessageDemo-BeaconManager
 ## Contents
  * [Introduction](#introduction)
- * [Enviroment requirement](#Enviroment requirement)
+ * [Environment requirement](#environment-requirement)
  * [Installation](#installation)
  * [Procedure](#procedure)
  * [Result](#result)
@@ -10,7 +10,7 @@
 ## Introduction
 This demo demonstrates an example of using the API to manage beacons on the cloud. For details about the API, please refer to [HMS-References](https://developer.huawei.com/consumer/en/doc/development/HMS-References/api-call-process).
 
-## Enviroment requirement
+## Environment requirement
 Android Studio 3.0 or a later version is recommended.
 
 ## Installation
