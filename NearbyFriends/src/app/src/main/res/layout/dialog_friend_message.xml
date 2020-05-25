@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:windowSoftInputMode="adjustPan|stateHidden">
+
+
+    <TextView
+        android:id="@+id/tv_message_from"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:padding="10dp"
+        android:text="收到XX发来的消息" />
+
+    <ListView
+        android:id="@+id/lv_message_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:background="@drawable/message_listview_background"
+        android:minHeight="300dp" />
+    <EditText
+        android:id="@+id/et_message"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/edit_send_background"/>
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="80dp"
+       android:gravity="center">
+       <Button
+           android:id="@+id/btn_cancel"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:text="@string/btn_cancel" />
+
+       <Button
+           android:id="@+id/btn_send"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:layout_marginStart="40dp"
+           android:text="@string/btn_send" />
+   </LinearLayout>
+
+</LinearLayout>
