@@ -40,8 +40,7 @@ For example, for namespaceType canteen, the attachment content references {"cant
 
 
 ## Result
-<img src="Result_1.jpg">
-<img src="Result_2.jpg">
+<img src="Result_1.jpg" width = 30% height = 30%> <img src="Result_2.jpg" width = 30% height = 30%>
 
 ## License
  NearbyCanteens sample is licensed under the [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
