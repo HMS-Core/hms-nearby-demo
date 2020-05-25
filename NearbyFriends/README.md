@@ -4,6 +4,7 @@
  * [Installation](#installation)
  * [Supported Environments](#supported-environments)
  * [Procedure](#procedure)
+ * [Result](#result)
  * [License](#license)
  
 ## Introduction
@@ -26,6 +27,8 @@ Android Studio 3.X or a later version is recommended.
 1. Open the app on both phones, input nicknames, then click "CONFIRM";
 2. Click "START SCAN";
 3. Finally, you find each other! Enjoy with your nearby friends!
+## Result
+<img src="result.jpg" width = 40% height = 30%> 
 
 ## License
 NearbyFriends sample is licensed under the [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
