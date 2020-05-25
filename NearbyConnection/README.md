@@ -30,8 +30,8 @@ Prepare two Huawei phones, and install the compiled APK by running the adb comma
 4. Tap SEND on either phone and enter the information that you want to send to the peer phone.
 
 ## Result
-The sample app enables bi-directional data transmission.
-<img src="result_1.jpg" width = 30% height = 30%> <img src="result_2.jpg" width = 30% height = 30%>
+
+<img src="result_1.jpg" width = 30% height = 30%>  <img src="result_2.jpg" width = 30% height = 30%>
 
 ## License
 Nearby Service Connection sample is licensed under the [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
