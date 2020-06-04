@@ -7,6 +7,6 @@
 1. NearbyConnection: The package contains an Android Studio project that provides a sample for Connection.
 2. NearbyFriends: The package contains an Android Studio project that provides a sample for App-based Message Publishing and Subscription.
 3. NearbyCanteens: The package contains an Android Studio project that provides a sample for Beacon-based Message Publishing and Subscription.
-4. BeaconManager: Uses the face detection function of HUAWEI ML Kit to identify whether a user is smiling and capture the smiling photos of the user.
+4. BeaconManager: The package contains an Android Studio project that provides a sample for Beacon Management.
 ## Precautions
 The project contains multiple independent projects. After downloading code, you can open a project in Android Studio to build your app or add multiple apps to a project. You do not have to create a separate project for each app. You can open setting.gradle to select the project to build.
