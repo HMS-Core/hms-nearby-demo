@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/edit"
+        android:title="@string/edit_card"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/publish"
+        android:title="@string/publish"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/unpublish"
+        android:title="@string/unpublish"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/subscribe"
+        android:title="@string/subscribe"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/exchange"
+        android:title="@string/exchange"
+        app:showAsAction="never" />
+</menu>

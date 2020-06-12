@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Card Exchange By Nearby</string>
+    <string name="tab_first_title">My Card</string>
+    <string name="tab_second_title">My Favorites</string>
+    <string name="edit_card">Edit</string>
+    <string name="publish">Publish</string>
+    <string name="unpublish">Unpublish</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="unsubscribe">Unsubscribe</string>
+    <string name="exchange">Exchange</string>
+    <string name="pin_title">Input the exchange code</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="search_title">Card is Searching...</string>
+    <string name="card_invalid">The information of the card is invalid.</string>
+    <string name="card_null">Please create a card.</string>
+    <string name="confirm">OK</string>
+    <string name="warn">Warn</string>
+</resources>

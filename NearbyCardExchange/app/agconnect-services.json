@@ -1,0 +1,13 @@
+{
+	"client":{
+		"cp_id":"000000000000000000",
+		"product_id":"0000000000000000000000000000",
+		"client_id":"00000000000000000",
+		"client_secret":"0000000000000000000000000000",
+		"app_id":"000000000000000000000000",
+		"package_name":"com.huawei.hms.nearby.card",
+		"api_key":"000000000000000000000000000000000000000"
+	},
+	"region":"CN",
+	"configuration_version":"1.0"
+}
