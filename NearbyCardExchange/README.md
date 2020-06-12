@@ -3,7 +3,7 @@
 ## Table of Contents
 
  * [Introduction](#introduction)
- * [Getting Started](#Getting-Started)
+ * [Getting Started](#getting-started)
  * [Supported Environments](#supported-environments)
  * [Procedure](#procedure)
  * [Result](#result)
@@ -15,12 +15,16 @@ This demo demonstrates how to use both Huawei Nearby Service to exchange card.
 ## Getting Started
 
 1.Register as a developer.
+
 Register a [HUAWEI account](https://developer.huawei.com/consumer/en/).
+
 2.Create an app from Huawei.
+
 Create an app and enable Nearby Service by referring the [Nearby Service Preparations](https://developer.huawei.com/consumer/en/doc/development/HMS-Guides/nearby-service-preparation).
+
 3.Build the demo.
-To build this project, please use "Import project" in Android Studio.
-Prepare two Huawei phones, and install this app by adb command to phones.
+
+To build this project, please use "Import project" in Android Studio.Prepare two Huawei phones, and install this app by adb command to phones.
 
 ## Supported Environments
 Android Studio 3.X or a later version is recommended.
