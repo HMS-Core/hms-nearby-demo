@@ -3,7 +3,7 @@
 ## Table of Contents
 
  * [Introduction](#introduction)
- * [Getting Started](#Getting Started)
+ * [Getting Started](#Getting-Started)
  * [Supported Environments](#supported-environments)
  * [Procedure](#procedure)
  * [Result](#result)
