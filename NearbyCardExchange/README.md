@@ -30,7 +30,7 @@ Android Studio 3.X or a later version is recommended.
 2. Finally, you find the card of each other, add the card to your favorites. Enjoy interaction with nearby card exchange!
 
 ## Result
-<img src="Result_1.jpg">
+<img src="https://github.com/HMS-Core/hms-nearby-demo/blob/master/NearbyCardExchange/CardExchange.gif" width=180 title="card exchange" border=2>
 
 ## License
 NearbyCardExchange sample is licensed under the [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
