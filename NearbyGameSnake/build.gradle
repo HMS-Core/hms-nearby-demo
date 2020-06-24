@@ -1,0 +1,89 @@
+buildscript {
+    
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url 'http://developer.huawei.com/repo/' } // HUAWEI Maven repository
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.6'
+        classpath 'com.huawei.agconnect:agcp:1.2.0.300'  // HUAWEI agcp plugin
+    }
+}
+
+allprojects {
+    apply plugin: "eclipse"
+    apply plugin: "idea"
+
+    version = '1.0'
+    ext {
+        appName = "multiplayer-snake"
+        gdxVersion = '1.9.8'
+        roboVMVersion = '2.3.3'
+        box2DLightsVersion = '1.4'
+        ashleyVersion = '1.7.0'
+        aiVersion = '1.8.0'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url 'http://developer.huawei.com/repo/' } // HUAWEI Maven repository
+        maven { url 'http://szg1.artifactory.inhuawei.com/artifactory/sz-maven-public'} // HUAWEI Maven repository
+        google()
+        jcenter()
+    }
+}
+/*
+project(":desktop") {
+    apply plugin: "java"
+
+    dependencies {
+        compile project(":core")
+        compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+
+    }
+}
+
+ */
+
+project(":android") {
+    apply plugin: "android"
+
+    configurations { natives }
+
+    dependencies {
+        compile project(":core")
+        compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
+//        implementation 'com.huawei.hms:nearby:4.0.1.300'
+    }
+}
+
+project(":core") {
+    apply plugin: 'com.android.library'
+
+    dependencies {
+        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        compile "com.kotcrab.vis:vis-ui:1.3.0"
+        compile group: 'com.google.protobuf', name: 'protobuf-java', version: '3.5.1'
+        compile "com.esotericsoftware:kryonet:2.22.0-RC1"
+//        implementation 'com.huawei.hms:nearby:4.0.1.300'
+    }
+}
+
+tasks.eclipse.doLast {
+    delete ".project"
+}
