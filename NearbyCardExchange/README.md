@@ -17,7 +17,11 @@ This demo demonstrates how to use both Huawei Nearby Service to exchange card.
 <img src="https://github.com/HMS-Core/hms-nearby-demo/blob/master/NearbyCardExchange/CardExchange.gif" width=180 title="card exchange" border=2>
 
 ## More Scenarios
-
+This demo uses Nearby Message feature of HUAWEI Nearby Service. What Nearby Message is capable of is more than just developing functions for exchanging business cards face-to-face. Here are some examples:
+1. Face-to-face teaming in multiplayer sports games
+2. Face-to-face round joining in board games
+3. Near-field go-Dutch payment function
+4. Music sharing
 
 ## Procedure
 1. Open the app on both phones, create your persional card, click the exchange menu item, input the exchange code.
