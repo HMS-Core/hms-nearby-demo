@@ -17,7 +17,11 @@ Beacon-based proximity messages enable devices near places such as stores, sceni
 <img src="Result_1.jpg" width = 30% height = 30%> <img src="Result_2.jpg" width = 30% height = 30%>
 
 ## More Scenarios
-
+This demo uses Bluetooth beacon message subscription function of HUAWEI Nearby Service.Based on the Nearby Beacon Message capability, you not only can develop an ad push function, but also can implement the following functions:
+1. A car or lifestyle app can integrate the capability to identify whether a user is near their car to determine whether to enable keyless access and record the driving track of the car.
+2. A business app can integrate the capability to accurately record the locations where employees clock in.
+3. A travel or exhibition app can integrate the capability to introduce an exhibit to a user when the user gets near the exhibit.
+4. A game app can integrate the capability to make your game interact with the real world, for example, unlocking a game level through a physical object and sending rewards to players who are participating in offline events.
 
 ## Procedure
 1.Prepare at least one BLE beacon device, and then refer to the [Codelab](https://developer.huawei.com/consumer/en/codelab/HUAWEINearbyMessageKit/index.html). Some major steps are outlined as below.
