@@ -13,6 +13,7 @@ English|[中文]()
 ## Introduction
 This demo demonstrates a use case for beacon-based proximity messages in Nearby Service:
 Beacon-based proximity messages enable devices near places such as stores, scenic spots, and airports to subscribe to beacon messages containing information including merchandise introduction, preference information, news, and notifications. This demo shows a scenario as follow: A user walks into a canteen, once he/she is nearby the beacon deployed by the canteen, the user can receive the promotional infomation such as updated menu and discount notifications.
+
 <img src="Result_1.jpg" width = 30% height = 30%> <img src="Result_2.jpg" width = 30% height = 30%>
 
 ## More Scenarios
