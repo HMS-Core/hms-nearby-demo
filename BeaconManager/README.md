@@ -7,7 +7,7 @@ English|[中文]()
  * [Introduction](#introduction)
  * [More Scenarios]
  * [Procedure](#procedure)
- * [Supported Environment] (#Supported Environment)
+ * [Supported Environment](#Supported Environment)
  * [License](#license)
 
 ## Introduction
