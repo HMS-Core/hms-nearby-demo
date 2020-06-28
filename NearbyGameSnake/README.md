@@ -15,6 +15,7 @@ The NearbyGameSnake program demonstrates a simple online snake game with Nearby 
 
 Game Lobby:
 <img src="result_1.jpg">
+
 In the game:
 <img src="result_2.jpg">
 
