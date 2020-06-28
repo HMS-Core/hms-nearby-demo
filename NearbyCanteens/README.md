@@ -28,7 +28,7 @@ Beacon-based proximity messages enable devices near places such as stores, sceni
 
 4.Configure message attachments for the beacon by using the demo app of BeaconManager. 
 >Note: The attachment content in this demo is suggested to be a JSON string.
-For example, for namespaceType canteen, the attachment content references {"canteenDesc":"This is the description of Canteen A.","canteenName":"Canteen A"}; and for namepaceType notice, the attachment content references {"canteenName":"Canteen A","notice":"Huawei employees dinning here can get a 20% discount and a free fruit platter."}.
+>For example, for namespaceType canteen, the attachment content references {"canteenDesc":"This is the description of Canteen A.","canteenName":"Canteen A"}; and for namepaceType notice, the attachment content references {"canteenName":"Canteen A","notice":"Huawei employees dinning here can get a 20% discount and a free fruit platter."}.
 
 5.Before running the NearbyCanteens, please ensure the HMS Core is installed.
 
