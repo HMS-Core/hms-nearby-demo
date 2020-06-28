@@ -5,9 +5,9 @@ English|[中文]()
 
 ## Table of contents
  * [Introduction](#introduction)
- * [More Scenarios](#More Scenarios)
+ * [More Scenarios](#more-scenarios)
  * [Procedure](#procedure)
- * [Supported Environment](#Supported Environment)
+ * [Supported Environment](#supported-environment)
  * [License](#license)
 
 ## Introduction
