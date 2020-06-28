@@ -1,9 +1,7 @@
-# hms nearby demo
-English|[中文]()
+# HMS nearby demo
+English | [中文]()
 
-[![](https://camo.githubusercontent.com/ce1c195eb2524e4e67a2e74bf6e9619555aa0913/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446f63732d686d736775696465732d627269676874677265656e)](https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/introduction-0000001050040566)
-
-![](https://github.com/HMS-Core/hms-ml-demo/workflows/Android%20CI/badge.svg)
+[![](https://camo.githubusercontent.com/ce1c195eb2524e4e67a2e74bf6e9619555aa0913/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446f63732d686d736775696465732d627269676874677265656e)](https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/introduction-0000001050040566) ![](https://github.com/HMS-Core/hms-ml-demo/workflows/Android%20CI/badge.svg)
 ## Introduction
  Several samples show how to use the APIs of the Nearby Service. The project directory is as follows:
 1. [BeaconManager](https://github.com/HMS-Core/hms-nearby-demo/tree/master/BeaconManager): The package contains an Android Studio project that provides a sample for Beacon Management.
