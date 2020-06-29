@@ -20,7 +20,7 @@ This demo demonstrates an example of using the API to manage beacons on the clou
 
 
 ## Procedure
-*Installation
+* Installation
 1. Register as a developer.
 Register a [HUAWEI ID](https://developer.huawei.com/consumer/en/).
 
@@ -31,7 +31,7 @@ Create an app and enable Nearby Service by referring to [Nearby Service Preparat
 To build the demo app, import the demo project in Android Studio 3.0 or later. Then set MESSAGE_HOST in the gradle file of the demo project (\app\build.gradle). For details about how to set MESSAGE_HOST, please refer to [api-call-process](https://developer.huawei.com/consumer/en/doc/development/HMS-References/api-call-process).
 Prepare a Huawei phone and at least one BLE beacon, and install the compiled APK using the ADB on the phone.
 
-*Getting Started 
+* Getting Started 
 1. Create a service account key and download the JSON file.
 Sign in to [HUAWEI Developer](https://developer.huawei.com/consumer/en/), click **Console**, go to **HMS API Services** > **Credentials**, select the app project you have created, move the cursor to **Create credentials**, and click **Service account key**. Enter the information of service account key, and click **Create and download JSON** to download the JSON file.
 
