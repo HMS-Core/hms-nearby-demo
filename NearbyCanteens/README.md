@@ -41,6 +41,7 @@ Prepare a Huawei phone and at least one BLE beacon device, then install the comp
 > Note: The attachment content in this demo is suggested to be a JSON string.
 
 For example, for namespaceType canteen, the attachment content references {"canteenDesc":"This is the description of Canteen A.","canteenName":"Canteen A"}; and for namepaceType notice, the attachment content references {"canteenName":"Canteen A","notice":"Huawei employees dinning here can get a 20% discount and a free fruit platter."}.
+
 5. Before running the NearbyCanteens, please ensure the HMS Core is installed.
 6. Open the app on the phone, enjoy the interesting messages!
 
