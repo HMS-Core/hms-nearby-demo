@@ -27,29 +27,22 @@ This demo uses Bluetooth beacon message subscription function of HUAWEI Nearby S
 * Installation
 1. Register as a developer.
 Register a [HUAWEI account](https://developer.huawei.com/consumer/en/).
-
 2. Create an app.
 Create an app and enable Nearby Service by referring the [Nearby Service Preparations](https://developer.huawei.com/consumer/en/doc/development/HMS-Guides/nearby-service-preparation).
-
 3. Build an app.
 To build this demo, please first import the demo in the Android Studio (3.x+). Then download the file "agconnect-services.json" of the app on AGC, and add the file to the app root directory(\app) of the demo. Please refer to the Chapter [Integrating HMS SDK](https://developer.huawei.com/consumer/en/doc/development/HMS-Guides/nearby-service-integratesdk) of the Development Guide.
 Prepare a Huawei phone and at least one BLE beacon device, then install the compiled apk by adb command to phone.
 
 * Getting Started
-1.Prepare at least one BLE beacon device, and then refer to the [Codelab](https://developer.huawei.com/consumer/en/codelab/HUAWEINearbyMessageKit/index.html). Some major steps are outlined as below.
-
-2.Login in the Console dashboard, Creating a service account for your project.
-
-3.Register the beacon device by using the demo app of BeaconManager. 
-
-4.Configure message attachments for the beacon by using the demo app of BeaconManager.
->Note: The attachment content in this demo is suggested to be a JSON string.
+1. Prepare at least one BLE beacon device, and then refer to the [Codelab](https://developer.huawei.com/consumer/en/codelab/HUAWEINearbyMessageKit/index.html). Some major steps are outlined as below.
+2. Login in the Console dashboard, Creating a service account for your project.
+3. Register the beacon device by using the demo app of BeaconManager. 
+4. Configure message attachments for the beacon by using the demo app of BeaconManager.
+> Note: The attachment content in this demo is suggested to be a JSON string.
 
 For example, for namespaceType canteen, the attachment content references {"canteenDesc":"This is the description of Canteen A.","canteenName":"Canteen A"}; and for namepaceType notice, the attachment content references {"canteenName":"Canteen A","notice":"Huawei employees dinning here can get a 20% discount and a free fruit platter."}.
-
-5.Before running the NearbyCanteens, please ensure the HMS Core is installed.
-
-6.Open the app on the phone, enjoy the interesting messages!
+5. Before running the NearbyCanteens, please ensure the HMS Core is installed.
+6. Open the app on the phone, enjoy the interesting messages!
 
 
 ## Supported Environment
