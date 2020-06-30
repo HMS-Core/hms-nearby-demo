@@ -11,7 +11,7 @@ English|[中文]()
  * [License](#license)
 
 ## Introduction
-This demo demonstrates an example of using the API to manage beacons on the cloud. For details about the API, please refer to [HMS-References](https://developer.huawei.com/consumer/en/doc/development/HMS-References/api-call-process).
+This demo demonstrates an example of using the API to manage beacons on the cloud. For details about the API, please refer to [HMS-References](https://developer.huawei.com/consumer/en/doc/HMSCore-References/common-interface-0000001050151532).
 
 <img src="https://github.com/HMS-Core/hms-nearby-demo/blob/master/BeaconManager/Result_1.jpg" width = 30% height = 30% /> <img src="https://github.com/HMS-Core/hms-nearby-demo/blob/master/BeaconManager/Result_2.jpg" width = 30% height = 30% /> <img src="https://github.com/HMS-Core/hms-nearby-demo/blob/master/BeaconManager/Result_3.jpg" width = 30% height = 30% />
 <img src="https://github.com/HMS-Core/hms-nearby-demo/blob/master/BeaconManager/Result_4.jpg" width = 30% height = 30% /> <img src="https://github.com/HMS-Core/hms-nearby-demo/blob/master/BeaconManager/Result_5.jpg" width = 30% height = 30% />
@@ -25,10 +25,10 @@ This demo demonstrates an example of using the API to manage beacons on the clou
 Register a [HUAWEI ID](https://developer.huawei.com/consumer/en/).
 
 2. Create an app.
-Create an app and enable Nearby Service by referring to [Nearby Service Preparations](https://developer.huawei.com/consumer/en/doc/development/HMS-Guides/nearby-service-preparation).
+Create an app and enable Nearby Service by referring to [Nearby Service Preparations](https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/config-agc-0000001050040578).
 
 3. Build the app.
-To build the demo app, import the demo project in Android Studio 3.0 or later. Then set MESSAGE_HOST in the gradle file of the demo project (\app\build.gradle). For details about how to set MESSAGE_HOST, please refer to [api-call-process](https://developer.huawei.com/consumer/en/doc/development/HMS-References/api-call-process).
+To build the demo app, import the demo project in Android Studio 3.0 or later. Then set MESSAGE_HOST in the gradle file of the demo project (\app\build.gradle). For details about how to set MESSAGE_HOST, please refer to [api-call-process](https://developer.huawei.com/consumer/en/doc/HMSCore-References/common-interface-0000001050151532).
 Prepare a Huawei phone and at least one BLE beacon, and install the compiled APK using the ADB on the phone.
 
 * Getting Started 
