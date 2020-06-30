@@ -28,16 +28,13 @@ This demo uses Nearby Message feature of HUAWEI Nearby Service. What Nearby Mess
 
 1. Register as a developer.
 Register a [HUAWEI account](https://developer.huawei.com/consumer/en/).
-
 2. Create an app from Huawei.
-Create an app and enable Nearby Service by referring the [Nearby Service Preparations](https://developer.huawei.com/consumer/en/doc/development/HMS-Guides/nearby-service-preparation).
-
+Create an app and enable Nearby Service by referring the [Nearby Service Preparations](https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/config-agc-0000001050040578).
 3. Build the demo.
 To build this project, please use "Import project" in Android Studio.Prepare two Huawei phones, and install this app by adb command to phones.
 
 * Getting Started
 1. Open the app on both phones, create your persional card, click the exchange menu item, input the exchange code.
-
 2. Finally, you find the card of each other, add the card to your favorites. Enjoy interaction with nearby card exchange!
 
 ## Supported Environments
