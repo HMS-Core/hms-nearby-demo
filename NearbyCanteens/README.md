@@ -1,5 +1,5 @@
 # NearbyCanteens
-English|[中文]()
+English|[中文](https://github.com/HMS-Core/hms-nearby-demo/blob/master/NearbyCanteens/README_ZH.md)
 
 [![](https://camo.githubusercontent.com/ce1c195eb2524e4e67a2e74bf6e9619555aa0913/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446f63732d686d736775696465732d627269676874677265656e)](https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/introduction-0000001050040566)
 
@@ -38,9 +38,7 @@ Prepare a Huawei phone and at least one BLE beacon device, then install the comp
 2. Login in the Console dashboard, Creating a service account for your project.
 3. Register the beacon device by using the demo app of BeaconManager. 
 4. Configure message attachments for the beacon by using the demo app of BeaconManager.
-> Note: The attachment content in this demo is suggested to be a JSON string.
-
-For example, for namespaceType canteen, the attachment content references {"canteenDesc":"This is the description of Canteen A.","canteenName":"Canteen A"}; and for namepaceType notice, the attachment content references {"canteenName":"Canteen A","notice":"Huawei employees dinning here can get a 20% discount and a free fruit platter."}.
+> Note: The attachment content in this demo is suggested to be a JSON string.For example, for namespaceType canteen, the attachment content references {"canteenDesc":"This is the description of Canteen A.","canteenName":"Canteen A"}; and for namepaceType notice, the attachment content references {"canteenName":"Canteen A","notice":"Huawei employees dinning here can get a 20% discount and a free fruit platter."}.
 
 5. Before running the NearbyCanteens, please ensure the HMS Core is installed.
 6. Open the app on the phone, enjoy the interesting messages!
