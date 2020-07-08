@@ -23,11 +23,9 @@
 * 安装
 1. 成为开发者，注册[华为帐号](https://developer.huawei.com/consumer/en/)。
 
-2. 创建应用。
-参考[开发准备](https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/config-agc-0000001050040578)创建应用并开启Nearby Service。
+2. 创建应用。参考[开发准备](https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/config-agc-0000001050040578)创建应用并开启Nearby Service。
 
-3. 构建App。
-在Android Studio 3.0及以上版本中导入Demo工程，然后在\app\build.gradle文件中设置MESSAGE_HOST参数。设置MESSAGE_HOST的方法请参见[api-call-process](https://developer.huawei.com/consumer/cn/doc/HMSCore-References/common-interface-0000001050151532)。准备一部华为手机和至少一个蓝牙信标设备，通过adb命令安装编译好的APK。
+3. 构建App。在Android Studio 3.0及以上版本中导入Demo工程，然后在\app\build.gradle文件中设置MESSAGE_HOST参数。设置MESSAGE_HOST的方法请参见[api-call-process](https://developer.huawei.com/consumer/cn/doc/HMSCore-References/common-interface-0000001050151532)。准备一部华为手机和至少一个蓝牙信标设备，通过adb命令安装编译好的APK。
 
 * 快速入门
 1. 创建服务账号秘钥，并下载JSON文件。登录[开发者联盟](https://developer.huawei.com/consumer/cn/)，单击“管理中心”，选择“HMS API服务”>“凭证”，选择您创建的App工程。将鼠标移至“创建凭证”，单击“服务账号秘钥”。输入服务账号秘钥信息，然后单击“创建并下载JSON”下载JSON文件。
