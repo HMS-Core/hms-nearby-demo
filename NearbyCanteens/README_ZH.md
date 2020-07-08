@@ -26,11 +26,9 @@
 * 安装
 1. 成为开发者，注册[华为帐号](https://developer.huawei.com/consumer/en/)。
 
-2. 创建应用。
-参考[开发准备](https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/config-agc-0000001050040578)创建应用并开启Nearby Service。
+2. 创建应用。参考[开发准备](https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/config-agc-0000001050040578)创建应用并开启Nearby Service。
 
-3. 构建App。
-请先在Android Studio（3.x或以上版本）中导入该Demo，然后在AGC下载应用的agconnect-services.json文件，并且将该文件添加到应用的根目录（\app）下。详细请参考开发指南中的[集成HMS Core SDK](https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/android-integrating-sdk-0000001050126093)章节。准备一部华为手机和至少一个蓝牙信标设备，执行adb命令将编译好的APK安装到手机。
+3. 构建App。请先在Android Studio（3.x或以上版本）中导入该Demo，然后在AGC下载应用的agconnect-services.json文件，并且将该文件添加到应用的根目录（\app）下。详细请参考开发指南中的[集成HMS Core SDK](https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/android-integrating-sdk-0000001050126093)章节。准备一部华为手机和至少一个蓝牙信标设备，执行adb命令将编译好的APK安装到手机。
 
 * 快速入门
 1. 准备至少一个蓝牙信标设备，然后参考[Codelab](https://developer.huawei.com/consumer/cn/codelab/HUAWEINearbyMessageKit/index.html)。以下介绍一些主要步骤。
