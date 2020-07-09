@@ -14,10 +14,10 @@ English | [中文](https://github.com/HMS-Core/hms-nearby-demo/blob/master/Nearb
 The NearbyGameSnake program demonstrates a simple online snake game with Nearby Connection. Through Nearby Connection, it is easy for two smart phones to establish connection, and then play the online game together.
 
 Game Lobby:
-<img src="result_1.jpg">
+<img src="result_1.jpg" width = 62% height = 100%>
 
 In the game:
-<img src="result_2.jpg">
+<img src="result_2.jpg"  height = 80%>
 
 ## More Scenarios
 
