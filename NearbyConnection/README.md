@@ -15,7 +15,9 @@ English | [中文](https://github.com/HMS-Core/hms-nearby-demo/blob/master/Nearb
 ## Introduction
 The NearbyConnectionDemo program demonstrates how to register an Android app providing functions including scanning, broadcasting, connection, and data sending data.
 
-<img src="result_1.jpg" width = 30% height = 30%>  <img src="result_2.jpg" width = 30% height = 30%>
+<img src="result_1.JPG" width = 30% height = 30%>  
+
+<img src="result_2.JPG" width = 30% height = 30%>
 
 ## More Scenarios
 
