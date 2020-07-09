@@ -14,7 +14,7 @@
 本Demo介绍了一个简单的集成了Nearby Connection的在线蛇类游戏。通过Nearby Connection，两部智能手机很容易建立连接，然后一起玩网络游戏。
 
 游戏大厅:
-<img src="result_1.jpg">
+<img src="result_1.jpg" width = 62% height = 100%>
 
 游戏中：
 <img src="result_2.jpg">
