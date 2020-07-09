@@ -13,7 +13,9 @@
 ## 简介
 本Demo介绍了如何注册一个Android应用，提供扫描、广播、连接、发送数据等功能。
 
-<img src="result_1.jpg" width = 30% height = 30%>  <img src="result_2.jpg" width = 30% height = 30%>
+<img src="result_1.JPG" width = 30% height = 30%>  
+
+<img src="result_2.JPG" width = 30% height = 30%>
 
 ## 更多场景
 
