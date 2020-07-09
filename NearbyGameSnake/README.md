@@ -17,7 +17,7 @@ Game Lobby:
 <img src="result_1.jpg" width = 62% height = 100%>
 
 In the game:
-<img src="result_2.jpg"  height = 80%>
+<img src="result_2.jpg">
 
 ## More Scenarios
 
