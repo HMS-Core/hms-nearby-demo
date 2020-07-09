@@ -25,7 +25,7 @@
 
 ## 操作流程
 * 安装
-1. 成为开发者，注册[华为帐号](https://developer.huawei.com/consumer/en/)。
+1. 成为开发者，注册[华为帐号](https://developer.huawei.com/consumer/cn/)。
 
 2. 创建应用。参考[开发准备](https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/config-agc-0000001050040578)创建应用并开启Nearby Service。
 3. 构建Demo。请使用Android Studio中的“导入工程”功能，准备两部华为手机，通过adb命令将本App安装到手机上。
