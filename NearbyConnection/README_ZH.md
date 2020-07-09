@@ -35,4 +35,4 @@
 推荐使用Android Studio 3.X及以上版本。
 
 ## 授权许可
-Nearby Service Connection 示例代码经过[Apache2.0授权许可](http://www.apache.org/licenses/LICENSE-2.0)。
+Nearby Service Connection示例代码经过[Apache2.0授权许可](http://www.apache.org/licenses/LICENSE-2.0)。
