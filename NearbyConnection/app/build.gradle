@@ -32,5 +32,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    implementation 'com.huawei.hms:nearby:5.0.0.301'
+    implementation 'com.huawei.hms:nearby:5.0.0.300'
 }
