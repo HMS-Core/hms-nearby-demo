@@ -46,15 +46,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Client extends IAgent {
-    private com.esotericsoftware.kryonet.Client client;
     private static final String TAG = "NearbyGameSnake";
-    private TransferEngine mTransferEngine = null;
-    private DiscoveryEngine mDiscoveryEngine = null;
+
+    private TransferEngine mTransferEngine;
+
+    private DiscoveryEngine mDiscoveryEngine;
+
     private final int randomEndpointName = (int) System.currentTimeMillis() % 1000 + 1000;
+
     private String myNameStr = "" + randomEndpointName;
-    private String myServiceId = "NearbySnakeServiceid";
+
+    private String myServiceId = "NearbySnakeServiceId";
+
     private String mRemoteEndpointId;
+
     private App _app;
+
     private Map<String, Long> lagMap = new HashMap<String, Long>();
 
     public Client(TransferEngine mTransferEngine, DiscoveryEngine mDiscoveryEngine, App app) {
@@ -103,27 +110,20 @@ public class Client extends IAgent {
         mDiscoveryEngine.startScan(myServiceId, mDiscCb, discBuilder.build());
     }
 
-    private void setGameSpeed(ConnectInfo connectionInfo)
-    {
-        if (connectionInfo.getEndpointName().equals("Speed500"))
-        {
+    private void setGameSpeed(ConnectInfo connectionInfo) {
+        if (connectionInfo.getEndpointName().equals("Speed500")) {
             Constants.MOVE_EVERY_MS = 500;
-        }
-        else if (connectionInfo.getEndpointName().equals("Speed333"))
-        {
+        } else if (connectionInfo.getEndpointName().equals("Speed333")) {
             Constants.MOVE_EVERY_MS = 333;
-        }
-        else if (connectionInfo.getEndpointName().equals("Speed250"))
-        {
+        } else if (connectionInfo.getEndpointName().equals("Speed250")) {
             Constants.MOVE_EVERY_MS = 250;
         }
 
         return;
     }
 
-    //when client connected server. Change UI and Send Hello to Server.
-    private void serverConnected()
-    {
+    // when client connected server. Change UI and Send Hello to Server.
+    private void serverConnected() {
         GameState state = _app.getCurState();
         if (state instanceof LookForServerState) {
             LookForServerState lookforServerState = (LookForServerState) state;
@@ -133,20 +133,16 @@ public class Client extends IAgent {
         }
     }
 
-    private void disconnectFromServer()
-    {
+    private void disconnectFromServer() {
         GameState state = _app.getCurState();
-        if (state instanceof  LookForServerState)
-        {
+        if (state instanceof LookForServerState) {
             Gdx.app.postRunnable(new Runnable() {
                 @Override
                 public void run() {
                     _app.gotoErrorScreen("No! We lost contact with the host!");
                 }
             });
-        }
-        else if (state instanceof MainGameState)
-        {
+        } else if (state instanceof MainGameState) {
             MainGameState mainGameState = (MainGameState) state;
             if (mainGameState.gameResult.get() == null) {
                 Gdx.app.postRunnable(new Runnable() {
@@ -159,70 +155,68 @@ public class Client extends IAgent {
         }
     }
 
-    private ConnectCallback mConnCb =
-            new ConnectCallback() {
-                @Override
-                public void onEstablish(String endpointId, ConnectInfo connectionInfo) {
-                    mDiscoveryEngine.acceptConnect(endpointId, mDataCb);
-                    Log.d(TAG, "Nearby Client accept connection from:" + endpointId);
-                    //Server put game speed config in its endpoint name.
-                    setGameSpeed(connectionInfo);
-                }
+    private ConnectCallback mConnCb = new ConnectCallback() {
+        @Override
+        public void onEstablish(String endpointId, ConnectInfo connectionInfo) {
+            mDiscoveryEngine.acceptConnect(endpointId, mDataCb);
+            Log.d(TAG, "Nearby Client accept connection from:" + endpointId);
+            // Server put game speed config in its endpoint name.
+            setGameSpeed(connectionInfo);
+        }
 
-                @Override
-                public void onResult(String endpointId, ConnectResult result) {
-                    switch (result.getStatus().getStatusCode()) {
-                        case StatusCode.STATUS_SUCCESS:
-                            Log.d(TAG, "Nearby connection was established successfully. Remote ID:" + endpointId);
-                            mDiscoveryEngine.stopScan();
-                            mRemoteEndpointId = endpointId;
-                            /* The connection was established successfully, we can exchange data. */
-                            serverConnected();
-                            break;
-                        case StatusCode.STATUS_CONNECT_REJECTED:
-                            /* The Connection was rejected. */
-                            break;
-                        default:
-                            /* other unknown status code. */
-                    }
-                }
-
-                @Override
-                public void onDisconnected(String endpointId) {
-                    Log.d(TAG, "Nearby Client Disconnected from:" + endpointId);
-                    disconnectFromServer();
-                }
-            };
-
-    private ScanEndpointCallback mDiscCb =
-            new ScanEndpointCallback() {
-                @Override
-                public void onFound(String endpointId, ScanEndpointInfo discoveryEndpointInfo) {
+        @Override
+        public void onResult(String endpointId, ConnectResult result) {
+            switch (result.getStatus().getStatusCode()) {
+                case StatusCode.STATUS_SUCCESS:
+                    Log.d(TAG, "Nearby connection was established successfully. Remote ID:" + endpointId);
+                    mDiscoveryEngine.stopScan();
                     mRemoteEndpointId = endpointId;
-                    mDiscoveryEngine.requestConnect(myNameStr, mRemoteEndpointId, mConnCb);
-                    Log.d(TAG, "Nearby Client found Server and request connection. Server id:" + endpointId);
-                }
+                    /* The connection was established successfully, we can exchange data. */
+                    serverConnected();
+                    break;
+                case StatusCode.STATUS_CONNECT_REJECTED:
+                    /* The Connection was rejected. */
+                    Log.d(TAG, "Nearby connection was rejected. Remote ID:" + endpointId);
+                    break;
+                default:
+                    /* other unknown status code. */
+                    Log.d(TAG, "Nearby connection catch status code. Remote ID:" + endpointId + ", Status Code:"
+                        + result.getStatus().getStatusCode());
+            }
+        }
 
-                @Override
-                public void onLost(String endpointId) {
-                    Log.d(TAG, "Nearby Lost endpoint: " + endpointId);
-                }
-            };
+        @Override
+        public void onDisconnected(String endpointId) {
+            Log.d(TAG, "Nearby Client Disconnected from:" + endpointId);
+            disconnectFromServer();
+        }
+    };
 
-    private void processServerData(Data data)
-    {
+    private ScanEndpointCallback mDiscCb = new ScanEndpointCallback() {
+        @Override
+        public void onFound(String endpointId, ScanEndpointInfo discoveryEndpointInfo) {
+            mRemoteEndpointId = endpointId;
+            mDiscoveryEngine.requestConnect(myNameStr, mRemoteEndpointId, mConnCb);
+            Log.d(TAG, "Nearby Client found Server and request connection. Server id:" + endpointId);
+        }
+
+        @Override
+        public void onLost(String endpointId) {
+            Log.d(TAG, "Nearby Lost endpoint: " + endpointId);
+        }
+    };
+
+    private void processServerData(Data data) {
         GameState state = _app.getCurState();
 
         /* receive first server game data will trigger LookForServerState -> MainGameState */
-        if (state instanceof LookForServerState)
-        {
-            Log.d(TAG, "Client received data. Current State Look for server" );
-            LookForServerState lookforServerState = (LookForServerState)state;
+        if (state instanceof LookForServerState) {
+            Log.d(TAG, "Client received data. Current State Look for server");
+            LookForServerState lookforServerState = (LookForServerState) state;
 
-            //should not receive lag detection here unless packet disorder
+            // should not receive lag detection here unless packet disorder
             String str = new String(data.asBytes());
-            if (str.contains("ServerLagDetection"))
-            {
+            if (str.contains("ServerLagDetection")) {
                 return;
             }
 
@@ -241,26 +235,19 @@ public class Client extends IAgent {
                     }
                 });
             }
-        }
-
-        else if (state instanceof MainGameState)
-        {
+        } else if (state instanceof MainGameState) {
             String str = new String(data.asBytes());
             MainGameState mainGameState = (MainGameState) state;
             /* echo server LAG detect packet back */
-            if (str.contains("ServerLagDetection"))
-            {
+            if (str.contains("ServerLagDetection")) {
                 send(data.asBytes());
-            }
-            /* receive echoed client LAG detect packet. calculate LAG. */
-            else if (str.contains("ClientLagDetection"))
-            {
+            } else if (str.contains("ClientLagDetection")) {
+                /* receive echoed client LAG detect packet. calculate LAG. */
                 long starttime = lagMap.get(str);
-                mainGameState.lag = ""+(System.currentTimeMillis() - starttime) + " ms";
+                mainGameState.lag = "" + (System.currentTimeMillis() - starttime) + " ms";
                 Log.d(TAG, "LAG: " + mainGameState.lag);
-            }
-            /* process server game data */
-            else {
+            } else {
+                /* process server game data */
                 byte[] bytes = data.asBytes();
                 ClientSnapshot clientSnapshot = mainGameState.getClientSnapshot();
                 clientSnapshot.onServerUpdate(parseServerUpdate(bytes));
@@ -268,15 +255,15 @@ public class Client extends IAgent {
         }
     }
 
-    private DataCallback mDataCb =
-            new DataCallback() {
-                @Override
-                public void onReceived(String endpointId, Data data) {
-                    Log.d(TAG, "Client received data. from : " + endpointId + " Data id:" + data.getId());
-                    processServerData(data);
-                }
-                @Override
-                public void onTransferUpdate(String string, TransferStateUpdate update) {
-                }
-            };
+    private DataCallback mDataCb = new DataCallback() {
+        @Override
+        public void onReceived(String endpointId, Data data) {
+            Log.d(TAG, "Client received data. from : " + endpointId + " Data id:" + data.getId());
+            processServerData(data);
+        }
+
+        @Override
+        public void onTransferUpdate(String string, TransferStateUpdate update) {
+        }
+    };
 }

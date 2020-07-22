@@ -14,7 +14,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 Huawei Technologies Co.,Ltd. <wangmingqi@huawei.com>
  */
 
-
 package com.huawei.nearby.game.snake.elements;
 
 import android.util.Log;
@@ -36,24 +35,29 @@ public class ClientSnapshot extends Snapshot {
     private static final String TAG = ClientSnapshot.class.getCanonicalName();
 
     private final long startTimestamp;
+
     private final int clientId;
+
     public static long SNAKE_MOVE_EVERY_NS = TimeUnit.MILLISECONDS.toNanos(Constants.MOVE_EVERY_MS);
-    private static final long LAG_TOLERANCE_NS = TimeUnit.MILLISECONDS.toNanos(Constants.LAG_TOLERANCE_MS);
 
     private final AtomicInteger serverUpdateVersion;
 
     private final AtomicLong nextRenderTime;
 
     private final Object lock;
+
     /**
      * Makes up the last game step, guarded by stateLock
      */
     private final List<Snake> snakes;
+
     private final Foods foods;
+
     private long stateTime;
+
     private int nextInputId;
+
     private final List<Input> unackInputs;
-    private long lastForceUpdateTime = 0;
 
     public ClientSnapshot(int clientId, long initialUpdateNanoTime, ServerPacket.Update initialUpdate) {
         this.clientId = clientId;
@@ -96,7 +100,8 @@ public class ClientSnapshot extends Snapshot {
         synchronized (lock) {
             long tmpNs = Utils.getNanoTime() - startTimestamp;
             Input input = new Input(direction, nextInputId++, tmpNs);
-            Input lastInput = (unackInputs.isEmpty() ? snakes.get(clientId).getLastInput() : unackInputs.get(unackInputs.size()-1));
+            Input lastInput =
+                (unackInputs.isEmpty() ? snakes.get(clientId).getLastInput() : unackInputs.get(unackInputs.size() - 1));
             if (lastInput.isValidNewInput(input)) {
                 unackInputs.add(input);
             }
@@ -105,11 +110,9 @@ public class ClientSnapshot extends Snapshot {
 
     @Override
     public void onServerUpdate(ServerPacket.Update update) {
-        boolean needForceUpdate = false;
-
-        Log.d("clientSnapshot", "Server Update received. update version: " +
-                update.getVersion() + "local version: " + serverUpdateVersion.get());
-        if (update.getVersion() > serverUpdateVersion.get() ) {
+        Log.d("clientSnapshot", "Server Update received. update version: " + update.getVersion() + "local version: "
+            + serverUpdateVersion.get());
+        if (update.getVersion() > serverUpdateVersion.get()) {
             Gdx.app.debug(TAG, "Server update version " + update.getVersion() + " received.");
             Gdx.app.debug(TAG, update.toString());
             serverUpdateVersion.set(update.getVersion());
@@ -165,10 +168,12 @@ public class ClientSnapshot extends Snapshot {
                 long upper = (i == stepDiff ? currentTime : SNAKE_MOVE_EVERY_NS * (stateStep + i + 1));
                 for (int j = 0; j < resultSnakes.size(); ++j) {
                     Snake currSnake = resultSnakes.get(j);
-                    if (currSnake.isDead()) continue;
+                    if (currSnake.isDead())
+                        continue;
                     if (j == clientId) {
                         Input tmpInput;
-                        while (unackInputs.size() > inputIndex && (tmpInput = unackInputs.get(inputIndex)).timestamp < upper) {
+                        while (unackInputs.size() > inputIndex
+                            && (tmpInput = unackInputs.get(inputIndex)).timestamp < upper) {
                             currSnake.handleInput(tmpInput);
                             inputIndex += 1;
                         }

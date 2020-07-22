@@ -14,7 +14,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 Huawei Technologies Co.,Ltd. <wangmingqi@huawei.com>
  */
 
-
 package com.huawei.nearby.game.snake.agents;
 
 import com.esotericsoftware.kryonet.Listener;
@@ -26,51 +25,30 @@ import java.io.IOException;
 
 public abstract class IAgent {
     public abstract void broadcast(Listener listener) throws IOException;
+
     public abstract void lookForServer(Listener listener, Runnable errorCallback);
+
     public abstract void send(byte[] packet);
+
     public abstract void destroy();
+
     public abstract void setLagDetectionStartTime(String seq, long ms);
 
-    public static ServerPacket.Update parseServerUpdate(Object object) throws IllegalArgumentException {
-        if (object instanceof byte[]) {
-            try {
-                return ServerPacket.Update.parseFrom((byte[]) object);
-            } catch (InvalidProtocolBufferException e) {
-                throw new IllegalArgumentException("Failed to parse object into ProtoBuf", e);
-            }
-        } else {
-            throw new IllegalArgumentException("Attempting to parse an object that is not of type byte[]");
-        }
-    }
-
     public static ServerPacket.Update parseServerUpdate(byte[] bytes) throws IllegalArgumentException {
-            try {
-                return ServerPacket.Update.parseFrom(bytes);
-            } catch (InvalidProtocolBufferException e) {
-                throw new IllegalArgumentException("Failed to parse object into ProtoBuf", e);
-            }
-
-    }
-
-    public static ClientPacket.Message parseClientMessage(Object object) throws IllegalArgumentException {
-        if (object instanceof byte[]) {
-            try {
-                return ClientPacket.Message.parseFrom((byte[]) object);
-            } catch (InvalidProtocolBufferException e) {
-                throw new IllegalArgumentException("Failed to parse object into ProtoBuf", e);
-            }
-        } else {
-            throw new IllegalArgumentException("Attempting to parse an object that is not of type byte[]");
+        try {
+            return ServerPacket.Update.parseFrom(bytes);
+        } catch (InvalidProtocolBufferException e) {
+            throw new IllegalArgumentException("Failed to parse object into ProtoBuf", e);
         }
+
     }
 
     public static ClientPacket.Message parseClientMessage(byte[] bytes) throws IllegalArgumentException {
-
-            try {
-                return ClientPacket.Message.parseFrom(bytes);
-            } catch (InvalidProtocolBufferException e) {
-                throw new IllegalArgumentException("Failed to parse object into ProtoBuf", e);
-            }
+        try {
+            return ClientPacket.Message.parseFrom(bytes);
+        } catch (InvalidProtocolBufferException e) {
+            throw new IllegalArgumentException("Failed to parse object into ProtoBuf", e);
+        }
 
     }
 }

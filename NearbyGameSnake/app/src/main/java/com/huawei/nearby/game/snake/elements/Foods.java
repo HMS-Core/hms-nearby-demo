@@ -14,26 +14,25 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 Huawei Technologies Co.,Ltd. <wangmingqi@huawei.com>
  */
 
-
 package com.huawei.nearby.game.snake.elements;
 
-import com.huawei.nearby.game.snake.helpers.Constants;
-import com.huawei.nearby.game.snake.helpers.Utils;
+import static com.huawei.nearby.game.snake.helpers.Constants.HEIGHT;
+import static com.huawei.nearby.game.snake.helpers.Constants.WIDTH;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import static com.huawei.nearby.game.snake.helpers.Constants.HEIGHT;
-import static com.huawei.nearby.game.snake.helpers.Constants.WIDTH;
+import com.huawei.nearby.game.snake.helpers.Constants;
+import com.huawei.nearby.game.snake.helpers.Utils;
 
 public class Foods {
     private final SortedSet<Integer> locations;
+
     private final Random random;
 
     public Foods() {
@@ -79,7 +78,7 @@ public class Foods {
         for (Snake s : snakes) {
             List<Integer> coords = s.getCoordinates();
             for (int i = 0; i < coords.size(); i += 2) {
-                exclude.add(Utils.positionFromXy(coords.get(i), coords.get(i+1)));
+                exclude.add(Utils.positionFromXy(coords.get(i), coords.get(i + 1)));
             }
         }
         exclude.addAll(locations);
@@ -109,17 +108,6 @@ public class Foods {
 
     public boolean shouldGenerate() {
         return getQuantity() <= Constants.MIN_FOOD_QUANTITY;
-    }
-
-    public List<Integer> getLocations() {
-        List<Integer> result = new ArrayList<Integer>(locations.size() * 2);
-        Iterator<Integer> iterator = locations.iterator();
-        while (iterator.hasNext()) {
-            Integer position = iterator.next();
-            result.add(Utils.xFromPosition(position));
-            result.add(Utils.yFromPosition(position));
-        }
-        return Collections.unmodifiableList(result);
     }
 
     public List<Integer> getLinearPositions() {

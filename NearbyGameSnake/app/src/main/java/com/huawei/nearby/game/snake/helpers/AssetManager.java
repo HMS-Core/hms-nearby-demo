@@ -24,7 +24,6 @@ import com.huawei.nearby.game.snake.elements.Grid;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.huawei.nearby.game.snake.elements.Grid.Block.*;
 import static com.huawei.nearby.game.snake.elements.Grid.Block.CRATE;
 import static com.huawei.nearby.game.snake.elements.Grid.Block.DEAD_PLAYER_SNAKE_BODY;
 import static com.huawei.nearby.game.snake.elements.Grid.Block.DEAD_SNAKE_BODY;
@@ -37,28 +36,34 @@ public enum AssetManager {
     INSTANCE;
 
     private final Map<Grid.Block, Sprite> spriteMap;
+
     private final Texture title;
 
     private final Color backgroundColor;
 
     public final Texture CREATE_GAME = Utils.newTextureWithLinearFilter("CREATE_GAME.png");
-    public final Texture JOIN_GAME = Utils.newTextureWithLinearFilter("JOIN_GAME.png");
-    public final Texture ABOUT = Utils.newTextureWithLinearFilter("ABOUT.png");
-    public final Texture START_GAME = Utils.newTextureWithLinearFilter("START_GAME.png");
-    public final Texture BACK_TO_MAIN = Utils.newTextureWithLinearFilter("BACK_TO_MAIN.png");
-    public final Texture WAIT_FOR_JOIN = Utils.newTextureWithLinearFilter("WAIT_FOR_JOIN.png");
-    public final Texture PLAYER_JOINED_NUM = Utils.newTextureWithLinearFilter("PLAYER_JOINED_NUM.png");
-    public final Texture LOOK_FOR_HOST = Utils.newTextureWithLinearFilter("LOOK_FOR_HOST.png");
-    public final Texture PLAYER_JOINED = Utils.newTextureWithLinearFilter("PLAYER_JOINED.png");
-    public final Texture JOIN_SUCCESS = Utils.newTextureWithLinearFilter("JOIN_SUCCESS.png");
-    public final Texture WIN_WORD = Utils.newTextureWithLinearFilter("WIN_WORD.png");
-    public final Texture LOSE_WORD = Utils.newTextureWithLinearFilter("LOSE_WORD.png");
-    public final Texture GAME_SPEED = Utils.newTextureWithLinearFilter("GAME_SPEED.png");
-    public final Texture INTRO_BTN = Utils.newTextureWithLinearFilter("INTRO_BTN.png");
-    public final Texture INTRO_DETAIL = Utils.newTextureWithLinearFilter("INTRO_DETAIL.png");
-    public final Texture INTRO_PIC = Utils.newTextureWithLinearFilter("INTRO_PIC.png");
 
-    private AssetManager() {
+    public final Texture JOIN_GAME = Utils.newTextureWithLinearFilter("JOIN_GAME.png");
+
+    public final Texture ABOUT = Utils.newTextureWithLinearFilter("ABOUT.png");
+
+    public final Texture BACK_TO_MAIN = Utils.newTextureWithLinearFilter("BACK_TO_MAIN.png");
+
+    public final Texture PLAYER_JOINED_NUM = Utils.newTextureWithLinearFilter("PLAYER_JOINED_NUM.png");
+
+    public final Texture LOOK_FOR_HOST = Utils.newTextureWithLinearFilter("LOOK_FOR_HOST.png");
+
+    public final Texture WIN_WORD = Utils.newTextureWithLinearFilter("WIN_WORD.png");
+
+    public final Texture LOSE_WORD = Utils.newTextureWithLinearFilter("LOSE_WORD.png");
+
+    public final Texture GAME_SPEED = Utils.newTextureWithLinearFilter("GAME_SPEED.png");
+
+    public final Texture INTRO_BTN = Utils.newTextureWithLinearFilter("INTRO_BTN.png");
+
+    public final Texture INTRO_DETAIL = Utils.newTextureWithLinearFilter("INTRO_DETAIL.png");
+
+    AssetManager() {
         Sprite playerSnakeBody = new Sprite(Utils.newTextureWithLinearFilter("player_snake_body.png"));
         Sprite snakeBody = new Sprite(Utils.newTextureWithLinearFilter("snake_body.png"));
         Sprite food = new Sprite(Utils.newTextureWithLinearFilter("cake.png"));
@@ -82,7 +87,8 @@ public enum AssetManager {
     }
 
     public Sprite getSpriteByType(Grid.Block type) {
-        if (type == null) return null;
+        if (type == null)
+            return null;
         return spriteMap.get(type);
     }
 

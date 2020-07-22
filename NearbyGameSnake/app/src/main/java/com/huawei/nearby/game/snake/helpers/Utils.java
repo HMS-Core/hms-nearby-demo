@@ -16,14 +16,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 package com.huawei.nearby.game.snake.helpers;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.huawei.nearby.game.snake.elements.Grid;
-
-import static com.huawei.nearby.game.snake.elements.Grid.Block.*;
 import static com.huawei.nearby.game.snake.elements.Grid.Block.CRATE;
 import static com.huawei.nearby.game.snake.elements.Grid.Block.DEAD_PLAYER_SNAKE_BODY;
 import static com.huawei.nearby.game.snake.elements.Grid.Block.DEAD_SNAKE_BODY;
@@ -31,10 +23,16 @@ import static com.huawei.nearby.game.snake.elements.Grid.Block.FOOD;
 import static com.huawei.nearby.game.snake.elements.Grid.Block.GROUND;
 import static com.huawei.nearby.game.snake.elements.Grid.Block.PLAYER_SNAKE_BODY;
 import static com.huawei.nearby.game.snake.elements.Grid.Block.SNAKE_BODY;
-import static com.huawei.nearby.game.snake.helpers.Constants.*;
 import static com.huawei.nearby.game.snake.helpers.Constants.BLOCK_LENGTH;
 import static com.huawei.nearby.game.snake.helpers.Constants.BLOCK_OFFSET;
 import static com.huawei.nearby.game.snake.helpers.Constants.WIDTH;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.huawei.nearby.game.snake.elements.Grid;
 
 public class Utils {
     private Utils() {
@@ -46,7 +44,7 @@ public class Utils {
     }
 
     public static Integer positionFromXy(Integer x, Integer y) {
-        return y*WIDTH + x;
+        return y * WIDTH + x;
     }
 
     public static Integer xFromPosition(Integer position) {
@@ -77,24 +75,31 @@ public class Utils {
         for (int y = Constants.HEIGHT - 1; y >= 0; --y) {
             for (int x = 0; x < Constants.WIDTH; ++x) {
                 if (grid.checkCoordinate(x, y, PLAYER_SNAKE_BODY)) {
-                    spriteBatch.draw(AssetManager.INSTANCE.getSpriteByType(PLAYER_SNAKE_BODY), x - Constants.BLOCK_OFFSET, y, BLOCK_LENGTH + BLOCK_OFFSET, BLOCK_LENGTH + BLOCK_OFFSET);
+                    spriteBatch.draw(AssetManager.INSTANCE.getSpriteByType(PLAYER_SNAKE_BODY),
+                        x - Constants.BLOCK_OFFSET, y, BLOCK_LENGTH + BLOCK_OFFSET, BLOCK_LENGTH + BLOCK_OFFSET);
                 } else if (grid.checkCoordinate(x, y, SNAKE_BODY)) {
-                    spriteBatch.draw(AssetManager.INSTANCE.getSpriteByType(SNAKE_BODY), x - Constants.BLOCK_OFFSET, y, BLOCK_LENGTH + BLOCK_OFFSET, BLOCK_LENGTH + BLOCK_OFFSET);
+                    spriteBatch.draw(AssetManager.INSTANCE.getSpriteByType(SNAKE_BODY), x - Constants.BLOCK_OFFSET, y,
+                        BLOCK_LENGTH + BLOCK_OFFSET, BLOCK_LENGTH + BLOCK_OFFSET);
                 } else {
                     if (grid.checkCoordinate(x, y, GROUND)) {
-                        spriteBatch.draw(AssetManager.INSTANCE.getSpriteByType(GROUND), x, y, BLOCK_LENGTH, BLOCK_LENGTH);
+                        spriteBatch.draw(AssetManager.INSTANCE.getSpriteByType(GROUND), x, y, BLOCK_LENGTH,
+                            BLOCK_LENGTH);
                     }
                     if (grid.checkCoordinate(x, y, FOOD)) {
-                        spriteBatch.draw(AssetManager.INSTANCE.getSpriteByType(FOOD), x - Constants.BLOCK_OFFSET, y, BLOCK_LENGTH + BLOCK_OFFSET, BLOCK_LENGTH + BLOCK_OFFSET);
+                        spriteBatch.draw(AssetManager.INSTANCE.getSpriteByType(FOOD), x - Constants.BLOCK_OFFSET, y,
+                            BLOCK_LENGTH + BLOCK_OFFSET, BLOCK_LENGTH + BLOCK_OFFSET);
                     }
                     if (grid.checkCoordinate(x, y, CRATE)) {
-                        spriteBatch.draw(AssetManager.INSTANCE.getSpriteByType(CRATE), x - Constants.BLOCK_OFFSET, y, BLOCK_LENGTH + BLOCK_OFFSET, BLOCK_LENGTH + BLOCK_OFFSET);
+                        spriteBatch.draw(AssetManager.INSTANCE.getSpriteByType(CRATE), x - Constants.BLOCK_OFFSET, y,
+                            BLOCK_LENGTH + BLOCK_OFFSET, BLOCK_LENGTH + BLOCK_OFFSET);
                     }
                     if (grid.checkCoordinate(x, y, DEAD_SNAKE_BODY)) {
-                        spriteBatch.draw(AssetManager.INSTANCE.getSpriteByType(DEAD_SNAKE_BODY), x - Constants.BLOCK_OFFSET, y, BLOCK_LENGTH + BLOCK_OFFSET, BLOCK_LENGTH + BLOCK_OFFSET);
+                        spriteBatch.draw(AssetManager.INSTANCE.getSpriteByType(DEAD_SNAKE_BODY),
+                            x - Constants.BLOCK_OFFSET, y, BLOCK_LENGTH + BLOCK_OFFSET, BLOCK_LENGTH + BLOCK_OFFSET);
                     }
                     if (grid.checkCoordinate(x, y, DEAD_PLAYER_SNAKE_BODY)) {
-                        spriteBatch.draw(AssetManager.INSTANCE.getSpriteByType(DEAD_PLAYER_SNAKE_BODY), x - Constants.BLOCK_OFFSET, y, BLOCK_LENGTH + BLOCK_OFFSET, BLOCK_LENGTH + BLOCK_OFFSET);
+                        spriteBatch.draw(AssetManager.INSTANCE.getSpriteByType(DEAD_PLAYER_SNAKE_BODY),
+                            x - Constants.BLOCK_OFFSET, y, BLOCK_LENGTH + BLOCK_OFFSET, BLOCK_LENGTH + BLOCK_OFFSET);
                     }
                 }
             }

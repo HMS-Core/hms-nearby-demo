@@ -14,13 +14,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 Huawei Technologies Co.,Ltd. <wangmingqi@huawei.com>
  */
 
-
 package com.huawei.nearby.game.snake.agents;
 
-import android.os.RemoteException;
-import android.util.Log;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.esotericsoftware.kryonet.FrameworkMessage;
 import com.esotericsoftware.kryonet.Listener;
 import com.huawei.hms.nearby.StatusCode;
 import com.huawei.hms.nearby.discovery.BroadcastOption;
@@ -40,20 +39,26 @@ import com.huawei.nearby.game.snake.states.GameState;
 import com.huawei.nearby.game.snake.states.server.BroadcastState;
 import com.huawei.nearby.game.snake.states.server.SVMainGameState;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import android.os.RemoteException;
+import android.util.Log;
 
 public class Server extends IAgent {
     private static final String TAG = "NearbyGameSnake";
-    private com.esotericsoftware.kryonet.Server server;
-    private TransferEngine mTransferEngine = null;
-    private DiscoveryEngine mDiscoveryEngine = null;
+
+    private TransferEngine mTransferEngine;
+
+    private DiscoveryEngine mDiscoveryEngine;
+
     private String myNameStr;
-    private String myServiceId = "NearbySnakeServiceid";
+
+    private String myServiceId = "NearbySnakeServiceId";
+
     private Map<String, String> remoteIdNameMap = new HashMap<String, String>();
+
     private String mRemoteEndpointId;
+
     private App _app;
+
     private Map<String, Long> lagMap = new HashMap<String, Long>();
 
     public Server(TransferEngine mTransferEngine, DiscoveryEngine mDiscoveryEngine, App app) {
@@ -107,25 +112,24 @@ public class Server extends IAgent {
     }
 
     /* Client Connected. Change UI */
-    private void clientConnected(String endpointId)
-    {
+    private void clientConnected(String endpointId) {
         GameState state = _app.getCurState();
-        if (state instanceof BroadcastState)
-        {
+        if (state instanceof BroadcastState) {
             BroadcastState broadcastState = (BroadcastState) state;
             synchronized (broadcastState.connectionIdsLock) {
-                String remoteEndpointNane = remoteIdNameMap.get(endpointId);
-                broadcastState.connectionIds.add(Integer.valueOf(remoteEndpointNane));
+                String remoteEndpointName = remoteIdNameMap.get(endpointId);
+                broadcastState.connectionIds.add(Integer.valueOf(remoteEndpointName));
                 if (broadcastState.connectionIds.size() == 0) {
                     broadcastState.btnStart.setDisabled(true);
                     broadcastState.lblPlayerCount.setText("0");
                 } else {
 
-                    broadcastState.lblPlayerCount.setText(String.format(broadcastState.PLAYERS_CONNECTED_FORMAT, broadcastState.connectionIds.size()));
-                    for (int i = 5; i > 0; i--)
-                    {
-                        String str = "1 other Snake has joined the game.\nYou can start game after " +   i   + " seconds.";
+                    broadcastState.lblPlayerCount.setText(
+                        String.format(broadcastState.PLAYERS_CONNECTED_FORMAT, broadcastState.connectionIds.size()));
+                    for (int i = 5; i > 0; i--) {
+                        String str = "1 other Snake has joined the game.\nYou can start game after " + i + " seconds.";
                         broadcastState.btnStart.setText(String.format("\n          %d         \n", i));
+                        Log.d(TAG, str);
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {
@@ -139,11 +143,9 @@ public class Server extends IAgent {
         }
     }
 
-    private void disconnectedFromServer(String endpointId)
-    {
+    private void disconnectedFromServer(String endpointId) {
         GameState state = _app.getCurState();
-        if (state instanceof BroadcastState)
-        {
+        if (state instanceof BroadcastState) {
             Log.d(TAG, "disconnect at broadcast state");
             BroadcastState broadcastState = (BroadcastState) state;
             synchronized (broadcastState.connectionIdsLock) {
@@ -156,91 +158,86 @@ public class Server extends IAgent {
                 } else {
                     Log.d(TAG, broadcastState.connectionIds.size() + " snakes left after disconnect");
                     broadcastState.btnStart.setDisabled(false);
-                    broadcastState.lblPlayerCount.setText(String.format(broadcastState.PLAYERS_CONNECTED_FORMAT, broadcastState.connectionIds.size()));
+                    broadcastState.lblPlayerCount.setText(
+                        String.format(broadcastState.PLAYERS_CONNECTED_FORMAT, broadcastState.connectionIds.size()));
                 }
             }
-        }
-        else if (state instanceof SVMainGameState)
-        {
+        } else if (state instanceof SVMainGameState) {
             SVMainGameState svMainGameState = (SVMainGameState) state;
             svMainGameState.serverSnapshot.onClientDisconnected(Integer.valueOf(endpointId));
         }
     }
 
-    private ConnectCallback mConnCb =
-            new ConnectCallback() {
-                @Override
-                public void onEstablish(String endpointId, ConnectInfo connectionInfo) {
-                    mDiscoveryEngine.acceptConnect(endpointId, mDataCb);
-                    remoteIdNameMap.put(endpointId, connectionInfo.getEndpointName());
-                    Log.d(TAG, "Nearby Server accept connection from: Id" + endpointId + "Name" + connectionInfo.getEndpointName());
-                }
+    private ConnectCallback mConnCb = new ConnectCallback() {
+        @Override
+        public void onEstablish(String endpointId, ConnectInfo connectionInfo) {
+            mDiscoveryEngine.acceptConnect(endpointId, mDataCb);
+            remoteIdNameMap.put(endpointId, connectionInfo.getEndpointName());
+            Log.d(TAG,
+                "Nearby Server accept connection from: Id" + endpointId + "Name" + connectionInfo.getEndpointName());
+        }
 
-                @Override
-                public void onResult(String endpointId, ConnectResult result) {
-                    switch (result.getStatus().getStatusCode()) {
-                        case StatusCode.STATUS_SUCCESS:
-                            /* The connection was established successfully, we can exchange data. */
-                            Log.d(TAG, "Nearby connection was established successfully. Remote ID:" + endpointId);
-                            mDiscoveryEngine.stopBroadcasting();
-                            clientConnected(endpointId);
-                            break;
-                        case StatusCode.STATUS_CONNECT_REJECTED:
-                            /* The Connection was rejected. */
-                            break;
-                        default:
-                            /* other unknown status code. */
-                    }
-                    mRemoteEndpointId = endpointId;
-                }
+        @Override
+        public void onResult(String endpointId, ConnectResult result) {
+            switch (result.getStatus().getStatusCode()) {
+                case StatusCode.STATUS_SUCCESS:
+                    /* The connection was established successfully, we can exchange data. */
+                    Log.d(TAG, "Nearby connection was established successfully. Remote ID:" + endpointId);
+                    mDiscoveryEngine.stopBroadcasting();
+                    clientConnected(endpointId);
+                    break;
+                case StatusCode.STATUS_CONNECT_REJECTED:
+                    /* The Connection was rejected. */
+                    Log.d(TAG, "Nearby connection was rejected. Remote ID:" + endpointId);
+                    break;
+                default:
+                    /* other unknown status code. */
+                    Log.d(TAG, "Nearby connection catch status code. Remote ID:" + endpointId + ", Status Code:"
+                        + result.getStatus().getStatusCode());
+            }
+            mRemoteEndpointId = endpointId;
+        }
 
-                @Override
-                public void onDisconnected(String endpointId) {
-                    Log.d(TAG, "Nearby Client Disconnected from:" + endpointId);
-                    disconnectedFromServer(endpointId);
-            };
+        @Override
+        public void onDisconnected(String endpointId) {
+            Log.d(TAG, "Nearby Client Disconnected from:" + endpointId);
+            disconnectedFromServer(endpointId);
+        };
     };
 
-    private void processClientData(String endpointId, Data data)
-    {
+    private void processClientData(String endpointId, Data data) {
         GameState state = _app.getCurState();
-        if (state instanceof SVMainGameState)
-        {
+        if (state instanceof SVMainGameState) {
             SVMainGameState mainGameState = (SVMainGameState) state;
 
             String str = new String(data.asBytes());
             /* receive echoed LAG detect packet. calculate LAG. */
-            if (str.contains("ServerLagDetection"))
-            {
-                long starttime = lagMap.get(str);
-                mainGameState.lag = ""+(System.currentTimeMillis() - starttime) + " ms";
+            if (str.contains("ServerLagDetection")) {
+                long startTime = lagMap.get(str);
+                mainGameState.lag = "" + (System.currentTimeMillis() - startTime) + " ms";
                 Log.d("wmqLAG", mainGameState.lag);
-            }
-            /* echo LAG detect packet back */
-            else if(str.contains("ClientLagDetection"))
-            {
+            } else if (str.contains("ClientLagDetection")) {
+                /* echo LAG detect packet back */
                 send(data.asBytes());
-            }
-
-            /* process client game data */
-            else {
+            } else {
+                /* process client game data */
                 byte[] bytes = data.asBytes();
                 ServerSnapshot serverSnapshot = ((SVMainGameState) state).getServerSnapshot();
-                String remoteEndpointNane = remoteIdNameMap.get(endpointId);
-                serverSnapshot.onClientMessage(Integer.valueOf(remoteEndpointNane), Server.parseClientMessage(bytes));
+                String remoteEndpointName = remoteIdNameMap.get(endpointId);
+                serverSnapshot.onClientMessage(Integer.valueOf(remoteEndpointName), Server.parseClientMessage(bytes));
             }
         }
     }
 
-    private DataCallback mDataCb =
-            new DataCallback() {
-                @Override
-                public void onReceived(String endpointId, Data data) {
-                    Log.d(TAG, "Server received data.from" + endpointId + " DataID: " + data.getId());
-                    processClientData(endpointId, data);
-                }
-                @Override
-                public void onTransferUpdate(String string, TransferStateUpdate update) {
-                }
-            };
+    private DataCallback mDataCb = new DataCallback() {
+        @Override
+        public void onReceived(String endpointId, Data data) {
+            Log.d(TAG, "Server received data.from" + endpointId + " DataID: " + data.getId());
+            processClientData(endpointId, data);
+        }
+
+        @Override
+        public void onTransferUpdate(String string, TransferStateUpdate update) {
+        }
+    };
 }

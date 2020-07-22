@@ -35,12 +35,14 @@ import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LookForServerState extends GameState {
-    private static final String TAG = LookForServerState.class.getCanonicalName();
-
     private final Stage stage;
+
     private final VisTable table;
+
     private final VisImage imgTitle;
+
     public final VisLabel lblInfo;
+
     private VisTextButton btnToTitleScreen;
 
     public final AtomicBoolean gameStarted;
@@ -58,12 +60,10 @@ public class LookForServerState extends GameState {
         imgTitle = new VisImage(AssetManager.INSTANCE.getTitleTexture());
         table.add(imgTitle).row();
 
-        if (Locale.getDefault().getLanguage().equals("zh"))
-        {
+        if (Locale.getDefault().getLanguage().equals("zh")) {
             VisImage btnImg = new VisImage(AssetManager.INSTANCE.LOOK_FOR_HOST);
             table.add(btnImg).pad(20).row();
-        }
-        else {
+        } else {
             VisLabel lbl = new VisLabel("Looking for host.");
             table.add(lbl).pad(20).row();
         }
@@ -76,16 +76,14 @@ public class LookForServerState extends GameState {
 
         gameStarted = new AtomicBoolean(false);
 
-        _app.getAgent().lookForServer(new Listener() , new Runnable() {
+        _app.getAgent().lookForServer(new Listener(), new Runnable() {
             @Override
             public void run() {
                 _app.gotoErrorScreen("Having trouble finding a host\nIs there someone hosting?\n");
             }
         });
 
-
-        if (Locale.getDefault().getLanguage().equals("zh"))
-        {
+        if (Locale.getDefault().getLanguage().equals("zh")) {
             VisImage btnToTitleScreenImg = new VisImage(AssetManager.INSTANCE.BACK_TO_MAIN);
             btnToTitleScreenImg.addListener(new ClickListener() {
                 @Override
@@ -94,8 +92,7 @@ public class LookForServerState extends GameState {
                 }
             });
             table.add(btnToTitleScreenImg).padTop(40).row();
-        }
-        else {
+        } else {
             btnToTitleScreen = new VisTextButton("Return to main screen");
             btnToTitleScreen.addListener(new ClickListener() {
                 @Override

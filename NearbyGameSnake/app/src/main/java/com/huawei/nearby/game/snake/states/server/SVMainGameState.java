@@ -16,7 +16,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 package com.huawei.nearby.game.snake.states.server;
 
-import android.util.Log;
+import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -31,13 +36,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.Listener;
-import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisWindow;
 import com.huawei.nearby.game.snake.App;
 import com.huawei.nearby.game.snake.elements.Grid;
 import com.huawei.nearby.game.snake.elements.ServerSnapshot;
@@ -47,16 +45,17 @@ import com.huawei.nearby.game.snake.helpers.Constants;
 import com.huawei.nearby.game.snake.helpers.Utils;
 import com.huawei.nearby.game.snake.protobuf.generated.ServerPacket;
 import com.huawei.nearby.game.snake.states.GameState;
+import com.kotcrab.vis.ui.widget.VisImage;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.kotcrab.vis.ui.widget.VisWindow;
 
-import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
+import android.util.Log;
 
 public class SVMainGameState extends GameState {
     private static final String TAG = SVMainGameState.class.getCanonicalName();
+
     private static final float GRID_RATIO = (float) Constants.WIDTH / Constants.HEIGHT;
 
     public ServerSnapshot getServerSnapshot() {
@@ -64,25 +63,41 @@ public class SVMainGameState extends GameState {
     }
 
     public final ServerSnapshot serverSnapshot;
+
     private final ScheduledExecutorService executor;
 
     private final OrthographicCamera camera;
+
     private final SpriteBatch spriteBatch;
+
     private final Stage stage;
+
     private Stage lagStage;
+
     private final VisWindow window;
+
     private final Table table;
+
     private final VisLabel lblHosting;
+
     private VisImage resultImg;
+
     private long lagDetectSeq = 1;
+
     private long lastDetectTime = System.currentTimeMillis();
+
     private VisWindow lagWindow;
+
     private Table lagTable;
+
     private VisLabel lagLabel;
+
     public String lag = "9999 ms";
 
     private final AtomicReference<Grid> cachedGrid;
+
     private final AtomicReference<Constants.GameResult> gameResult;
+
     public List<Integer> mConnectionIds;
 
     /**
@@ -207,10 +222,10 @@ public class SVMainGameState extends GameState {
 
         Gdx.graphics.setContinuousRendering(false);
 
-        int[] tmpIds = new int[connectionIds.size()+1];
+        int[] tmpIds = new int[connectionIds.size() + 1];
         tmpIds[0] = 0;
         for (int i = 0; i < connectionIds.size(); i++) {
-            tmpIds[i+1] = connectionIds.get(i);
+            tmpIds[i + 1] = connectionIds.get(i);
         }
 
         executor = Executors.newSingleThreadScheduledExecutor();
@@ -231,20 +246,17 @@ public class SVMainGameState extends GameState {
                     }
                     builder.addAllFoodLocations(grid.foods.getLinearPositions());
                     _app.getAgent().send(builder.build().toByteArray());
-                    Log.d(TAG, "Server Sent update version: " + serverSnapshot.getVersion() );
+                    Log.d(TAG, "Server Sent update version: " + serverSnapshot.getVersion());
 
                     long curMillis = System.currentTimeMillis();
-                    if (curMillis - lastDetectTime > 180)
-                    {
+                    if (curMillis - lastDetectTime > 180) {
                         String str = "ServerLagDetection" + lagDetectSeq;
                         _app.getAgent().send(str.getBytes());
-                        Log.d("wmqLAG", "Server Sent LagDetect Seq: " + lagDetectSeq );
+                        Log.d("wmqLAG", "Server Sent LagDetect Seq: " + lagDetectSeq);
                         _app.getAgent().setLagDetectionStartTime(str, curMillis);
                         lagDetectSeq++;
                         lastDetectTime = curMillis;
                     }
-
-
 
                     Gdx.graphics.requestRendering();
                 } catch (Exception e) {
@@ -318,9 +330,8 @@ public class SVMainGameState extends GameState {
             if (grid.isSnakeDead(0)) {
                 // Game over... GG
                 gameResult.set(Constants.GameResult.LOST);
-                //lblResult.setText(Constants.GAME_OVER);
-                if (Locale.getDefault().getLanguage().equals("zh"))
-                {
+                // lblResult.setText(Constants.GAME_OVER);
+                if (Locale.getDefault().getLanguage().equals("zh")) {
                     resultImg = new VisImage(AssetManager.INSTANCE.LOSE_WORD);
                     table.add(resultImg).padTop(20).row();
                     VisImage btnToTitleScreenImg = new VisImage(AssetManager.INSTANCE.BACK_TO_MAIN);
@@ -331,8 +342,7 @@ public class SVMainGameState extends GameState {
                         }
                     });
                     table.add(btnToTitleScreenImg).padTop(50).row();
-                }
-                else {
+                } else {
                     VisLabel lbl = new VisLabel(Constants.GAME_OVER);
                     table.add(lbl).padTop(20).row();
                     VisTextButton btnToTitleScreen = new VisTextButton("Return to main screen");
@@ -349,8 +359,7 @@ public class SVMainGameState extends GameState {
             } else if (grid.getAliveCount() == 1) {
                 // You are the last snake alive
                 gameResult.set(Constants.GameResult.WON);
-                if (Locale.getDefault().getLanguage().equals("zh"))
-                {
+                if (Locale.getDefault().getLanguage().equals("zh")) {
                     resultImg = new VisImage(AssetManager.INSTANCE.WIN_WORD);
                     table.add(resultImg).padTop(20).row();
                     VisImage btnToTitleScreenImg = new VisImage(AssetManager.INSTANCE.BACK_TO_MAIN);
@@ -361,8 +370,7 @@ public class SVMainGameState extends GameState {
                         }
                     });
                     table.add(btnToTitleScreenImg).padTop(50).row();
-                }
-                else {
+                } else {
                     VisLabel lbl = new VisLabel(Constants.CONGRATS);
                     table.add(lbl).padTop(20).row();
                     VisTextButton btnToTitleScreen = new VisTextButton("Return to main screen");
@@ -381,7 +389,8 @@ public class SVMainGameState extends GameState {
 
         Constants.GameResult result = gameResult.get();
         if (result != null) {
-            if (result == Constants.GameResult.WON || (result == Constants.GameResult.LOST && grid.getAliveCount() <= 1)) {
+            if (result == Constants.GameResult.WON
+                || (result == Constants.GameResult.LOST && grid.getAliveCount() <= 1)) {
                 serverSnapshot.version += 1;
                 table.removeActor(lblHosting);
             }

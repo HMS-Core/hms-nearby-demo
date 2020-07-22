@@ -32,11 +32,12 @@ import com.huawei.nearby.game.snake.helpers.AssetManager;
 import java.util.Locale;
 
 public class ErrorState extends GameState {
-    private static final String TAG = ErrorState.class.getCanonicalName();
-
     private final Stage stage;
+
     private final VisTable table;
+
     private final VisLabel lblError;
+
     private VisTextButton btnToTitleScreen;
 
     public ErrorState(App app, String errorMessage) {
@@ -51,7 +52,7 @@ public class ErrorState extends GameState {
         lblError.setAlignment(Align.center);
         table.add(lblError).row();
 
-        if (Locale.getDefault().getLanguage().equals("zh")){
+        if (Locale.getDefault().getLanguage().equals("zh")) {
             VisImage btnToTitleScreenImg = new VisImage(AssetManager.INSTANCE.BACK_TO_MAIN);
             btnToTitleScreenImg.addListener(new ClickListener() {
                 @Override
@@ -60,8 +61,7 @@ public class ErrorState extends GameState {
                 }
             });
             table.add(btnToTitleScreenImg).padTop(40).row();
-        }
-        else {
+        } else {
             btnToTitleScreen = new VisTextButton("Return to main screen");
             btnToTitleScreen.addListener(new ClickListener() {
                 @Override

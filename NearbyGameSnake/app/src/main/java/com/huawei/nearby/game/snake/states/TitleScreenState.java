@@ -43,14 +43,23 @@ public class TitleScreenState extends GameState {
     private static final String TAG = TitleScreenState.class.getCanonicalName();
 
     private final Stage stage;
+
     private final VisTable table;
+
     private final VisImage imgTitle;
-    private  VisTextButton btnHost;
-    private  VisImage btnHostImg;
-    private  VisTextButton btnJoin;
-    private  VisImage btnJoinImg;
-    private  VisTextButton btnAcknowledgements;
-    private  VisImage btnAcknowledgementsImg;
+
+    private VisTextButton btnHost;
+
+    private VisImage btnHostImg;
+
+    private VisTextButton btnJoin;
+
+    private VisImage btnJoinImg;
+
+    private VisTextButton btnAcknowledgements;
+
+    private VisImage btnAcknowledgementsImg;
+
     public Slider speedSlider;
 
     public TitleScreenState(App app) {
@@ -63,8 +72,7 @@ public class TitleScreenState extends GameState {
         imgTitle = new VisImage(AssetManager.INSTANCE.getTitleTexture());
         table.add(imgTitle).row();
 
-        if (Locale.getDefault().getLanguage().equals("zh"))
-        {
+        if (Locale.getDefault().getLanguage().equals("zh")) {
             btnHostImg = new VisImage(AssetManager.INSTANCE.CREATE_GAME);
             btnHostImg.addListener(new ClickListener() {
                 @Override
@@ -100,7 +108,7 @@ public class TitleScreenState extends GameState {
             btnIntroduction.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    _app.pushState(new IntroductinoState(_app));
+                    _app.pushState(new IntroductionState(_app));
                 }
             });
             table.add(btnIntroduction).padTop(40).row();
@@ -114,10 +122,9 @@ public class TitleScreenState extends GameState {
             });
             table.add(btnAcknowledgementsImg).padTop(40).row();
 
-            VisImage gamespeed = new VisImage(AssetManager.INSTANCE.GAME_SPEED);
-            table.add(gamespeed).padTop(40).row();
-        }
-        else {
+            VisImage gameSpeed = new VisImage(AssetManager.INSTANCE.GAME_SPEED);
+            table.add(gameSpeed).padTop(40).row();
+        } else {
             btnHost = new VisTextButton("Create a Game");
             btnHost.addListener(new ClickListener() {
                 @Override
@@ -149,7 +156,6 @@ public class TitleScreenState extends GameState {
             });
             table.add(btnJoin).padTop(20).row();
 
-
             btnAcknowledgements = new VisTextButton("About");
             btnAcknowledgements.addListener(new ClickListener() {
                 @Override
@@ -159,8 +165,8 @@ public class TitleScreenState extends GameState {
             });
             table.add(btnAcknowledgements).padTop(20).row();
 
-            VisLabel gamespeed = new VisLabel("Game Speed:");
-            table.add(gamespeed).padTop(40).row();
+            VisLabel gameSpeed = new VisLabel("Game Speed:");
+            table.add(gameSpeed).padTop(40).row();
         }
 
         speedSlider = new Slider(0, 2, 1, false, VisUI.getSkin());
@@ -168,23 +174,18 @@ public class TitleScreenState extends GameState {
         Constants.MOVE_EVERY_MS = 500;
         speedSlider.addListener(new ChangeListener() {
             @Override
-            public void changed (ChangeEvent event, Actor actor) {
+            public void changed(ChangeEvent event, Actor actor) {
                 Log.d(TAG, "speed change to: " + speedSlider.getValue());
-                if (speedSlider.getValue() == 0.0f)
-                {
+                if (speedSlider.getValue() == 0.0f) {
                     Constants.MOVE_EVERY_MS = 500;
-                }
-                else if (speedSlider.getValue() == 1.0f)
-                {
+                } else if (speedSlider.getValue() == 1.0f) {
                     Constants.MOVE_EVERY_MS = 333;
-                }
-                else if (speedSlider.getValue() == 2.0f)
-                {
+                } else if (speedSlider.getValue() == 2.0f) {
                     Constants.MOVE_EVERY_MS = 250;
                 }
             }
         });
-        table.add(speedSlider).size(400,100).row();
+        table.add(speedSlider).size(400, 100).row();
 
         Gdx.input.setInputProcessor(stage);
     }

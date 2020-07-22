@@ -39,22 +39,19 @@ import java.util.Stack;
 
 public class App extends Game {
     protected Stack<GameState> stateStack;
+
     protected IAgent agent;
-    private TransferEngine mTransferEngine = null;
-    private DiscoveryEngine mDiscoveryEngine = null;
+
+    private TransferEngine mTransferEngine;
+
+    private DiscoveryEngine mDiscoveryEngine;
+
     private Context mContext;
 
-//    public App(TransferEngine mTransferEngine, DiscoveryEngine mDiscoveryEngine) {
-//        this.mTransferEngine = mTransferEngine;
-//        this.mDiscoveryEngine = mDiscoveryEngine;
-//    }
-
     public App(Context context) {
-        mContext = context;
-        //        mDiscoveryEngine =
-//        mTransferEngine =
-        this.mTransferEngine = Nearby.getTransferEngine(context);;
-        this.mDiscoveryEngine =  Nearby.getDiscoveryEngine(context);
+        this.mContext = context;
+        this.mTransferEngine = Nearby.getTransferEngine(context);
+        this.mDiscoveryEngine = Nearby.getDiscoveryEngine(context);
     }
 
     public IAgent getAgent() {
@@ -105,8 +102,7 @@ public class App extends Game {
         pushState(gameState);
     }
 
-    public GameState getCurState()
-    {
+    public GameState getCurState() {
         return stateStack.peek();
     }
 
@@ -114,21 +110,14 @@ public class App extends Game {
         while (stateStack.size() > 1) {
             popState();
         }
-        if (!stateStack.empty())
-        {
+        if (!stateStack.empty()) {
             GameState state = stateStack.peek();
-            if (state instanceof TitleScreenState)
-            {
-                if (Constants.MOVE_EVERY_MS == 500)
-                {
+            if (state instanceof TitleScreenState) {
+                if (Constants.MOVE_EVERY_MS == 500) {
                     ((TitleScreenState) state).speedSlider.setValue(0);
-                }
-                else if (Constants.MOVE_EVERY_MS == 333)
-                {
+                } else if (Constants.MOVE_EVERY_MS == 333) {
                     ((TitleScreenState) state).speedSlider.setValue(1);
-                }
-                else if (Constants.MOVE_EVERY_MS == 250)
-                {
+                } else if (Constants.MOVE_EVERY_MS == 250) {
                     ((TitleScreenState) state).speedSlider.setValue(2);
                 }
             }

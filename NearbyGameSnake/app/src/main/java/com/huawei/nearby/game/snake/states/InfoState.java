@@ -30,13 +30,16 @@ import com.huawei.nearby.game.snake.helpers.Constants;
 import java.util.Locale;
 
 public class InfoState extends GameState {
-    private static final String TAG = InfoState.class.getCanonicalName();
-
     private final Stage stage;
+
     private final VisTable table;
+
     private final VisImage imgTitle;
+
     private final VisLabel lblGameInfo, lblAcknowledgements, lblModifyInfo;
+
     private final LinkLabel lkGitHub, lkLibGdx, lkKryonet, lkProtoBuf, lkNearby;
+
     private VisTextButton btnToTitleScreen;
 
     public InfoState(App app) {
@@ -50,22 +53,27 @@ public class InfoState extends GameState {
 
         imgTitle = new VisImage(AssetManager.INSTANCE.getTitleTexture());
         table.add(imgTitle).row();
-        lblGameInfo = new VisLabel(Constants.VERSION + "\nA game by Tianyi Zhang\nThe sources to this game can be retrieved at");
+        lblGameInfo =
+            new VisLabel(Constants.VERSION + "\nA game by Tianyi Zhang\nThe sources to this game can be retrieved at");
         lblGameInfo.setAlignment(Align.center);
         table.add(lblGameInfo).row();
-        lkGitHub = new LinkLabel("github.com/tonyzhang617/multiplayer-snake", "https://github.com/tonyzhang617/multiplayer-snake");
+        lkGitHub = new LinkLabel("github.com/tonyzhang617/multiplayer-snake",
+            "https://github.com/tonyzhang617/multiplayer-snake");
         table.add(lkGitHub).row();
         lblAcknowledgements = new VisLabel("Acknowledgements: ");
         table.add(lblAcknowledgements).row();
         lkLibGdx = new LinkLabel("libGDX - APLv2", "http://www.apache.org/licenses/LICENSE-2.0.html");
         table.add(lkLibGdx).row();
-        lkKryonet = new LinkLabel("Kryonet - Copyright 2008 Nathan Sweet - BSD-3-Clause", "https://github.com/EsotericSoftware/kryonet/blob/master/license.txt");
+        lkKryonet = new LinkLabel("Kryonet - Copyright 2008 Nathan Sweet - BSD-3-Clause",
+            "https://github.com/EsotericSoftware/kryonet/blob/master/license.txt");
         table.add(lkKryonet).row();
-        lkProtoBuf = new LinkLabel("Protobuf - Copyright 2008 Google Inc. - BSD-3-Clause", "https://github.com/google/protobuf/blob/master/LICENSE");
+        lkProtoBuf = new LinkLabel("Protobuf - Copyright 2008 Google Inc. - BSD-3-Clause",
+            "https://github.com/google/protobuf/blob/master/LICENSE");
         table.add(lkProtoBuf).row();
         lblModifyInfo = new VisLabel("The game is modified by Mingqi Wang. Replaced Kryonet with HMS Nearby Service: ");
         table.add(lblModifyInfo).row();
-        lkNearby = new LinkLabel("HMS Nearby Service", "https://developer.huawei.com/consumer/en/codelab/HUAWEINearbyConnectionKit/index.html#0");
+        lkNearby = new LinkLabel("HMS Nearby Service",
+            "https://developer.huawei.com/consumer/en/codelab/HUAWEINearbyConnectionKit/index.html#0");
         table.add(lkNearby).row();
 
         if (Locale.getDefault().getLanguage().equals("zh")) {
@@ -77,8 +85,7 @@ public class InfoState extends GameState {
                 }
             });
             table.add(btnToTitleScreenImg).padTop(40).row();
-        }
-        else {
+        } else {
             btnToTitleScreen = new VisTextButton("Return to main screen");
             btnToTitleScreen.addListener(new ClickListener() {
                 @Override

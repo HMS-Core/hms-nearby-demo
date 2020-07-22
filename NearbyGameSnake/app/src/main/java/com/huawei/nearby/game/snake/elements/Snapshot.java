@@ -56,7 +56,7 @@ public abstract class Snapshot {
             if (!snakes.get(i).isDead()) {
                 List<Integer> coordinates = snakes.get(i).getCoordinates();
                 for (int j = 0; j < coordinates.size(); j += 2) {
-                    Integer position = Utils.positionFromXy(coordinates.get(j), coordinates.get(j+1));
+                    Integer position = Utils.positionFromXy(coordinates.get(j), coordinates.get(j + 1));
                     Integer count = positions.get(position);
                     if (count != null) {
                         positions.put(position, count + 1);

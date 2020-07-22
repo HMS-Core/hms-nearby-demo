@@ -26,14 +26,21 @@ import static com.huawei.nearby.game.snake.helpers.Constants.WIDTH;
 
 public class Grid {
     public final long timestamp;
+
     public final List<Snake> snakes;
+
     public final Foods foods;
 
     private final int aliveCount;
 
     public enum Block {
-        GROUND(1 << 0), CRATE(1 << 1), FOOD(1 << 2), SNAKE_BODY(1 << 3),
-        PLAYER_SNAKE_BODY(1 << 4), DEAD_SNAKE_BODY(1 << 5), DEAD_PLAYER_SNAKE_BODY(1 << 6);
+        GROUND(1 << 0),
+        CRATE(1 << 1),
+        FOOD(1 << 2),
+        SNAKE_BODY(1 << 3),
+        PLAYER_SNAKE_BODY(1 << 4),
+        DEAD_SNAKE_BODY(1 << 5),
+        DEAD_PLAYER_SNAKE_BODY(1 << 6);
 
         public final int mask;
 
@@ -54,11 +61,11 @@ public class Grid {
         Arrays.fill(blockArr, Block.GROUND.mask);
         for (int i = 0; i < HEIGHT; ++i) {
             blockArr[Utils.positionFromXy(0, i)] |= Block.CRATE.mask;
-            blockArr[Utils.positionFromXy(WIDTH-1, i)] |= Block.CRATE.mask;
+            blockArr[Utils.positionFromXy(WIDTH - 1, i)] |= Block.CRATE.mask;
         }
         for (int i = 1; i < WIDTH - 1; ++i) {
             blockArr[Utils.positionFromXy(i, 0)] |= Block.CRATE.mask;
-            blockArr[Utils.positionFromXy(i, HEIGHT-1)] |= Block.CRATE.mask;
+            blockArr[Utils.positionFromXy(i, HEIGHT - 1)] |= Block.CRATE.mask;
         }
 
         List<Integer> positions = foods.getLinearPositions();
@@ -100,10 +107,6 @@ public class Grid {
 
     public boolean checkCoordinate(int x, int y, Block blockType) {
         return (blockArr[Utils.positionFromXy(x, y)] & blockType.mask) > 0;
-    }
-
-    public int getType(int x, int y) {
-        return blockArr[Utils.positionFromXy(x, y)];
     }
 
     public boolean isSnakeDead(int index) {

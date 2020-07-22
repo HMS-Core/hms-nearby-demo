@@ -27,9 +27,13 @@ import java.util.List;
 
 public class Snake {
     public final int id;
+
     private final List<Integer> coords;
+
     private int lastDirection;
+
     private Input lastInput;
+
     private boolean isDead;
 
     public Snake(int id, int[] coords, int lastDirection, Input input) {
@@ -96,14 +100,16 @@ public class Snake {
     }
 
     public ServerPacket.Update.PSnake.Builder toProtoSnake() {
-        // TODO: convert x/y coordinates to linear coordinates to save bandwidth
         ServerPacket.Update.PSnake.Builder snakeBuilder = ServerPacket.Update.PSnake.newBuilder();
-        snakeBuilder.setId(id).setLastDirection(lastDirection).setIsDead(isDead).addAllCoords(getLinearPositions())
-                .setInputId(lastInput.id).setInputDirection(lastInput.direction).setInputTimestamp(lastInput.timestamp);
+        snakeBuilder.setId(id)
+            .setLastDirection(lastDirection)
+            .setIsDead(isDead)
+            .addAllCoords(getLinearPositions())
+            .setInputId(lastInput.id)
+            .setInputDirection(lastInput.direction)
+            .setInputTimestamp(lastInput.timestamp);
         return snakeBuilder;
     }
-
-
 
     public Snake(Snake snake) {
         this.id = snake.id;
@@ -163,7 +169,7 @@ public class Snake {
     public List<Integer> getLinearPositions() {
         List<Integer> positions = new ArrayList<Integer>(coords.size() / 2);
         for (int i = 0; i < coords.size(); i += 2) {
-            int x = coords.get(i), y = coords.get(i+1);
+            int x = coords.get(i), y = coords.get(i + 1);
             if (x >= 0 && x < Constants.WIDTH && y >= 0 && y < Constants.HEIGHT) {
                 positions.add(Utils.positionFromXy(x, y));
             }
@@ -192,7 +198,7 @@ public class Snake {
     @Override
     public String toString() {
         String str = String.format("%s snake %d, direction %d, last input ID %d, head coordinates (%d, %d).",
-                isDead ? "Dead" : "Live", id, lastInput.direction, lastInput.id, coords.get(0), coords.get(1));
+            isDead ? "Dead" : "Live", id, lastInput.direction, lastInput.id, coords.get(0), coords.get(1));
         return str;
     }
 }

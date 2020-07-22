@@ -16,12 +16,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 package com.huawei.nearby.game.snake.elements;
 
-import com.badlogic.gdx.Gdx;
-import com.huawei.nearby.game.snake.helpers.Constants;
-import com.huawei.nearby.game.snake.helpers.Utils;
-import com.huawei.nearby.game.snake.protobuf.generated.ClientPacket;
-import com.huawei.nearby.game.snake.protobuf.generated.ServerPacket;
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,26 +23,38 @@ import java.util.Queue;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
+
+import com.badlogic.gdx.Gdx;
+import com.huawei.nearby.game.snake.helpers.Constants;
+import com.huawei.nearby.game.snake.helpers.Utils;
+import com.huawei.nearby.game.snake.protobuf.generated.ClientPacket;
 
 public class ServerSnapshot extends Snapshot {
     private static final String TAG = ServerSnapshot.class.getCanonicalName();
+
     private final long startTimestamp;
+
     private final int serverId;
-    public static  long SNAKE_MOVE_EVERY_NS = TimeUnit.MILLISECONDS.toNanos(Constants.MOVE_EVERY_MS);
+
+    public static long SNAKE_MOVE_EVERY_NS = TimeUnit.MILLISECONDS.toNanos(Constants.MOVE_EVERY_MS);
+
     private static final long LAG_TOLERANCE_NS = TimeUnit.MILLISECONDS.toNanos(Constants.LAG_TOLERANCE_MS);
 
-    private final AtomicReference<ServerPacket.Update.Builder> lastPacket;
-
     private final Object lock;
+
     /**
      * Makes up the last game step, guarded by lock
      */
     private final List<Snake> snakes;
+
     private final Foods foods;
+
     private final List<SortedSet<Input>> inputBuffers;
+
     private long stateTime;
+
     private int nextInputId;
+
     public int version;
 
     public ServerSnapshot(long startTimestamp, int[] snakeIds) {
@@ -72,9 +78,11 @@ public class ServerSnapshot extends Snapshot {
         for (int i = 0; i < arraySize; ++i) {
             if (snakeIds[index] == i) {
                 if (index % 2 == 0) {
-                    snakes.add(new Snake(i, evenSnakeIdHeadX, Constants.INITIAL_SNAKE_LENGTH + index * interval - 1, Constants.INITIAL_SNAKE_LENGTH, new Input(Constants.RIGHT, 0, 0)));
+                    snakes.add(new Snake(i, evenSnakeIdHeadX, Constants.INITIAL_SNAKE_LENGTH + index * interval - 1,
+                        Constants.INITIAL_SNAKE_LENGTH, new Input(Constants.RIGHT, 0, 0)));
                 } else {
-                    snakes.add(new Snake(i, oddSnakeIdHeadX, Constants.INITIAL_SNAKE_LENGTH + index * interval - 1, Constants.INITIAL_SNAKE_LENGTH, new Input(Constants.LEFT, 0, 0)));
+                    snakes.add(new Snake(i, oddSnakeIdHeadX, Constants.INITIAL_SNAKE_LENGTH + index * interval - 1,
+                        Constants.INITIAL_SNAKE_LENGTH, new Input(Constants.LEFT, 0, 0)));
                 }
                 index += 1;
             } else {
@@ -83,7 +91,6 @@ public class ServerSnapshot extends Snapshot {
             inputBuffers.add(new TreeSet<Input>(Input.comparator));
         }
         foods.generate(snakes);
-        lastPacket = new AtomicReference<ServerPacket.Update.Builder>(null);
     }
 
     @Override
@@ -97,7 +104,8 @@ public class ServerSnapshot extends Snapshot {
             long inputTime = Utils.getNanoTime() - startTimestamp;
             Input newInput = new Input(direction, nextInputId++, inputTime);
             SortedSet<Input> serverInputBuffer = inputBuffers.get(serverId);
-            Input lastInput = serverInputBuffer.isEmpty() ? snakes.get(serverId).getLastInput() : serverInputBuffer.last();
+            Input lastInput =
+                serverInputBuffer.isEmpty() ? snakes.get(serverId).getLastInput() : serverInputBuffer.last();
             if (lastInput.isValidNewInput(newInput)) {
                 serverInputBuffer.add(newInput);
                 version += 1;
@@ -107,8 +115,6 @@ public class ServerSnapshot extends Snapshot {
 
     @Override
     public void onClientMessage(int clientId, ClientPacket.Message message) {
-        long currentTime = Utils.getNanoTime() - startTimestamp;
-
         List<ClientPacket.Message.PInput> newPInputs = message.getInputsList();
         List<Input> newInputs = new ArrayList<Input>(newPInputs.size());
         for (ClientPacket.Message.PInput pInput : newPInputs) {
@@ -146,7 +152,8 @@ public class ServerSnapshot extends Snapshot {
         SNAKE_MOVE_EVERY_NS = TimeUnit.MILLISECONDS.toNanos(Constants.MOVE_EVERY_MS);
         long currentTime = Utils.getNanoTime() - startTimestamp;
         int currentStep = (int) (currentTime / SNAKE_MOVE_EVERY_NS);
-        long updatedStateTime = (currentTime - LAG_TOLERANCE_NS) > stateTime ? currentTime - LAG_TOLERANCE_NS : stateTime;
+        long updatedStateTime =
+            (currentTime - LAG_TOLERANCE_NS) > stateTime ? currentTime - LAG_TOLERANCE_NS : stateTime;
         int updatedStateStep = (int) (updatedStateTime / SNAKE_MOVE_EVERY_NS);
         List<Snake> resultSnakes;
         Foods resultFoods;
@@ -158,10 +165,12 @@ public class ServerSnapshot extends Snapshot {
             for (int i = 0; i <= stepDiff; ++i) {
                 for (int j = 0; j < snakes.size(); ++j) {
                     Snake currSnake = snakes.get(j);
-                    if (currSnake.isDead()) continue;
+                    if (currSnake.isDead())
+                        continue;
                     Input tmpInput;
                     long upper = (i == stepDiff ? updatedStateTime : SNAKE_MOVE_EVERY_NS * (stateStep + i + 1));
-                    while (!inputBuffers.get(j).isEmpty() && (tmpInput = inputBuffers.get(j).first()).timestamp < upper) {
+                    while (!inputBuffers.get(j).isEmpty()
+                        && (tmpInput = inputBuffers.get(j).first()).timestamp < upper) {
                         currSnake.handleInput(tmpInput);
                         inputBuffers.get(j).remove(tmpInput);
                     }
@@ -196,7 +205,8 @@ public class ServerSnapshot extends Snapshot {
             for (int i = 0; i <= stepDiff; ++i) {
                 for (int j = 0; j < resultSnakes.size(); ++j) {
                     Snake currSnake = resultSnakes.get(j);
-                    if (currSnake.isDead()) continue;
+                    if (currSnake.isDead())
+                        continue;
                     long upper = (i == stepDiff ? currentTime : SNAKE_MOVE_EVERY_NS * (updatedStateStep + i + 1));
                     while (!inputQueues[j].isEmpty() && inputQueues[j].peek().timestamp < upper) {
                         currSnake.handleInput(inputQueues[j].poll());

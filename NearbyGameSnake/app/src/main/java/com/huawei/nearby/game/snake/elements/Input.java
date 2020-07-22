@@ -24,11 +24,15 @@ import java.util.concurrent.TimeUnit;
 
 public class Input implements Comparable<Input> {
     public final int direction;
+
     public final int id;
+
     public final long timestamp;
+
     public final int step;
 
     public static final Comparator<Input> comparator = new InputComparator();
+
     private static long STEP_LENGTH = TimeUnit.MILLISECONDS.toNanos(Constants.MOVE_EVERY_MS);
 
     public Input(int direction, int id, long timestamp) {
@@ -52,7 +56,8 @@ public class Input implements Comparable<Input> {
             return false;
         }
 
-        if (this.direction == newInput.direction || this.id >= newInput.id || this.step > newInput.step || this.timestamp >= newInput.timestamp) {
+        if (this.direction == newInput.direction || this.id >= newInput.id || this.step > newInput.step
+            || this.timestamp >= newInput.timestamp) {
             return false;
         }
 

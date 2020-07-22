@@ -38,20 +38,26 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BroadcastState extends GameState {
     public final Object connectionIdsLock;
+
     public final List<Integer> connectionIds;
+
     private static final String TAG = BroadcastState.class.getCanonicalName();
 
     // UI elements
     private final Stage stage;
+
     private final VisTable table;
+
     private final VisImage imgTitle;
+
     public final VisTextButton btnStart;
+
     public final VisLabel lblPlayerCount;
 
     private final AtomicBoolean success;
 
-    public static final String WAITING_FOR_PLAYERS = "Waiting for other snakes to join the game...";
     public static final String PLAYERS_CONNECTED_FORMAT = "%d";
+
     private VisTextButton btnToTitleScreen;
 
     public BroadcastState(App app) {
@@ -71,12 +77,10 @@ public class BroadcastState extends GameState {
         imgTitle = new VisImage(AssetManager.INSTANCE.getTitleTexture());
         table.add(imgTitle).row();
 
-        if (Locale.getDefault().getLanguage().equals("zh"))
-        {
+        if (Locale.getDefault().getLanguage().equals("zh")) {
             VisImage waitForOtherImg = new VisImage(AssetManager.INSTANCE.PLAYER_JOINED_NUM);
             table.add(waitForOtherImg).padTop(50).row();
-        }
-        else {
+        } else {
             VisLabel playerNum = new VisLabel("Number of players joined:");
             table.add(playerNum).padTop(50).row();
         }
@@ -99,12 +103,10 @@ public class BroadcastState extends GameState {
             }
         });
         btnStart.setDisabled(true);
-        btnStart.setColor(255,255,255,1);
+        btnStart.setColor(255, 255, 255, 1);
         table.add(btnStart).padTop(20).row();
 
-
-        if (Locale.getDefault().getLanguage().equals("zh"))
-        {
+        if (Locale.getDefault().getLanguage().equals("zh")) {
             VisImage btnToTitleScreenImg = new VisImage(AssetManager.INSTANCE.BACK_TO_MAIN);
             btnToTitleScreenImg.addListener(new ClickListener() {
                 @Override
@@ -113,8 +115,7 @@ public class BroadcastState extends GameState {
                 }
             });
             table.add(btnToTitleScreenImg).padTop(100).row();
-        }
-        else {
+        } else {
             btnToTitleScreen = new VisTextButton("Return to main screen");
             btnToTitleScreen.addListener(new ClickListener() {
                 @Override
