@@ -310,7 +310,13 @@ public class MainActivity extends AppCompatActivity implements PermissionInterfa
         msgStr = msgEt.getText().toString() + ":manually input";
         Data data = Data.fromBytes(msgStr.getBytes(Charset.defaultCharset()));
         Log.d(TAG, "myEndpointId " + mEndpointId);
-        mTransferEngine.sendData(mEndpointId, data);
+        mTransferEngine.sendData(mEndpointId, data).addOnCompleteListener(task -> {
+            task.addOnSuccessListener(su -> {
+                Log.i(TAG, "sendData [Message] success. Message:" + msgStr);
+            }).addOnFailureListener(e -> {
+                Log.e(TAG, "sendData [Message] failed, Message:" + msgStr + "cause: " + e.getMessage());
+            });
+        });
         MessageBean item = new MessageBean();
         item.setMyName(myNameStr);
         item.setFriendName(friendNameStr);
@@ -327,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements PermissionInterfa
      */
     private void receiveMessage(Data data) {
         msgStr = new String(data.asBytes(), UTF_8);
-        Log.d(TAG, "receiveMessage  msgStr-------->>>>" + msgStr);
+        Log.d(TAG, "onReceived [Message] success. msgStr-------->>>>" + msgStr);
         if (!msgStr.endsWith(":manually input")) {
             return;
         }
@@ -445,20 +451,25 @@ public class MainActivity extends AppCompatActivity implements PermissionInterfa
                 public void onReceived(String string, Data data) {
                     Log.d(TAG, "onPayloadReceived, payload.getType() = " + data.getType());
                     Log.d(TAG, "onPayloadReceived, string ======== " + string);
-                    if (data.getType() == Data.Type.BYTES) {
-                        String str = new String(data.asBytes(), UTF_8);
-                        receiveMessage(data);
-                        if (!str.endsWith(":manually input")) {
-                            Log.e(TAG, "onReceived, Data.Type.BYTES  PayloadFilename ===" + str);
-                            addPayloadFilename(str);
-                        }
-                    } else if (data.getType() == Data.Type.FILE) {
-                        incomingFilePayloads.put(data.getId(), data);
-                        completedFilePayloads.put(data.getId(), data);
-                        processFilePayload(data.getId());
-                        Log.e(TAG, "onReceived, Data.Type.FILE");
-                    } else {
-                        return;
+                    switch (data.getType()) {
+                        case Data.Type.BYTES:
+                            String str = new String(data.asBytes(), UTF_8);
+                            if (str.endsWith(":manually input")) {
+                                receiveMessage(data);
+                            } else {
+                                Log.i(TAG, "onReceived [Filename] success, Data.Type.BYTES  PayloadFilename ===" + str);
+                                addPayloadFilename(str);
+                            }
+                            break;
+                        case Data.Type.FILE:
+                            incomingFilePayloads.put(data.getId(), data);
+                            completedFilePayloads.put(data.getId(), data);
+                            processFilePayload(data.getId());
+                            Log.i(TAG, "onReceived [FilePayload] success, Data.Type.FILE payloadId ===" + data.getId());
+                            break;
+                        default:
+                            Log.i(TAG, "the other Unknown data type.");
+                            return;
                     }
                 }
 
@@ -559,8 +570,20 @@ public class MainActivity extends AppCompatActivity implements PermissionInterfa
         String fileName = FileUtil.getFileRealNameFromUri(this, uri);
         String filenameMessage = filePayload.getId() + ":" + fileName;
         Data filenameBytesPayload = Data.fromBytes(filenameMessage.getBytes(StandardCharsets.UTF_8));
-        mTransferEngine.sendData(endpointID, filenameBytesPayload);
-        mTransferEngine.sendData(endpointID, filePayload);
+        mTransferEngine.sendData(endpointID, filenameBytesPayload).addOnCompleteListener(task -> {
+            task.addOnSuccessListener(su -> {
+                Log.i(TAG, "sendData [Filename] success. filename:" + filenameMessage);
+            }).addOnFailureListener(e -> {
+                Log.e(TAG, "sendData [Filename] failed, filename:" + filenameMessage + "cause: " + e.getMessage());
+            });
+        });
+        mTransferEngine.sendData(endpointID, filePayload).addOnCompleteListener(task -> {
+            task.addOnSuccessListener(su -> {
+                Log.i(TAG, "sendData [FilePayload] success. payloadId:" + filePayload.getId());
+            }).addOnFailureListener(e -> {
+                Log.e(TAG, "sendData [FilePayload] failed,  payloadId:" + filePayload.getId() + "cause: " + e.getMessage());
+            });
+        });
         sendPayloadIds.add(filePayload.getId());
         updateListViewItem(filePayload.getId(), uri, fileName, filePayload.asFile().getSize());
     }
