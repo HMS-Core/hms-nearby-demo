@@ -7,7 +7,6 @@ buildscript {
         maven {
             url 'http://developer.huawei.com/repo/'
         }
-        maven { url 'http://szg1.artifactory.inhuawei.com/artifactory/Product-cloudserviceSDK-release'}
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.2'
@@ -24,7 +23,6 @@ allprojects {
         maven {
             url 'http://developer.huawei.com/repo/'
         }
-        maven { url 'http://szg1.artifactory.inhuawei.com/artifactory/Product-cloudserviceSDK-release'}
     }
 }
 
