@@ -35,7 +35,7 @@ To build this demo, please first import the demo to Android Studio (3.X or later
 2. Tap "SEND FILE" and select the file to be sent.
 3. Tap "RECEIVE FILE" on the other phone.
 
-P.S If error code 907135701 appears during running, please check the file "agconnect-services.json". You should use the corresponding "agconnect-services.json" of your project.
+P.S: If error code 907135701 appears during running, please check the file "agconnect-services.json". You should use the corresponding "agconnect-services.json" of your project.
 
 ## Supported Environments
    Android Studio 3.X.
