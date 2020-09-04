@@ -37,16 +37,6 @@ public class EddystoneUid extends Beacon {
     public static final byte EDDYSTONE_TYPE_UID = 0x00;
 
     /**
-     * Eddystone service data filter
-     */
-    public static final byte[] DATA_FILTER = new byte[] {0x00};
-
-    /**
-     * Eddystone service data filter mask *
-     */
-    public static final byte[] DATA_FILTER_MASK = new byte[] {(byte) 0xf};
-
-    /**
      * service data length of EddystoneUid
      * |type(1)|txpower(1)|namespace id(10)|instance(6)|
      */
@@ -80,6 +70,16 @@ public class EddystoneUid extends Beacon {
     public static final int BEACON_ID_LEN = 16;
 
     /**
+     * Eddystone service data filter
+     */
+    private static final byte[] DATA_FILTER = new byte[]{0x00};
+
+    /**
+     * Eddystone service data filter mask *
+     */
+    private static final byte[] DATA_FILTER_MASK = new byte[]{(byte) 0xf};
+
+    /**
      * Eddystone txpower offset in service data
      */
     private static final byte TXPOWER_OFFSET = 1;
@@ -88,11 +88,6 @@ public class EddystoneUid extends Beacon {
      * name space ID offset of EddystoneUid
      */
     private static final int NAME_SPACE_ID_OFFSET = 2;
-
-    /**
-     * instance Id offset of EddystoneUid
-     */
-    private static final int INSTANCE_ID_OFFSET = 12;
 
     private static final int TX_POWER_CALIBRATE = 41;
 
@@ -111,11 +106,11 @@ public class EddystoneUid extends Beacon {
     }
 
     public static byte[] getDataFilter() {
-        return DATA_FILTER;
+        return DATA_FILTER.clone();
     }
 
     public static byte[] getDataFilterMask() {
-        return DATA_FILTER_MASK;
+        return DATA_FILTER_MASK.clone();
     }
 
     /**
@@ -146,7 +141,7 @@ public class EddystoneUid extends Beacon {
          * @return EddystoneUid Builder
          */
         public EddystoneUid.Builder setServiceData(byte[] serviceData) {
-            this.serviceData = serviceData;
+            this.serviceData = serviceData.clone();
             return this;
         }
 

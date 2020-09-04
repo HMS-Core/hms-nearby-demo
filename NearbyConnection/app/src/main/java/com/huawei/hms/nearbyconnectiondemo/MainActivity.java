@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements PermissionInterfa
 
     @Override
     public void requestPermissionsSuccess() {
-        Log.d(TAG, "requestPermissionsSuccess");
+        Log.d(TAG, "request permissions success.");
     }
 
     @Override
@@ -314,7 +314,7 @@ public class MainActivity extends AppCompatActivity implements PermissionInterfa
             task.addOnSuccessListener(su -> {
                 Log.i(TAG, "sendData [Message] success. Message:" + msgStr);
             }).addOnFailureListener(e -> {
-                Log.e(TAG, "sendData [Message] failed, Message:" + msgStr + "cause: " + e.getMessage());
+                Log.e(TAG, "sendData [Message] failed, Message:" + msgStr + ", cause: ", e);
             });
         });
         MessageBean item = new MessageBean();
@@ -449,15 +449,15 @@ public class MainActivity extends AppCompatActivity implements PermissionInterfa
             new DataCallback() {
                 @Override
                 public void onReceived(String string, Data data) {
-                    Log.d(TAG, "onPayloadReceived, payload.getType() = " + data.getType());
-                    Log.d(TAG, "onPayloadReceived, string ======== " + string);
+                    Log.d(TAG, "onReceived, Data.Type = " + data.getType());
+                    Log.d(TAG, "onReceived, string ======== " + string);
                     switch (data.getType()) {
                         case Data.Type.BYTES:
                             String str = new String(data.asBytes(), UTF_8);
                             if (str.endsWith(":manually input")) {
                                 receiveMessage(data);
                             } else {
-                                Log.i(TAG, "onReceived [Filename] success, Data.Type.BYTES  PayloadFilename ===" + str);
+                                Log.i(TAG, "onReceived [Filename] success, Data.Type.BYTES, payloadFilename ===" + str);
                                 addPayloadFilename(str);
                             }
                             break;
@@ -465,10 +465,10 @@ public class MainActivity extends AppCompatActivity implements PermissionInterfa
                             incomingFilePayloads.put(data.getId(), data);
                             completedFilePayloads.put(data.getId(), data);
                             processFilePayload(data.getId());
-                            Log.i(TAG, "onReceived [FilePayload] success, Data.Type.FILE payloadId ===" + data.getId());
+                            Log.i(TAG, "onReceived [FilePayload] success, Data.Type.FILE, payloadId ===" + data.getId());
                             break;
                         default:
-                            Log.i(TAG, "the other Unknown data type.");
+                            Log.i(TAG, "the other Unknown data type, please check the uploaded file.");
                             return;
                     }
                 }
@@ -478,39 +478,43 @@ public class MainActivity extends AppCompatActivity implements PermissionInterfa
                     long transferredBytes = update.getBytesTransferred();
                     long totalBytes = update.getTotalBytes();
                     long payloadId = update.getDataId();
-                    Log.d(TAG, "PayloadTransferUpdate.payloadId============" + payloadId);
-                    if (update.getStatus() == TransferStateUpdate.Status.TRANSFER_STATE_SUCCESS) {
-                        filePayloadFilenames.remove(payloadId);
-                        updateProgress(transferredBytes, totalBytes, 100, payloadId, false);
-                        Log.d(TAG, "PayloadTransferUpdate.Status.SUCCESS");
-                        Data payload = incomingFilePayloads.remove(payloadId);
+                    Log.d(TAG, "onTransferUpdate, payloadId============" + payloadId);
+                    switch (update.getStatus()) {
+                        case TransferStateUpdate.Status.TRANSFER_STATE_SUCCESS:
+                            filePayloadFilenames.remove(payloadId);
+                            updateProgress(transferredBytes, totalBytes, 100, payloadId, false);
+                            Log.d(TAG, "onTransferUpdate.Status============success.");
+                            Data payload = incomingFilePayloads.remove(payloadId);
 
-                        if (payload != null) {
-                            if (payload.getType() == Data.Type.FILE) {
-                                sendPayloadIds.remove(payloadId);
-                                receivePayloadIds.remove(payloadId);
-                                ToastUtil.showLongToast(getApplicationContext(),
-                                        "Your friend shares a file with you. Tap RECE to find it.");
+                            if (payload != null) {
+                                if (payload.getType() == Data.Type.FILE) {
+                                    sendPayloadIds.remove(payloadId);
+                                    receivePayloadIds.remove(payloadId);
+                                    ToastUtil.showLongToast(getApplicationContext(),
+                                            "Your friend shares a file with you. Tap [RECE] to find it.");
+                                }
+                                Log.d(TAG, "onTransferUpdate, payload.Type " + payload.getType());
+                                completedFilePayloads.put(payloadId, payload);
                             }
-                            Log.d(TAG, "payload.getType() " + payload.getType());
-                            completedFilePayloads.put(payloadId, payload);
-                        }
-                    } else if (update.getStatus() == TransferStateUpdate.Status.TRANSFER_STATE_IN_PROGRESS) {
-                        Log.d(TAG, "PayloadTransferUpdate.Status.TRANSFER_STATE_IN_PROGRESS");
-                        if (!sendPayloadIds.contains((payloadId)) && !receivePayloadIds.contains(payloadId)) {
-                            if (TextUtils.isEmpty(filePayloadFilenames.get(payloadId))) {
-                                return;
+                            break;
+                        case TransferStateUpdate.Status.TRANSFER_STATE_IN_PROGRESS:
+                            Log.d(TAG, "onTransferUpdate.Status==========transfer in progress.");
+                            if (!sendPayloadIds.contains((payloadId)) && !receivePayloadIds.contains(payloadId)) {
+                                if (TextUtils.isEmpty(filePayloadFilenames.get(payloadId))) {
+                                    return;
+                                }
+                                receivePayloadIds.add(payloadId);
+                                if (!FileUtil.isImage(filePayloadFilenames.get(payloadId))) {
+                                    updateListViewItem(update.getDataId(),
+                                            null, filePayloadFilenames.get(payloadId), totalBytes);
+                                }
                             }
-                            receivePayloadIds.add(payloadId);
-                            if (!FileUtil.isImage(filePayloadFilenames.get(payloadId))) {
-                                updateListViewItem(update.getDataId(),
-                                        null, filePayloadFilenames.get(payloadId), totalBytes);
-                            }
-                        }
-                        int progress = (int) (transferredBytes * 100 / totalBytes);
-                        updateProgress(transferredBytes, totalBytes, progress, payloadId, true);
-                    } else {
-                        Log.d(TAG, "PayloadTransferUpdate.Status=======" + update.getStatus());
+                            int progress = (int) (transferredBytes * 100 / totalBytes);
+                            updateProgress(transferredBytes, totalBytes, progress, payloadId, true);
+                            break;
+                        default:
+                            Log.d(TAG, "onTransferUpdate.Status=======" + update.getStatus());
+                            return;
                     }
                 }
             };
@@ -552,7 +556,7 @@ public class MainActivity extends AppCompatActivity implements PermissionInterfa
                 ParcelFileDescriptor pfd = getApplicationContext().getContentResolver().openFileDescriptor(uri, "r");
                 filePayload = Data.fromFile(pfd);
             } catch (FileNotFoundException e) {
-                Log.e(TAG, "File not found", e);
+                Log.e(TAG, "File not found, cause: ", e);
                 return;
             }
             sendFilePayload(filePayload, mEndpointId, uri);
@@ -574,14 +578,14 @@ public class MainActivity extends AppCompatActivity implements PermissionInterfa
             task.addOnSuccessListener(su -> {
                 Log.i(TAG, "sendData [Filename] success. filename:" + filenameMessage);
             }).addOnFailureListener(e -> {
-                Log.e(TAG, "sendData [Filename] failed, filename:" + filenameMessage + "cause: " + e.getMessage());
+                Log.e(TAG, "sendData [Filename] failed, filename:" + filenameMessage + ", cause: ", e);
             });
         });
         mTransferEngine.sendData(endpointID, filePayload).addOnCompleteListener(task -> {
             task.addOnSuccessListener(su -> {
                 Log.i(TAG, "sendData [FilePayload] success. payloadId:" + filePayload.getId());
             }).addOnFailureListener(e -> {
-                Log.e(TAG, "sendData [FilePayload] failed,  payloadId:" + filePayload.getId() + "cause: " + e.getMessage());
+                Log.e(TAG, "sendData [FilePayload] failed,  payloadId:" + filePayload.getId() + ", cause: ", e);
             });
         });
         sendPayloadIds.add(filePayload.getId());
@@ -590,7 +594,7 @@ public class MainActivity extends AppCompatActivity implements PermissionInterfa
 
     private void updateListViewItem(long payloadId, Uri uri, String fileName, long totalBytes) {
         if (TextUtils.isEmpty(fileName)) {
-            Log.e(TAG, "fileName===null");
+            Log.e(TAG, "filename is null.");
             return;
         }
         MessageBean item = new MessageBean();
@@ -618,21 +622,21 @@ public class MainActivity extends AppCompatActivity implements PermissionInterfa
         item.setFileName(fileName);
         item.setTotalBytes(totalBytes);
         item.setPayloadId(payloadId);
-        Log.d(TAG, "sendFilePayload.payloadId============" + payloadId);
+        Log.d(TAG, "updateListViewItem, payloadId============" + payloadId);
         msgList.add(item);
         adapter.notifyDataSetChanged();
         messageListView.setSelection(messageListView.getBottom());
     }
 
     private void processFilePayload(long payloadId) {
-        Log.d(TAG, "processFilePayload() payloadId=========" + payloadId);
+        Log.d(TAG, "processFilePayload, payloadId=========" + payloadId);
         Data filePayload = completedFilePayloads.get(payloadId);
         String filename = filePayloadFilenames.get(payloadId);
-        Log.d(TAG, "Received file: " + filename);
+        Log.d(TAG, "received file: " + filename);
         if (filePayload != null && filename != null) {
             completedFilePayloads.remove(payloadId);
             File payloadFile = filePayload.asFile().asJavaFile();
-            Log.d(TAG, "processFilePayload payloadFile name------>>>>>>: " + payloadFile.getName());
+            Log.d(TAG, "processFilePayload, payloadFile name------>>>>>>: " + payloadFile.getName());
             // Rename the file.
             File targetFileName = new File(payloadFile.getParentFile(), filename);
 
@@ -641,9 +645,8 @@ public class MainActivity extends AppCompatActivity implements PermissionInterfa
                 if (FileUtil.isImage(filename)) {
                     updateListViewItem(payloadId, Uri.fromFile(targetFileName), filename, targetFileName.length());
                 }
-
             } else {
-                Log.e(TAG, "rename failed  ");
+                Log.e(TAG, "rename the file failed.");
             }
             // inform UI
             if (receivedFileListener != null) {
@@ -653,7 +656,7 @@ public class MainActivity extends AppCompatActivity implements PermissionInterfa
     }
 
     private long addPayloadFilename(String payloadFilenameMessage) {
-        Log.d(TAG, "addPayloadFilename, payloadFilenameMessage ======== " + payloadFilenameMessage);
+        Log.d(TAG, "addPayloadFilename, payloadFilenameMessage======== " + payloadFilenameMessage);
         String[] parts = payloadFilenameMessage.split(":");
         long payloadId = Long.parseLong(parts[0]);
         String filename = parts[1];

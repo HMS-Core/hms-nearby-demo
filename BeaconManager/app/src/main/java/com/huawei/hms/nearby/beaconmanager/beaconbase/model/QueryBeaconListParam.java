@@ -33,9 +33,6 @@ public class QueryBeaconListParam {
     @SerializedName("sequence")
     long sequence;
 
-    @SerializedName("status")
-    String status;
-
     /**
      * Constructor
      *
@@ -48,7 +45,6 @@ public class QueryBeaconListParam {
         this.upOrDown = upOrDown;
         this.pageSize = pageSize;
         this.sequence = sequence;
-        status = "00000111";
     }
 
     public int getUpOrDown() {

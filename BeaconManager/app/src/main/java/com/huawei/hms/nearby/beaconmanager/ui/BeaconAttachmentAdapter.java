@@ -81,7 +81,11 @@ public class BeaconAttachmentAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
 
         } else {
-            viewHolder = (AttachmentViewHolder) convertView.getTag();
+            Object tag = convertView.getTag();
+            if (!(tag instanceof AttachmentViewHolder)) {
+                return convertView;
+            }
+            viewHolder = (AttachmentViewHolder) tag;
         }
 
         Attachment attachment = attachments.get(position);
@@ -93,6 +97,9 @@ public class BeaconAttachmentAdapter extends BaseAdapter {
         viewHolder.ivBeaconAttachmentDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!(mContext instanceof ViewBeaconActivity)) {
+                    return;
+                }
                 ViewBeaconActivity activity = (ViewBeaconActivity) mContext;
                 activity.deleteBeaconAttachment(attachment);
             }

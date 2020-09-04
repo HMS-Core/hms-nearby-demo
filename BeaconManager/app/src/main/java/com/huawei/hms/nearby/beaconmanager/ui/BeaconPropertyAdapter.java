@@ -82,7 +82,11 @@ public class BeaconPropertyAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
 
         } else {
-            viewHolder = (PropertyViewHolder) convertView.getTag();
+            Object tag = convertView.getTag();
+            if (!(tag instanceof PropertyViewHolder)) {
+                return convertView;
+            }
+            viewHolder = (PropertyViewHolder) tag;
         }
 
         String propertyKey = propertyKeys[position];
@@ -92,7 +96,7 @@ public class BeaconPropertyAdapter extends BaseAdapter {
         viewHolder.ivBeaconPropertyDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!editAble) {
+                if (!editAble || !(mContext instanceof EditBeaconActivity)) {
                     return;
                 }
                 EditBeaconActivity activity = (EditBeaconActivity) mContext;

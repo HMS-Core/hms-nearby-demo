@@ -43,7 +43,7 @@ import java.util.concurrent.TimeUnit;
 public class BeaconDiscover {
     private static final String TAG = BeaconDiscover.class.getSimpleName();
 
-    private static BeaconDiscover sInstance;
+    private static volatile BeaconDiscover sInstance = null;
 
     private Handler expireTimeHandler;
 

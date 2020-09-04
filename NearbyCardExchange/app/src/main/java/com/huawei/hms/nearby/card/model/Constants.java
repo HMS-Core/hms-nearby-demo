@@ -58,7 +58,7 @@ public class Constants {
      * Location error
      */
     public static final String LOCATION_ERROR =
-            "Location permision is denied! Make sure you have Location permision and run this app again.";
+            "Location permission is denied! Make sure you have Location permission and run this app again.";
 
     private Constants() {
     }

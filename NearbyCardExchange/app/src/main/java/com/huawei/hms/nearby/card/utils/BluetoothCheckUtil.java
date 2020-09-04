@@ -43,19 +43,4 @@ public final class BluetoothCheckUtil {
             return false;
         }
     }
-
-    /**
-     * Force Bluetooth device on
-     *
-     * @return true：Forced to open Bluetooth device successfully
-     */
-    public static boolean turnOnBluetooth() {
-        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
-        if (bluetoothAdapter != null) {
-            return bluetoothAdapter.enable();
-        }
-
-        return false;
-    }
 }

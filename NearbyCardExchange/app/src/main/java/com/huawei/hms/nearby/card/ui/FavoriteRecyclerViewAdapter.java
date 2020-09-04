@@ -79,11 +79,11 @@ public class FavoriteRecyclerViewAdapter
         holder.mNameTextView.setText(cardInfo.getName());
         holder.mJobTypeTextView.setText(cardInfo.getJobType());
         if (!TextUtils.isEmpty(cardInfo.getCompany())) {
-            holder.mCompanyTextview.setVisibility(View.VISIBLE);
-            holder.mCompanyTextview.setText(cardInfo.getCompany());
+            holder.mCompanyTextView.setVisibility(View.VISIBLE);
+            holder.mCompanyTextView.setText(cardInfo.getCompany());
         } else {
-            holder.mCompanyTextview.setVisibility(View.GONE);
-            holder.mCompanyTextview.setText("");
+            holder.mCompanyTextView.setVisibility(View.GONE);
+            holder.mCompanyTextView.setText("");
         }
         holder.mDeleteImageView.setTag(position);
         holder.mDeleteImageView.setOnClickListener(this);
@@ -151,7 +151,7 @@ public class FavoriteRecyclerViewAdapter
         private ImageView mPersionImageView;
         private TextView mNameTextView;
         private TextView mJobTypeTextView;
-        private TextView mCompanyTextview;
+        private TextView mCompanyTextView;
         private ImageView mDeleteImageView;
         private LinearLayout mMainLayout;
 
@@ -160,7 +160,7 @@ public class FavoriteRecyclerViewAdapter
             mPersionImageView = itemView.findViewById(R.id.persion);
             mNameTextView = itemView.findViewById(R.id.name);
             mJobTypeTextView = itemView.findViewById(R.id.job_type);
-            mCompanyTextview = itemView.findViewById(R.id.company);
+            mCompanyTextView = itemView.findViewById(R.id.company);
             mDeleteImageView = itemView.findViewById(R.id.delete);
             mMainLayout = itemView.findViewById(R.id.main_layout);
         }

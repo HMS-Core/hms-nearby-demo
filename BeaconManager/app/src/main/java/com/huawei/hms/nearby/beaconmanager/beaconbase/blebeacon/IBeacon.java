@@ -30,16 +30,6 @@ public class IBeacon extends Beacon {
     public static final int COMPANY_ID = 0x004c;
 
     /**
-     * iBeacon Manufacturer data filter
-     */
-    public static final byte[] DATA_FILTER = new byte[] {0x02, 0x15};
-
-    /**
-     * iBeacon Manufacturer data filter mask
-     */
-    public static final byte[] DATA_FILTER_MASK = new byte[] {(byte) 0xff, (byte) 0xff};
-
-    /**
      * Manufacturer data length of iBeacon
      * |beaconType(2)|uuid(16)|major(2)|minor(2)|txpower(1)|
      */
@@ -65,6 +55,16 @@ public class IBeacon extends Beacon {
      */
     public static final int BEACON_ID_LEN = 20;
 
+    /**
+     * iBeacon Manufacturer data filter
+     */
+    private static final byte[] DATA_FILTER = new byte[] {0x02, 0x15};
+
+    /**
+     * iBeacon Manufacturer data filter mask
+     */
+    private static final byte[] DATA_FILTER_MASK = new byte[] {(byte) 0xff, (byte) 0xff};
+
     private static final int UUID_OFFSET = 2;
 
     private static final int TXPOWER_OFFSET = 22;
@@ -83,11 +83,11 @@ public class IBeacon extends Beacon {
     }
 
     public static byte[] getDataFilter() {
-        return DATA_FILTER;
+        return DATA_FILTER.clone();
     }
 
     public static byte[] getDataFilterMask() {
-        return DATA_FILTER_MASK;
+        return DATA_FILTER_MASK.clone();
     }
 
     /**
@@ -118,7 +118,7 @@ public class IBeacon extends Beacon {
          * @return IBeacon Builder
          */
         public IBeacon.Builder setManufacturerData(byte[] data) {
-            manufacturerData = data;
+            manufacturerData = data.clone();
             return this;
         }
 

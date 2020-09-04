@@ -30,12 +30,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PhotoAdapter extends BaseAdapter {
-    private List<File> mImageList = new ArrayList<>();
-    private Context mcontext;
+    private List<File> mImageList;
+    private Context mContext;
 
-    public PhotoAdapter(List<File> files, Context mcontext) {
+    public PhotoAdapter(List<File> files, Context mContext) {
         this.mImageList = files;
-        this.mcontext = mcontext;
+        this.mContext = mContext;
     }
 
     @Override
@@ -58,14 +58,14 @@ public class PhotoAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mcontext).inflate(R.layout.grid_photo_item, null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.grid_photo_item, null);
             holder.iv = convertView.findViewById(R.id.iv_photo);
             convertView.setTag(holder);
-            Glide.with(mcontext).load(mImageList.get(position)).into(holder.iv);
+            Glide.with(mContext).load(mImageList.get(position)).into(holder.iv);
         } else {
             if (convertView.getTag() instanceof ViewHolder) {
                 holder = (ViewHolder) convertView.getTag();
-                Glide.with(mcontext).load(mImageList.get(position)).into(holder.iv);
+                Glide.with(mContext).load(mImageList.get(position)).into(holder.iv);
             }
         }
         return convertView;

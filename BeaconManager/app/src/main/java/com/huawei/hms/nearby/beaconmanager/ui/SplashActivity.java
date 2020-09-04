@@ -19,11 +19,17 @@ package com.huawei.hms.nearby.beaconmanager.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.huawei.hms.nearby.beaconmanager.R;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * SplashActivity
@@ -31,23 +37,28 @@ import com.huawei.hms.nearby.beaconmanager.R;
  * @since 2019-11-14
  */
 public class SplashActivity extends AppCompatActivity {
+    private static final String TAG = "SplashActivity";
+
+    private ExecutorService executorService = Executors.newFixedThreadPool(1);
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                SystemClock.sleep(1000);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
-            }
-        }).start();
+        Future future = executorService.submit(() -> {
+            SystemClock.sleep(1000);
+            runOnUiThread(() -> {
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            });
+        });
+        try {
+            future.get();
+        } catch (ExecutionException e) {
+            Log.i(TAG, "Thread executorService error", e);
+        } catch (InterruptedException e) {
+            Log.i(TAG, "Thread executorService error", e);
+        }
     }
 }

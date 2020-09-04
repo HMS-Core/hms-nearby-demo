@@ -512,7 +512,6 @@ public final class ClientPacket {
                 }
 
                 // Construct using
-                // com.huawei.nearby.game.snake.protobuf.generated.ClientPacket.Message.PInput.newBuilder()
                 private Builder() {
                     maybeForceBuilderInitialization();
                 }

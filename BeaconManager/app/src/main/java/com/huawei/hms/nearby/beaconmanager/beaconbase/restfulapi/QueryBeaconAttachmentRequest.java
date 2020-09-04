@@ -75,8 +75,10 @@ public class QueryBeaconAttachmentRequest implements Callback<QueryBeaconAttachm
      */
     public long waitComplete() {
         try {
-            semaphore.tryAcquire(3, TimeUnit.SECONDS);
-            return result;
+            if (semaphore.tryAcquire(3, TimeUnit.SECONDS)) {
+                return result;
+            }
+            return FAIL_UNKNOW;
         } catch (InterruptedException e) {
             BeaconBaseLog.e(TAG, e.toString());
             return FAIL_UNKNOW;

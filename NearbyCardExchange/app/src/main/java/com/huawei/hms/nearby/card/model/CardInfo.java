@@ -49,7 +49,7 @@ public class CardInfo implements Parcelable {
         }
     };
 
-    private static final Map<String, Integer> mPersionMap = new HashMap(){{
+    private static final Map<String, Integer> M_PERSION_MAP = new HashMap() {{
         put("Male", R.mipmap.male_icon);
         put("Female", R.mipmap.female_icon);
     }};
@@ -152,7 +152,7 @@ public class CardInfo implements Parcelable {
     }
 
     public int getPersionResourceId() {
-        return mPersionMap.get(mSex);
+        return M_PERSION_MAP.get(mSex);
     }
 
     @Override

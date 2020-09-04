@@ -23,16 +23,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.huawei.hms.nearby.card.R;
 import com.huawei.hms.nearby.card.model.CardInfo;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Card recycler view adapter.
@@ -95,7 +93,10 @@ public class CardRecyclerViewAdapter extends RecyclerView.Adapter<CardRecyclerVi
         }
 
         ImageView favoriteImageView = (ImageView) view;
-        boolean isFavorite = (boolean) favoriteImageView.getTag(R.mipmap.star_fill);
+        boolean isFavorite = false;
+        if (favoriteImageView.getTag(R.mipmap.star_fill) instanceof Boolean) {
+            isFavorite = (boolean) favoriteImageView.getTag(R.mipmap.star_fill);
+        }
         int position = (int) favoriteImageView.getTag(R.mipmap.star_empty);
         mListener.onFavorite(mItemList.get(position), !isFavorite);
         favoriteImageView.setTag(R.mipmap.star_fill, !isFavorite);
@@ -138,7 +139,6 @@ public class CardRecyclerViewAdapter extends RecyclerView.Adapter<CardRecyclerVi
          */
         void onFavorite(CardInfo cardInfo, boolean isFavorite);
     }
-
 
     static class CardRecyclerViewHolder extends RecyclerView.ViewHolder {
         private ImageView mPersionImageView;

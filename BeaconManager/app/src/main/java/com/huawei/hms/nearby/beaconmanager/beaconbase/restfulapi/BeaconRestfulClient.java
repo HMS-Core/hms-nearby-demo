@@ -23,31 +23,22 @@ import com.huawei.hms.nearby.beaconmanager.beaconbase.model.BeaconInfo;
 import com.huawei.hms.nearby.beaconmanager.beaconbase.model.Namespace;
 import com.huawei.hms.nearby.beaconmanager.beaconbase.model.QueryBeaconListParam;
 
-import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
-import retrofit2.Callback;
-import retrofit2.Converter;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import org.apache.http.conn.ssl.BrowserCompatHostnameVerifier;
 
-import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import java.security.GeneralSecurityException;
-import java.security.SecureRandom;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.X509TrustManager;
+import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
+import retrofit2.Callback;
+import retrofit2.Converter;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Beacon Restful class
@@ -81,7 +72,7 @@ public class BeaconRestfulClient {
 
     private static final String PORT = BuildConfig.MESSAGE_PORT;
 
-    private static BeaconRestfulClient sInstance = null;
+    private static volatile BeaconRestfulClient sInstance = null;
 
     private String baseUrl;
 
@@ -113,8 +104,7 @@ public class BeaconRestfulClient {
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
         httpClientBuilder.callTimeout(10000, TimeUnit.MILLISECONDS)
             .connectTimeout(10000, TimeUnit.MILLISECONDS)
-            .hostnameVerifier(new TrustAllHostnameVerifier())
-            .sslSocketFactory(getDefaultSSLSocketFactory(), new MyX509TrustManager())
+            .hostnameVerifier(new BrowserCompatHostnameVerifier())
             .addInterceptor(headerParamsInterceptor);
         OkHttpClient httpClient = httpClientBuilder.build();
 
@@ -128,40 +118,6 @@ public class BeaconRestfulClient {
         restfulService = retrofit.create(BeaconRestfulInterface.class);
     }
 
-    private static class TrustAllHostnameVerifier implements HostnameVerifier {
-        @Override
-        public boolean verify(String hostname, SSLSession session) {
-            return true;
-        }
-    }
-
-    private static class MyX509TrustManager implements X509TrustManager {
-        @Override
-        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-        }
-
-        @Override
-        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-        }
-
-        @Override
-        public X509Certificate[] getAcceptedIssuers() {
-            return new X509Certificate[0];
-        }
-    }
-
-    private synchronized SSLSocketFactory getDefaultSSLSocketFactory() {
-        try {
-            SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
-
-            X509TrustManager[] trustManagers = new X509TrustManager[] {new MyX509TrustManager()};
-            sslContext.init(null, trustManagers, new SecureRandom());
-            return sslContext.getSocketFactory();
-        } catch (GeneralSecurityException e) {
-            throw new AssertionError(); // The system has no TLS. Just give up.
-        }
-    }
-
     /**
      * NullOnEmptyConverterFactory
      */
@@ -170,14 +126,12 @@ public class BeaconRestfulClient {
         public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations,
             Retrofit retrofit) {
             Converter<ResponseBody, ?> delegate = retrofit.nextResponseBodyConverter(this, type, annotations);
-            return new Converter<ResponseBody, Object>() {
-                @Override
-                public Object convert(ResponseBody body) throws IOException {
-                    if (body.contentLength() == 0) {
-                        return null;
-                    }
-                    return delegate.convert(body);
+            return body -> {
+                Object obj = null;
+                if (body.contentLength() != 0) {
+                    obj = delegate.convert(body);
                 }
+                return obj;
             };
         }
     }
@@ -400,18 +354,19 @@ public class BeaconRestfulClient {
      * @return BeaconInfo of specified beacon
      */
     public BeaconInfo queryBeaconInfo(String beaconId) {
+        BeaconInfo beaconInfo = null;
         if (accessToken == null) {
-            return null;
+            return beaconInfo;
         }
 
         BeaconBaseLog.d(TAG, "queryBeaconInfo: " + beaconId);
         QueryBeaconInfoRequest request = new QueryBeaconInfoRequest();
         restfulService.queryBeaconInfo(beaconId).enqueue(request);
         if (request.waitComplete() != 0) {
-            return null;
+            return beaconInfo;
         }
         QueryBeaconInfoRes response = request.getQueryBeaconInfoRes();
-        BeaconInfo beaconInfo = response.getBeaconInfo();
+        beaconInfo = response.getBeaconInfo();
         beaconInfo.convertPropertisFromStr();
         return beaconInfo;
     }
@@ -438,17 +393,18 @@ public class BeaconRestfulClient {
      * @return the attachment list of specified beacon
      */
     public ArrayList<Attachment> queryBeaconAttachment(String beaconId) {
+        ArrayList<Attachment> attachments = null;
         if (accessToken == null) {
-            return null;
+            return attachments;
         }
         BeaconBaseLog.d(TAG, "queryBeaconAttachment: " + beaconId);
         QueryBeaconAttachmentRequest request = new QueryBeaconAttachmentRequest();
         restfulService.queryBeaconAttachment(beaconId).enqueue(request);
         if (request.waitComplete() != 0) {
-            return null;
+            return attachments;
         }
         QueryBeaconAttachmentRes response = request.getQueryBeaconAttachmentRes();
-        ArrayList<Attachment> attachments = response.getAttachments();
+        attachments = response.getAttachments();
         if (attachments == null) {
             return new ArrayList<>();
         }
@@ -466,8 +422,9 @@ public class BeaconRestfulClient {
      *         100 - 510 HTML status code return by html response
      */
     public Attachment addAttachment(String beaconId, Attachment attachment) {
+        Attachment attachmentReturn = null;
         if (accessToken == null) {
-            return null;
+            return attachmentReturn;
         }
         BeaconBaseLog.d(TAG,
             String.format(Locale.ENGLISH, "addAttachment: beacon:%s, attachment:%s", beaconId, attachment.toString()));
@@ -475,9 +432,10 @@ public class BeaconRestfulClient {
         UpdateAttachmentRequest request = new UpdateAttachmentRequest();
         restfulService.updateAttachment(beaconId, param).enqueue(request);
         if (request.waitComplete() != 0) {
-            return null;
+            return attachmentReturn;
         }
-        return request.getUpdateAttachmentRes().getAttachment();
+        attachmentReturn = request.getUpdateAttachmentRes().getAttachment();
+        return attachmentReturn;
     }
 
     /**
@@ -507,17 +465,18 @@ public class BeaconRestfulClient {
      * @return the Namespace list
      */
     public ArrayList<Namespace> queryNamespace() {
+        ArrayList<Namespace> namespaces = null;
         if (accessToken == null) {
-            return null;
+            return namespaces;
         }
         BeaconBaseLog.d(TAG, "queryNamespace");
         QueryNamespaceRequest request = new QueryNamespaceRequest();
         restfulService.queryNamespaceList().enqueue(request);
         if (request.waitComplete() != 0) {
-            return null;
+            return namespaces;
         }
         QueryNamespaceRes response = request.getQueryNamespaceRes();
-        ArrayList<Namespace> namespaces = response.getNamespaceList();
+        namespaces = response.getNamespaceList();
         if (namespaces == null) {
             return new ArrayList<>();
         }

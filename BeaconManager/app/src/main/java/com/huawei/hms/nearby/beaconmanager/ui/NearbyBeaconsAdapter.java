@@ -21,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.huawei.hms.nearby.beaconmanager.R;
@@ -70,8 +69,6 @@ public class NearbyBeaconsAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.nearybeacon_list_item, parent, false);
             holder = new ViewHolder();
-            holder.beaconIv = convertView.findViewById(R.id.lv_nearby_beacons);
-            holder.registeredIv = convertView.findViewById(R.id.iv_nearbyRegistered);
             holder.beaconTypeTv = convertView.findViewById(R.id.tv_beaconType);
             holder.beaconId1Tv = convertView.findViewById(R.id.tv_beaconIdPart1);
             holder.beaconId2Tv = convertView.findViewById(R.id.tv_beaconIdPart2);
@@ -80,7 +77,11 @@ public class NearbyBeaconsAdapter extends BaseAdapter {
             holder.beaconRssi = convertView.findViewById(R.id.tv_beaconRssi);
             convertView.setTag(holder);
         } else {
-            holder = (ViewHolder) convertView.getTag();
+            Object tag = convertView.getTag();
+            if (!(tag instanceof ViewHolder)) {
+                return convertView;
+            }
+            holder = (ViewHolder) tag;
         }
 
         holder.beaconTypeTv.setText(BeaconUtil.beaconType2String(item.getBeaconType()));
@@ -105,10 +106,6 @@ public class NearbyBeaconsAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        ImageView beaconIv;
-
-        ImageView registeredIv;
-
         TextView beaconTypeTv;
 
         TextView beaconId1Tv;

@@ -304,7 +304,6 @@ public class MainGameState extends GameState {
                 if (grid.isSnakeDead(clientId)) {
                     // Game over... GG
                     gameResult.set(Constants.GameResult.LOST);
-
                     if (Locale.getDefault().getLanguage().equals("zh")) {
                         resultImg = new VisImage(AssetManager.INSTANCE.LOSE_WORD);
                         table.add(resultImg).padTop(20).row();

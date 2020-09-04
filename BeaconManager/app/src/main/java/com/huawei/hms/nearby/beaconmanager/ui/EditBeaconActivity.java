@@ -244,7 +244,11 @@ public class EditBeaconActivity extends BaseActivity implements EditPropertyDial
         propertyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String[] keyValue = (String[]) propertyAdapter.getItem(position);
+                Object item = propertyAdapter.getItem(position);
+                if (!(item instanceof String[])) {
+                    return;
+                }
+                String[] keyValue = (String[]) item;
                 beaconInfo.getProperties().remove(keyValue[0]);
                 activeUpdateBeaconProperty(keyValue[0], keyValue[1]);
             }

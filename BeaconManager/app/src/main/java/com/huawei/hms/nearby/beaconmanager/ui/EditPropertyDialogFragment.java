@@ -56,7 +56,7 @@ public class EditPropertyDialogFragment extends DialogFragment {
         void onDialogNegativeClick(DialogFragment dialog);
     }
 
-    NoticeDialogListener listener;
+    NoticeDialogListener listener = null;
 
     private String key;
 
@@ -98,6 +98,9 @@ public class EditPropertyDialogFragment extends DialogFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        if (!(context instanceof NoticeDialogListener)) {
+            return;
+        }
         listener = (NoticeDialogListener) context;
     }
 

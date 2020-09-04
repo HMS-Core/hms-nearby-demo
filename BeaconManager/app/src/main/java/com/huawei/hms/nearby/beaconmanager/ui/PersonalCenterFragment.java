@@ -59,6 +59,8 @@ public class PersonalCenterFragment extends Fragment implements View.OnClickList
 
     private TextView tvAccount;
 
+    private BufferedReader reader = null;
+
     public PersonalCenterFragment() {
     }
 
@@ -184,7 +186,7 @@ public class PersonalCenterFragment extends Fragment implements View.OnClickList
         StringBuilder stringBuilder = new StringBuilder();
         try {
             InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(inputStream)));
+            reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(inputStream), "UTF-8"));
             String line;
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line);
@@ -193,7 +195,7 @@ public class PersonalCenterFragment extends Fragment implements View.OnClickList
             BeaconBaseLog.e(TAG, e.getMessage());
         }
         String serviceAccountKey = stringBuilder.toString();
-        if ((serviceAccountKey == null) || (serviceAccountKey.length() == 0)) {
+        if (serviceAccountKey.length() == 0) {
             Toast.makeText(getActivity(), "Read Service Account File Error!", Toast.LENGTH_SHORT).show();
             return;
         }

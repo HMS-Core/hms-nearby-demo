@@ -55,17 +55,17 @@ import java.util.List;
  * @since 2019-11-14
  */
 public class NearbyBeaconsFragment extends Fragment implements AdapterView.OnItemClickListener {
-    private SwipeRefreshLayout refreshLayout;
+    private SwipeRefreshLayout refreshLayout = null;
 
-    private TextView beaconRemindInfoTv;
+    private TextView beaconRemindInfoTv = null;
 
     private ListView nearbyBeaconListView;
 
     private boolean isRegistered;
 
-    private NearbyBeaconsAdapter mAdapter;
+    private NearbyBeaconsAdapter mAdapter = null;
 
-    private Context mContext;
+    private Context mContext = null;
 
     private boolean isFreshing;
 
@@ -210,8 +210,15 @@ public class NearbyBeaconsFragment extends Fragment implements AdapterView.OnIte
             MainActivity.showAlertDialog(getActivity(), "Warning", "Please Login Service Account First!");
             return;
         }
+        if (!(parent instanceof ListView)) {
+            return;
+        }
         ListView listView = (ListView) parent;
-        Beacon item = (Beacon) listView.getItemAtPosition(position);
+        Object itemObj = listView.getItemAtPosition(position);
+        if (!(itemObj instanceof Beacon)) {
+            return;
+        }
+        Beacon item = (Beacon) itemObj;
         String beaconId = item.getHexId();
 
         BeaconInfo beaconInfo;

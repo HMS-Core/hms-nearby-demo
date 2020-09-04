@@ -18,6 +18,7 @@ package com.huawei.hms.nearby.beaconmanager.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,6 +37,10 @@ import com.huawei.hms.nearby.beaconmanager.beaconbase.BeaconListQuery;
 import com.huawei.hms.nearby.beaconmanager.beaconbase.model.BeaconBriefInfo;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * MyBeaconsActivity
@@ -43,6 +48,8 @@ import java.util.ArrayList;
  * @since 2019-11-14
  */
 public class MyBeaconsActivity extends BaseActivity {
+    private static final String TAG = "MyBeaconsActivity";
+
     private SwipeRefreshLayout refreshLayout;
 
     private MyBeaconsAdapter mAdapter;
@@ -60,6 +67,8 @@ public class MyBeaconsActivity extends BaseActivity {
     private boolean isRefreshing;
 
     private boolean isLondingMore;
+
+    private ExecutorService executorService = Executors.newFixedThreadPool(1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,17 +147,19 @@ public class MyBeaconsActivity extends BaseActivity {
     }
 
     private void postQueryReq() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        getAndShowMyAllBeacons();
-                    }
-                });
-            }
-        }).start();
+        Future future = executorService.submit(() -> {
+            runOnUiThread(() -> {
+                getAndShowMyAllBeacons();
+            });
+        });
+
+        try {
+            future.get();
+        } catch (ExecutionException e) {
+            Log.i(TAG, "Thread executorService error", e);
+        } catch (InterruptedException e) {
+            Log.i(TAG, "Thread executorService error", e);
+        }
     }
 
     private void getAndShowMyAllBeacons() {

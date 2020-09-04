@@ -22,6 +22,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
+
+import com.huawei.hms.nearby.NearbyApiContext;
 import com.huawei.hms.nearby.card.R;
 
 /**

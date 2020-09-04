@@ -16,20 +16,22 @@
 
 package com.huawei.hms.nearby.beaconmanager.beaconbase;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTCreator;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.google.json.JsonSanitizer;
 
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
-import java.security.interfaces.RSAPrivateKey;
+import java.security.PrivateKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
+
+import io.jsonwebtoken.Header;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.InvalidKeyException;
 
 /**
  * Service Account Signin Utils
@@ -48,15 +50,20 @@ public class ServiceAccountSignInClient {
 
     private static final String PRIV_KEY_SUFFIX = "\n-----END PRIVATE KEY-----\n";
 
+    @SerializedName("sub_account")
     private String issuer;
 
+    @SerializedName("key_id")
     private String keyId;
 
+    @SerializedName("private_key")
     private String privateKey;
 
+    @SerializedName("token_uri")
     private String audience;
 
-    private String jwt;
+    @Expose
+    private String jwt = "";
 
     private ServiceAccountSignInClient(String issuer, String keyId, String privateKey, String audience) {
         this.issuer = issuer;
@@ -73,27 +80,24 @@ public class ServiceAccountSignInClient {
      * @return ServiceAccountSignInClient
      */
     public static ServiceAccountSignInClient buildFromJsonData(String jsonData) {
-        JsonObject jsonObject;
+        ServiceAccountSignInClient serviceAccountSignInClient = null;
         try {
-            JsonParser parser = new JsonParser();
-            jsonObject = (JsonObject) parser.parse(jsonData);
-        } catch (JsonIOException | JsonSyntaxException e) {
+            serviceAccountSignInClient = new Gson().fromJson(JsonSanitizer.sanitize(jsonData),
+                    ServiceAccountSignInClient.class);
+        } catch (JsonSyntaxException e) {
             BeaconBaseLog.e(TAG, "jsonData format err: " + e.getMessage());
-            return null;
+            return serviceAccountSignInClient;
         }
 
-        String subAcout = jsonObject.get("sub_account").getAsString();
-        String keyId = jsonObject.get("key_id").getAsString();
-        String orignPrivateKey = jsonObject.get("private_key").getAsString();
+        String orignPrivateKey = serviceAccountSignInClient.getPrivateKey();
         if (!orignPrivateKey.startsWith(PRIV_KEY_PERFIX) || !orignPrivateKey.endsWith(PRIV_KEY_SUFFIX)) {
             BeaconBaseLog.e(TAG, "private_key format err.");
-            return null;
+            serviceAccountSignInClient = null;
+            return serviceAccountSignInClient;
         }
-        String privKey =
-            orignPrivateKey.substring(PRIV_KEY_PERFIX.length(), orignPrivateKey.length() - PRIV_KEY_SUFFIX.length());
-
-        String audience = jsonObject.get("token_uri").getAsString();
-        return new ServiceAccountSignInClient(subAcout, keyId, privKey, audience);
+        serviceAccountSignInClient.setPrivateKey(orignPrivateKey
+                .substring(PRIV_KEY_PERFIX.length(), orignPrivateKey.length() - PRIV_KEY_SUFFIX.length()));
+        return serviceAccountSignInClient;
     }
 
     /**
@@ -110,20 +114,17 @@ public class ServiceAccountSignInClient {
         try {
             byte[] encodedKey = BeaconUtil.base64StrToBytes(privateKey);
             PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(encodedKey);
-            RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) KeyFactory.getInstance("RSA").generatePrivate(keySpec);
-
-            Algorithm algorithm = Algorithm.RSA256(null, rsaPrivateKey);
+            PrivateKey tmpPrivateKey = KeyFactory.getInstance("RSA").generatePrivate(keySpec);
             long iat = System.currentTimeMillis() / 1000;
             long exp = iat + TOKEN_EXPIRE_TIME_MS;
-            JWTCreator.Builder builder = JWT.create()
-                .withIssuer(issuer)
-                .withKeyId(keyId)
-                .withAudience(audience)
-                .withClaim("iat", iat)
-                .withClaim("exp", exp);
-            jwt = builder.sign(algorithm);
+            jwt = Jwts.builder().setHeaderParam("kid", keyId).setHeaderParam(Header.TYPE, Header.JWT_TYPE)
+                    .setIssuer(issuer)
+                    .setAudience(audience)
+                    .claim("iat", iat)
+                    .claim("exp", exp)
+                    .signWith(tmpPrivateKey, SignatureAlgorithm.RS256).compact();
             return 0;
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException | JWTCreationException e) {
+        } catch (NoSuchAlgorithmException | InvalidKeyException | InvalidKeySpecException e) {
             BeaconBaseLog.e(TAG, e.getMessage());
             return -1;
         }
@@ -139,6 +140,10 @@ public class ServiceAccountSignInClient {
 
     public String getPrivateKey() {
         return privateKey;
+    }
+
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
     }
 
     public String getJwt() {

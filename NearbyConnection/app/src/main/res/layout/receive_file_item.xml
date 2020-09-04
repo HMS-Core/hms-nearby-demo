@@ -10,7 +10,7 @@
         android:layout_width="240dp"
         android:layout_height="80dp"
         android:layout_alignParentEnd="true"
-        android:background="@color/emui_color_gray_1"
+        android:background="@color/color_gray_1"
         android:padding="10dp">
 
         <TextView
@@ -50,7 +50,7 @@
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:indeterminateTint="@android:color/holo_green_dark"
+            android:indeterminateTint="@color/color_green_dark"
             android:indeterminateTintMode="src_atop"
             android:progress="100" />
 

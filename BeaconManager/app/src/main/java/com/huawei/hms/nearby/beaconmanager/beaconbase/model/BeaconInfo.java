@@ -222,7 +222,7 @@ public class BeaconInfo extends BeaconBaseInfo {
             properties = null;
             return;
         }
-        properties = (HashMap<String, String>) new Gson().fromJson(propertiesStr, HashMap.class);
+        properties = new Gson().fromJson(propertiesStr, HashMap.class);
     }
 
     /**
@@ -305,7 +305,7 @@ public class BeaconInfo extends BeaconBaseInfo {
     public String toString() {
         return String.format(Locale.ENGLISH,
             "BeaconInfo{beaconId:%s, beaconType%d, beaconDesc:%s, placeId:%s, longitude:%s, latitude:%s, "
-                + "indoorLevel:%d, stability:%s, properties:%s, status:%d",
+                + "indoorLevel:%s, stability:%s, properties:%s, status:%d",
             beaconId, beaconType, (beaconDesc == null) ? "NIL" : beaconDesc, (placeId == null) ? "NIL" : placeId,
             longitude, latitude, (indoorLevel == null) ? "NIL" : indoorLevel, stability,
             (propertiesStr == null) ? "NIL" : propertiesStr, status);

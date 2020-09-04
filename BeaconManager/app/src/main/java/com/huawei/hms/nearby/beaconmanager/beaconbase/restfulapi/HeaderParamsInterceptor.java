@@ -40,7 +40,7 @@ public final class HeaderParamsInterceptor implements Interceptor {
 
     private static final int OFFSET = 538309;
 
-    private static final SimpleDateFormat S_DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+    private static final String S_DATE_FORMAT = "yyyyMMddHHmmssSSS";
 
     private String authorization;
 
@@ -60,7 +60,7 @@ public final class HeaderParamsInterceptor implements Interceptor {
         Request original = chain.request();
 
         Request.Builder requestBuilder = original.newBuilder()
-            .addHeader("srcTranID", S_DATE_FORMAT.format(new Date()) + getRandomCode())
+            .addHeader("srcTranID", new SimpleDateFormat(S_DATE_FORMAT).format(new Date()) + getRandomCode())
             .addHeader("timeStamp", String.valueOf(System.currentTimeMillis() / 1000))
             .addHeader("Accept", "application/json");
 

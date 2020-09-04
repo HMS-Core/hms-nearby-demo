@@ -20,6 +20,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -71,6 +72,8 @@ public class MyCardFragment extends Fragment implements Application.ActivityLife
     private static final String TAG = MyCardFragment.class.getSimpleName();
     private static final String DEFAULT_NAMESPACE = "my_card_namespace";
     private static final String DEFAULT_TYPE = "my_card_type";
+    private static final String EXCHANGE_NAMESPACE = "exchange_namespace";
+    private static final String EXCHANGE_TYPE = "exchange_type";
 
     private static final int UNPUBLISH_STATUS = 0;
     private static final int PUBLISH_STATUS = 1;
@@ -261,10 +264,9 @@ public class MyCardFragment extends Fragment implements Application.ActivityLife
 
         mStatus = UNPUBLISH_STATUS;
         activity.getApplication().unregisterActivityLifecycleCallbacks(this);
-        try {
-            mSearchCardDialogFragment.dismiss();
-        } catch (IllegalStateException e) {
-            Log.d(TAG, "Close fail.");
+        Dialog dialog = mSearchCardDialogFragment.getDialog();
+        if (dialog != null) {
+            dialog.cancel();
         }
     }
 
@@ -416,7 +418,7 @@ public class MyCardFragment extends Fragment implements Application.ActivityLife
         unpublish(DEFAULT_NAMESPACE, DEFAULT_TYPE, result -> {
             if (result.isSuccessful()) {
                 mStatus = UNPUBLISH_STATUS;
-                Toast.makeText(getActivity(), "Unublish my card successful.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Unpublish my card successful.", Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -452,49 +454,46 @@ public class MyCardFragment extends Fragment implements Application.ActivityLife
     }
 
     private boolean onExchangeItemSelected() {
-        PinCodeDialogFragment dialogFragment = new PinCodeDialogFragment(passwrod -> {
-            MyCardFragment.this.publish(passwrod, passwrod, Policy.POLICY_TTL_SECONDS_MAX, result -> {
-                if (!result.isSuccessful()) {
-                    String str = "Exchange card fail, because publish my card fail. exception: "
-                            + result.getException().getMessage();
-                    Log.e(TAG, str);
-                    Toast.makeText(getActivity(), str, Toast.LENGTH_LONG).show();
+        publish(EXCHANGE_NAMESPACE, EXCHANGE_TYPE, Policy.POLICY_TTL_SECONDS_MAX, result -> {
+            if (!result.isSuccessful()) {
+                String str = "Exchange card fail, because publish my card fail. exception: "
+                        + result.getException().getMessage();
+                Log.e(TAG, str);
+                Toast.makeText(getActivity(), str, Toast.LENGTH_LONG).show();
+                return;
+            }
+            subscribe(EXCHANGE_NAMESPACE, EXCHANGE_TYPE, Policy.POLICY_TTL_SECONDS_INFINITE, ret -> {
+                if (!ret.isSuccessful()) {
+                    MyCardFragment.this.unpublish(EXCHANGE_NAMESPACE, EXCHANGE_TYPE, task -> {
+                        String str = "Exchange card fail, because subscribe is fail, exception("
+                                + ret.getException().getMessage() + ")";
+                        if (!task.isSuccessful()) {
+                            str = str + " and unpublish fail, exception(" + task.getException().getMessage()
+                                    + ")";
+                        }
+
+                        Log.e(TAG, str);
+                        Toast.makeText(getActivity(), str, Toast.LENGTH_LONG).show();
+                    });
                     return;
                 }
-                MyCardFragment.this.subscribe(passwrod, passwrod, Policy.POLICY_TTL_SECONDS_INFINITE, ret -> {
-                    if (!ret.isSuccessful()) {
-                        MyCardFragment.this.unpublish(passwrod, passwrod, task -> {
-                            String str = "Exchange card fail, because subscribe is fail, exception("
-                                    + ret.getException().getMessage() + ")";
-                            if (!task.isSuccessful()) {
-                                str = str + " and unpublish fail, exception(" + task.getException().getMessage()
-                                        + ")";
-                            }
-
-                            Log.e(TAG, str);
-                            Toast.makeText(getActivity(), str, Toast.LENGTH_LONG).show();
-                        });
-                        return;
-                    }
-                    mSearchCardDialogFragment.setOnCloseListener(() -> {
-                        MyCardFragment.this.unpublish(passwrod, passwrod, task -> {
-                            if (!task.isSuccessful()) {
-                                Toast.makeText(getActivity(), "Unpublish my card fail, exception: "
-                                        + task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        });
-                        MyCardFragment.this.unsubscribe(task -> {
-                            if (!task.isSuccessful()) {
-                                Toast.makeText(getActivity(), "Unsubscribe fail, exception: "
-                                        + task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        });
+                mSearchCardDialogFragment.setOnCloseListener(() -> {
+                    MyCardFragment.this.unpublish(EXCHANGE_NAMESPACE, EXCHANGE_TYPE, task -> {
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(getActivity(), "Unpublish my card fail, exception: "
+                                    + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        }
                     });
-                    mSearchCardDialogFragment.show(getParentFragmentManager(), "Search Card");
-                }, null);
-            });
+                    MyCardFragment.this.unsubscribe(task -> {
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(getActivity(), "Unsubscribe fail, exception: "
+                                    + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                });
+                mSearchCardDialogFragment.show(getParentFragmentManager(), "Search Card");
+            }, null);
         });
-        dialogFragment.show(getParentFragmentManager(), "pin code");
 
         return true;
     }

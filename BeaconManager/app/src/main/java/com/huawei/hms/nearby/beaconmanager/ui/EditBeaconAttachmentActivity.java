@@ -129,12 +129,13 @@ public class EditBeaconAttachmentActivity extends BaseActivity {
         attachmentTypeEt.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                InputMethodManager imm =
-                    (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm != null) {
-                    v.requestFocus();
-                    imm.showSoftInput(v, 0);
+                Object manager = v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (!(manager instanceof InputMethodManager)) {
+                    return false;
                 }
+                InputMethodManager imm = (InputMethodManager) manager;
+                v.requestFocus();
+                imm.showSoftInput(v, 0);
 
                 typeSpinner.performClick();
                 return false;
@@ -159,13 +160,13 @@ public class EditBeaconAttachmentActivity extends BaseActivity {
             }
 
             String type = attachmentTypeEt.getText().toString();
-            if ((type == null) || (type.length() == 0) || (type.length() > Attachment.TYPE_MAX_LEN)) {
+            if ( (type.length() == 0) || (type.length() > Attachment.TYPE_MAX_LEN)) {
                 Toast.makeText(this, "Type should be 1~16B.", Toast.LENGTH_SHORT).show();
                 return false;
             }
 
             String attachmentVal = attachmentValueEt.getText().toString();
-            if ((attachmentVal == null) || (attachmentVal.length() == 0)
+            if ( (attachmentVal.length() == 0)
                 || (attachmentVal.length() > Attachment.VAL_MAX_LEN)) {
                 Toast.makeText(this, "attachment value should be 1~2048B.", Toast.LENGTH_SHORT).show();
                 return false;

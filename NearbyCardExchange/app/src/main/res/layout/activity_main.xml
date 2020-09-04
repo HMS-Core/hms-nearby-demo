@@ -27,6 +27,6 @@
         app:tabRippleColor="@color/tabBackground"
         app:tabMode="fixed"
         app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-        app:tabSelectedTextColor="@android:color/black" />
+        app:tabSelectedTextColor="#ff000000" />
 
 </LinearLayout>

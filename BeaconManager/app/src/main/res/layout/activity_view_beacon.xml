@@ -43,7 +43,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:text="Active"
-                        android:background="@android:color/holo_red_light"
+                        android:background="#ffff4444"
                         android:visibility="invisible" />
                 </RelativeLayout>
 

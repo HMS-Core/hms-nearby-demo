@@ -146,7 +146,10 @@ public class EditCardActivity extends AppCompatActivity {
         }
 
         for (int i = 0; i < mRadioGroup.getChildCount(); ++i) {
-            RadioButton radioButton = (RadioButton) mRadioGroup.getChildAt(i);
+            RadioButton radioButton = null;
+            if (mRadioGroup.getChildAt(i) instanceof RadioButton) {
+                radioButton = (RadioButton) mRadioGroup.getChildAt(i);
+            }
             if (radioButton.getText().equals(mCardInfo.getSex())) {
                 radioButton.setChecked(true);
             }

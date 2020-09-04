@@ -91,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
                             item.setChecked(true);
                             break;
                         }
+                        default:
+                            break;
                     }
                     transaction.commit();
                     return false;
@@ -130,6 +132,8 @@ public class MainActivity extends AppCompatActivity {
                 registeredNearbyBeaconsFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
                 break;
             }
+            default:
+                break;
         }
     }
 
