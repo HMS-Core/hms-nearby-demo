@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SimpleNearbyDemo</string>
+    <string name="error_missing_permissions">Cannot start without required permissions</string>
+    <string name="begin_to_n_chat">Begin to\n chat!</string>
+    <string name="friend_name">Friend\'s name:</string>
+    <string name="my_name">My name: </string>
+    <string name="send">send</string>
+    <string name="input_message_here">Input message here</string>
+    <string name="picture">PICTURE</string>
+    <string name="receivedPicture">RECEIVE</string>
+</resources>

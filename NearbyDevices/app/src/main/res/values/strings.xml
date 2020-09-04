@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">NearbyDevices</string>
+    <string name="warn">Warn</string>
+    <string name="btn_confirm">Confirm</string>
+</resources>
