@@ -16,6 +16,7 @@
 
 package com.huawei.hms.simpleNearbyDemo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,19 +28,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     private static final int FILE_SELECT_CODE = 0;
-
     private NearbyAgent nearbyAgent;
     private Button sendBtn;
     private Button recvBtn;
+    private Activity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main1);
+        setContentView(R.layout.activity_main);
 
         nearbyAgent = new NearbyAgent(this);
         sendBtn = findViewById(R.id.sendBtn);
         recvBtn = findViewById(R.id.recvBtn);
+        mActivity = this;
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +68,12 @@ public class MainActivity extends AppCompatActivity {
                     nearbyAgent.sendFile(uri);
                 }
                 break;
+            case NearbyAgent.REQUEST_CODE_SCAN_ONE:
+                nearbyAgent.onScanResult(data);
+            default:
+                break;
         }
+
         super.onActivityResult(requestCode, resultCode, data);
     }
 
