@@ -41,4 +41,4 @@ To build this demo, please first import the demo to Android Studio (3.X or later
    Android Studio 3.X.
 
 ## License
-Nearby Service Connection sample is licensed under the [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+SimpleNearbyDemo is licensed under the [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
