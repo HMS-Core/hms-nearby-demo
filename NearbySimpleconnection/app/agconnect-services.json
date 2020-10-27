@@ -1,0 +1,12 @@
+{
+	"client":{
+		"cp_id":"260086000046662373",
+		"product_id":"736430079244648098",
+		"client_id":"459280026316047552",
+		"client_secret":"C30E1F267F8B66EDC5E414C7830BE2409DE1E5762C4A3CD8D753C1815BDB7DDD",
+		"app_id":"102963119",
+		"package_name":"com.huawei.hms.simpleNearbyDemo",
+		"api_key":"CgB6e3x95ruUWE4zjj8arPUVMFuF0nLMAGR/cTqVnp0w9HeuQOru4TfEQ9+lHKFK4Vnv618qpJzmNSjzotuEKK1U"
+	},
+	"configuration_version":"1.0"
+}
