@@ -23,7 +23,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -57,6 +56,8 @@ import com.huawei.hms.nearby.transfer.TransferStateUpdate;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -79,13 +80,12 @@ public class NearbyAgent {
     private DiscoveryEngine mDiscoveryEngine = null;
     private String TAG = "Nearby_Agent";
     private String mFileServiceId = "NearbyAgentFileService";
+    private List<File> mFiles = new ArrayList<>();
     private String mRemoteEndpointId;
     private String mRemoteEndpointName;
     private String mEndpointName = android.os.Build.DEVICE;
     private String mScanInfo;
     private String mRcvedFilename = null;
-    private Uri mUri = null;
-    private int mRecvCnt = 0;
     private Bitmap mResultImage;
     private ImageView mBarcodeImage;
     private File mDestFile;
@@ -95,6 +95,7 @@ public class NearbyAgent {
     private long mStartTime = 0;
     private float mSpeed = 60;
     private String mSpeedStr = "60";
+    private boolean isTransfer = false;
 
     public NearbyAgent(Context context) {
         mContext = context;
@@ -110,10 +111,29 @@ public class NearbyAgent {
         mBarcodeImage = ((Activity) mContext).findViewById(R.id.barcode_image);
     }
 
-    public void sendFile(Uri uri) {
+    public void sendFile(File file) {
         init();
-        /* save uri */
-        mUri = uri;
+        mFiles.add(file);
+        sendFilesInner();
+    }
+    public void sendFiles(List<File> files) {
+        init();
+        mFiles = files;
+        sendFilesInner();
+    }
+    public void sendFolder(File folder) {
+        init();
+        File[] subFile = folder.listFiles();
+        for (int i = 0; i < subFile.length; i++) {
+            if (!subFile[i].isDirectory()) {
+                mFiles.add(subFile[i]);
+                Log.d(TAG,"Travel folder: " + subFile[i].getName());
+            }
+        }
+        sendFilesInner();
+    }
+
+    private void sendFilesInner() {
         /* generate bitmap */
         try {
             //Generate the barcode.
@@ -128,6 +148,7 @@ public class NearbyAgent {
         advBuilder.setPolicy(Policy.POLICY_P2P);
         mDiscoveryEngine.startBroadcasting(mEndpointName, mFileServiceId, mConnCbSender, advBuilder.build());
         Log.d(TAG, "Start Broadcasting.");
+
     }
 
     public void receiveFile() {
@@ -139,6 +160,10 @@ public class NearbyAgent {
 
 
     public void onScanResult(Intent data) {
+        if (data == null) {
+            mDescText.setText("Scan Failed.");
+            return;
+        }
         /* save endpoint name */
         HmsScan obj = data.getParcelableExtra(ScanUtil.RESULT);
         mScanInfo = obj.getOriginalValue();
@@ -150,17 +175,29 @@ public class NearbyAgent {
         mDescText.setText("Connecting to " + mScanInfo + "...");
     }
 
-    private void sendFileInner() {
+    private void sendOneFile() {
         Data filenameMsg = null;
         Data filePayload = null;
+
+        isTransfer = true;
+        Log.d(TAG, "Left " + mFiles.size() + " Files to send.");
+        if (mFiles.isEmpty()) {
+            Log.d(TAG, "All Files Done. Disconnect");
+            mDescText.setText("All Files Sent Successfully.");
+            mProgress.setVisibility(View.INVISIBLE);
+            mDiscoveryEngine.disconnectAll();
+            isTransfer = false;
+            return;
+        }
+
         try {
-            ParcelFileDescriptor pfd = mContext.getContentResolver().openFileDescriptor(mUri, "r");
-            filePayload = Data.fromFile(pfd);
+            mFileName = mFiles.get(0).getName();
+            filePayload = Data.fromFile(mFiles.get(0));
+            mFiles.remove(0);
         } catch (FileNotFoundException e) {
             Log.e(TAG, "File not found", e);
             return;
         }
-        mFileName = getFileRealNameFromUri(mContext, mUri);
         filenameMsg = Data.fromBytes(mFileName.getBytes(StandardCharsets.UTF_8));
 
         Log.d(TAG, "Send filename: " + mFileName);
@@ -213,7 +250,7 @@ public class NearbyAgent {
                         Log.d(TAG, "Connection Established. Stop discovery. Start to send file.");
                         mDiscoveryEngine.stopScan();
                         mDiscoveryEngine.stopBroadcasting();
-                        sendFileInner();
+                        sendOneFile();
                         mBarcodeImage.setVisibility(View.INVISIBLE);
                         mDescText.setText("Sending file " + mFileName + " to " + mRemoteEndpointName + ".");
                         mProgress.setVisibility(View.VISIBLE);
@@ -223,6 +260,10 @@ public class NearbyAgent {
                 @Override
                 public void onDisconnected(String endpointId) {
                     Log.d(TAG, "Disconnected.");
+                    if (isTransfer == true) {
+                        mProgress.setVisibility(View.INVISIBLE);
+                        mDescText.setText("Connection lost.");
+                    }
                 }
             };
 
@@ -230,16 +271,18 @@ public class NearbyAgent {
             new DataCallback() {
                 @Override
                 public void onReceived(String endpointId, Data data) {
+                    if (data.getType() == Data.Type.BYTES) {
+                        String msg = new String(data.asBytes(), UTF_8);
+                        if (msg.equals("Receive Success")) {
+                            Log.d(TAG, "Received ACK. Send next.");
+                            sendOneFile();
+                        }
+                    }
                 }
 
                 @Override
                 public void onTransferUpdate(String string, TransferStateUpdate update) {
                     if (update.getStatus() == TransferStateUpdate.Status.TRANSFER_STATE_SUCCESS) {
-                        mRecvCnt++;
-                        if (mRecvCnt == 2) {
-                            mDescText.setText("Transfer success. Speed: " + mSpeedStr + "MB/S.");
-                            mRecvCnt = 0;
-                        }
                     } else if (update.getStatus() == TransferStateUpdate.Status.TRANSFER_STATE_IN_PROGRESS) {
                         showProgressSpeed(update);
                     } else if (update.getStatus() == TransferStateUpdate.Status.TRANSFER_STATE_FAILURE) {
@@ -274,6 +317,10 @@ public class NearbyAgent {
                 @Override
                 public void onDisconnected(String endpointId) {
                     Log.d(TAG, "Disconnected.");
+                    if (isTransfer == true) {
+                        mProgress.setVisibility(View.INVISIBLE);
+                        mDescText.setText("Connection lost.");
+                    }
                 }
             };
 
@@ -285,6 +332,7 @@ public class NearbyAgent {
                         String msg = new String(data.asBytes(), UTF_8);
                         mRcvedFilename = msg;
                         Log.d(TAG, "received filename: " + mRcvedFilename);
+                        isTransfer = true;
                         mDescText.setText("Receiving file " + mRcvedFilename + " from " + mRemoteEndpointName + ".");
                         mProgress.setVisibility(View.VISIBLE);
                     } else if (data.getType() == Data.Type.FILE) {
@@ -301,14 +349,14 @@ public class NearbyAgent {
                 @Override
                 public void onTransferUpdate(String string, TransferStateUpdate update) {
                     if (update.getStatus() == TransferStateUpdate.Status.TRANSFER_STATE_SUCCESS) {
-                        mRecvCnt++;
-                        if (mRecvCnt == 2) {
-                            mDescText.setText("Transfer success. Speed: " + mSpeedStr + "MB/S. \nView the File at /Sdcard/Download/Nearby");
-                            mDiscoveryEngine.disconnectAll();
-                            mRecvCnt = 0;
-                        }
                     } else if (update.getStatus() == TransferStateUpdate.Status.TRANSFER_STATE_IN_PROGRESS) {
                         showProgressSpeed(update);
+                        if (update.getBytesTransferred() == update.getTotalBytes()) {
+                            Log.d(TAG, "File transfer done. Send Ack.");
+                            mDescText.setText("Transfer success. Speed: " + mSpeedStr + "MB/s. \nView the File at /Sdcard/Download/Nearby");
+                            mTransferEngine.sendData(mRemoteEndpointId, Data.fromBytes("Receive Success".getBytes(StandardCharsets.UTF_8)));
+                            isTransfer = false;
+                        }
                     } else if (update.getStatus() == TransferStateUpdate.Status.TRANSFER_STATE_FAILURE) {
                         Log.d(TAG, "Transfer failed.");
                     } else {
@@ -333,7 +381,7 @@ public class NearbyAgent {
             mSpeed = ((float) transferredBytes) / ((float) (curTime - mStartTime)) / 1000;
             java.text.DecimalFormat myformat = new java.text.DecimalFormat("0.00");
             mSpeedStr = myformat.format(mSpeed);
-            mDescText.setText("Transfer in Progress. Speed: " + mSpeedStr + "MB/S.");
+            mDescText.setText("Transfer in Progress. Speed: " + mSpeedStr + "MB/s.");
         }
 
         if (transferredBytes == totalBytes) {
@@ -350,6 +398,7 @@ public class NearbyAgent {
         mDiscoveryEngine.disconnectAll();
         mDiscoveryEngine.stopScan();
         mDiscoveryEngine.stopBroadcasting();
+        mFiles.clear();
     }
 }
 

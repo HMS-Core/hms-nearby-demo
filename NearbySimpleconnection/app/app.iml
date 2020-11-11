@@ -141,12 +141,25 @@
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-runtime:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.interpolator:interpolator:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.constraintlayout:constraintlayout:1.1.3@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.huawei.hms:nearby:4.0.3.301@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.huawei.hms:base:4.0.2.300@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.huawei.agconnect:agconnect-core:1.0.0.300@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.huawei.hmf:tasks:1.3.3.300@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.huawei.hms:network-grs:4.0.2.300@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.huawei.hms:network-common:4.0.2.300@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.huawei.hms:update:2.0.6.300@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.hms:nearby:5.0.2.300@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.hms:base:5.0.0.301@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.hms:availableupdate:5.0.0.301@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.hms:ui:5.0.0.301@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.hms:stats:5.0.0.301@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.hms:device:5.0.0.301@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.hms:log:5.0.0.301@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.hms:scan:1.2.3.300@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.hms:ml-computer-camera-inner:2.0.3.300@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.hms:ml-computer-ha-inner:2.0.3.300@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.hms:update:2.0.6.302@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.hms:network-grs:4.0.18.301@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.hms:network-common:4.0.18.301@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.hms:ml-computer-sdkbase-inner:2.0.3.300@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.hms:ml-computer-agc-inner:2.0.3.300@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.agconnect:agconnect-core:1.4.0.300@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.hmf:tasks:1.4.1.300@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.hms:dynamic-api:1.0.13.303@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.huawei.hms:ml-computer-commonutils-inner:2.0.3.300@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.hedzr:android-file-chooser:v1.2.0-final@aar" level="project" />
   </component>
 </module>
