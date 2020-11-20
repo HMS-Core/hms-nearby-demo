@@ -36,7 +36,8 @@ Note: If you need to develop the Nearby Message service, perform service configu
 (1)To build this demo, please first import the demo in the Android Studio (3.x+).
 (2)Change the value of applicationid in the app-level build.gradle file of the sample project to the package name of your app.
 (3)Then download the file "agconnect-services.json" of the app on AGC, and add the file to the app root directory(\app) of the demo. Please refer to the Chapter [Integrating HMS SDK](https://developer.huawei.com/consumer/en/doc/development/HMS-Guides/nearby-service-integratesdk) of the Development Guide.
-  <img src="process.png">
+
+<img src="process.png">
 
 (4)Prepare two Huawei phones, and install this app by adb command to phones.
 
