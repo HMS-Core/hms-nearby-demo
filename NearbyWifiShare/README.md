@@ -14,6 +14,7 @@ The NearbyWifiShareDemo program demonstrates how to complete an Android app prov
 ## Installation
 1. Configuring app information in appGallery connect.Create an app and enable Nearby Service by referring the [Nearby Service Preparations](https://developer.huawei.com/consumer/en/doc/development/HMS-Guides/nearby-service-preparation).
                                  <img src="process01.png">
+                                 
 (1).Registering as a Developer,register a [HUAWEI account](https://developer.huawei.com/consumer/en/).Before you get started, you will need to register as a HUAWEI developer and complete identity verification on the HUAWEI Developer website. For details, please refer to Register a HUAWEI ID.Before you get started,you will need to register as a HUAWEI developer and complete identity verification on the HUAWEI Developer website. For details, please refer to Register a HUAWEI ID.
 
 (2).Create an app by referring to Creating an AppGallery Connect Project and Adding an App to the Project.
