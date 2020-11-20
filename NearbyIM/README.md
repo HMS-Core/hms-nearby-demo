@@ -33,6 +33,7 @@ Note: If you need to develop the Nearby Message service, perform service configu
   <img src="process03.png">
   
 2.Build the demo.
+
 (1)To build this demo, please first import the demo in the Android Studio (3.x+).
 
 (2)Change the value of applicationid in the app-level build.gradle file of the sample project to the package name of your app.
