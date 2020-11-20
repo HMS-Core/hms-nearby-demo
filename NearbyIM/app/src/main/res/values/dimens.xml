@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="horizontal_margin">15dp</dimen>
+    <dimen name="font_size_l">16sp</dimen>
+    <dimen name="font_size_m">14sp</dimen>
+    <dimen name="font_size_s">12sp</dimen>
+    <dimen name="font_size_ss">10sp</dimen>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_top"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/colorPrimaryDark"
+    android:paddingLeft="@dimen/horizontal_margin"
+    android:paddingRight="@dimen/horizontal_margin">
+
+    <TextView
+        android:id="@+id/tv_actionBarTitle"
+        style="@style/text_wrap_size_l"
+        android:layout_centerVertical="true"
+        android:text="@string/app_name"
+        android:textColor="@color/color_white" />
+
+    <TextView
+        android:id="@+id/tv_userName"
+        style="@style/text_wrap_size_s"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:textColor="@color/color_green" />
+</RelativeLayout>

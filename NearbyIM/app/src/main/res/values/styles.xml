@@ -1,0 +1,33 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="Face2faceActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/color_black</item>
+        <item name="colorPrimaryDark">@color/color_black</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="title">Face to face build group</item>
+        <item name="titleTextColor">@color/color_999</item>
+    </style>
+
+    <!--wrap_content-->
+    <style name="view_wrap_content">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+    <style name="text_wrap_size_m" parent="view_wrap_content">
+        <item name="android:textSize">@dimen/font_size_m</item>
+    </style>
+    <style name="text_wrap_size_l" parent="view_wrap_content">
+        <item name="android:textSize">@dimen/font_size_l</item>
+    </style>
+    <style name="text_wrap_size_s" parent="view_wrap_content">
+        <item name="android:textSize">@dimen/font_size_s</item>
+    </style>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.huawei.hms.nearby.im.ui.NearbyFriendsActivity">
+
+    <include layout="@layout/layout_action_bar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/rl_top">
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/giv_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:src="@drawable/scan" />
+        <TextView
+            android:id="@+id/tv_bein_scan_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/begin_scan_tip" />
+        <TextView
+            android:id="@+id/tv_friend_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/friend_list" />
+        <ListView
+            android:id="@+id/lv_friend_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_scan"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:text="start scan"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/font_size_m"
+        android:background="@drawable/shape_round_primary"
+        android:visibility="gone"/>
+</RelativeLayout>

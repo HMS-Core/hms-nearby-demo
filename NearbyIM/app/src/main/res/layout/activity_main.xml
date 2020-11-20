@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <include layout="@layout/layout_action_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </include>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"/>
+
+    <Button
+        android:id="@+id/btn_nearbyFriends"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        android:backgroundTint="#00CBAD"
+        android:text="@string/nearby_friends"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/font_size_m"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rl_top"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/btn_createGroup"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:textColor="@color/color_white"
+        android:text="@string/face_to_face_build_group"
+        android:textSize="@dimen/font_size_m"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/rl_top"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:textAllCaps="false"
+        android:backgroundTint="#FFA54F"/>
+    <Button
+        android:id="@+id/btn_nearbyFriendsChat"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:textColor="@color/color_white"
+        android:text="@string/chat_with_all_nearby_friends"
+        android:textSize="@dimen/font_size_m"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_nearbyFriends"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:textAllCaps="false"
+        />
+    <Button
+        android:id="@+id/btn_singleChat"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:textColor="@color/color_white"
+        android:text="@string/chat_one_to_one"
+        android:textSize="@dimen/font_size_m"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/btn_nearbyFriends"
+        android:layout_margin="10dp"
+        android:backgroundTint="#00868B"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/btn_getChatRecord"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:text="@string/transfer_chat_history"
+        android:textSize="@dimen/font_size_m"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_nearbyFriendsChat"
+        android:layout_margin="10dp"
+        android:textColor="@color/color_white"
+        android:backgroundTint="@color/color_green"
+        android:textAllCaps="false"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/icon_message_person"
+        android:layout_marginRight="8dp"/>
+
+    <RelativeLayout
+        android:layout_toRightOf="@+id/imageView"
+        android:id="@+id/rl_file_layout"
+        android:layout_width="240dp"
+        android:layout_height="80dp"
+        android:background="@color/color_aaa"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
+
+        <TextView
+            android:id="@+id/tv_fileName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_file_default"
+            android:maxLines="2"
+            android:textSize="@dimen/font_size_s"
+            android:layout_marginLeft="4dp"
+            android:textColor="@color/color_333"
+            android:text="file name" />
+
+        <TextView
+            android:id="@+id/tv_fileSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_fileName"
+            android:layout_toRightOf="@id/iv_file_default"
+            android:textSize="@dimen/font_size_ss"
+            android:textColor="@color/color_666"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:text="file size" />
+
+        <ImageView
+            android:id="@+id/iv_file_default"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/file_default" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_progress"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <ProgressBar
+            android:id="@+id/pb_trans_file"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/color_green_dark"
+            android:indeterminateTintMode="src_atop"
+            android:progress="100" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/view_setName"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:background="@drawable/shape_round_corner_white"
+    android:padding="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:id="@+id/tv_myNameTitle"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:text="My name:"
+        android:textColor="@color/color_333"
+        android:textSize="@dimen/font_size_m"/>
+
+    <TextView
+        android:id="@+id/et_myName"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:maxLength="15"
+        android:gravity="center_vertical"
+        android:layout_toRightOf="@+id/tv_myNameTitle"
+        android:background="@drawable/shape_corner_grey"
+        android:paddingLeft="8dp"/>
+    <TextView
+        android:id="@+id/tv_friendNameTitle"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:text="Friend name:"
+        android:textSize="@dimen/font_size_m"
+        android:textColor="@color/color_333"
+        android:layout_below="@+id/tv_myNameTitle"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:id="@+id/et_friendName"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:maxLength="15"
+        android:layout_toRightOf="@+id/tv_myNameTitle"
+        android:layout_below="@+id/tv_myNameTitle"
+        android:background="@drawable/shape_corner_grey"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="8dp"/>
+    <Button
+        android:id="@+id/btn_setName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="connect"
+        android:background="@drawable/shape_round_corner_primary"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/et_friendName"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/font_size_m">
+    </Button>
+</RelativeLayout>

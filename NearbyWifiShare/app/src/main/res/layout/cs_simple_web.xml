@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nearby_cs_layout_statement"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:layout_gravity="center_horizontal"
+    android:background="#FFFFFFFF"
+    android:orientation="vertical">
+
+    <ProgressBar
+        android:id="@+id/nearby_cs_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:visibility="gone"
+        style="?android:attr/progressBarStyleHorizontal" />
+
+    <RelativeLayout
+        android:id="@+id/nearby_cs_web_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

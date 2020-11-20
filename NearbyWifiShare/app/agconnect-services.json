@@ -1,0 +1,27 @@
+{
+  "agcgw":{
+    "backurl":"connect-drcn.dbankcloud.cn",
+    "url":"connect-drcn.hispace.hicloud.com"
+  },
+  "client":{
+    "cp_id":"260086000071979720",
+    "product_id":"736430079244474351",
+    "client_id":"371601450423288896",
+    "client_secret":"8D2CB03D2E8DD91926780AD58C409850ABF1D7BE9ECACE26AF1C8A2F4A814F76",
+    "app_id":"102291643",
+    "package_name":"com.huawei.hms.nearbywifishare",
+    "api_key":"CV71unemL6eqri0Bl0uDXcEclX+SDWaT4fIQX+DZqx2+DFOaDF950yCNquRpb4SZKDujACa5GneCvAQUONQW7SuWeu8Q"
+  },
+  "service":{
+    "analytics":{
+      "collector_url":"datacollector-drcn.dt.hicloud.com,datacollector-drcn.dt.dbankcloud.cn",
+      "resource_id":"p1",
+      "channel_id":""
+    },
+    "ml":{
+      "mlservice_url":"ml-api-drcn.ai.dbankcloud.com,ml-api-drcn.ai.dbankcloud.cn"
+    }
+  },
+  "region":"CN",
+  "configuration_version":"1.0"
+}

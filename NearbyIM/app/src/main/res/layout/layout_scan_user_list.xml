@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/rl_top"
+    android:id="@+id/viewScan"
+    android:orientation="vertical"
+    android:visibility="visible">
+
+    <TextView
+       android:id="@+id/tv_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:gravity="center"
+        android:textColor="@color/color_333"
+        android:textSize="@dimen/font_size_m"
+        android:text="@string/nearby_connection_scan_users_hint">
+    </TextView>
+    <ListView
+        android:id="@+id/lv_userList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tv_hint"
+        android:divider="@null"
+        android:paddingLeft="@dimen/horizontal_margin"
+        android:paddingRight="@dimen/horizontal_margin"
+        android:scrollbars="none" />
+
+    <Button
+        android:id="@+id/btn_scan"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:text="start scan"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/font_size_m"
+        android:background="@drawable/shape_round_primary"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/view_connectProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/shape_round_corner_white"
+        android:padding="20dp"
+        android:visibility="gone">
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ProgressBar>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="connect.."
+            android:textSize="@dimen/font_size_m">
+        </TextView>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/iv_head"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@mipmap/icon_message_person"
+        android:layout_marginRight="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_size_m"
+        android:textColor="@color/color_333"
+        android:text="lawrunce"
+        android:layout_toRightOf="@+id/iv_head"/>
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_nearby_people_hint"
+        android:textSize="@dimen/font_size_m"
+        android:textColor="@color/color_999"
+        android:layout_toRightOf="@+id/iv_head"
+        android:layout_below="@+id/tv_nickname"/>
+
+</RelativeLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="buttonDangerPressed">#ffd2322d</color>
+    <color name="buttonDangerEdge">#ffd43f3a</color>
+    <color name="buttonDangerDisabled">#a5d9534f</color>
+    <color name="buttonDangerDisabledEdge">#a5d43f3a</color>
+    <color name="buttonDanger">#ffd9534f</color>
+    <color name="textFontWhite">#FFFFFF</color>
+    <color name="color_main_bg">#f6f6f6</color>
+    <color name="color_ddd">#ddd</color>
+    <color name="color_aaa">#aaa</color>
+    <color name="color_999">#999</color>
+    <color name="color_666">#666</color>
+    <color name="color_333">#333</color>
+    <color name="color_black">#000</color>
+    <color name="color_white">#fff</color>
+    <color name="color_green">#00cc66</color>
+    <color name="colorBlue">#3366CC</color>
+    <color name="color_gray_1">#262626</color>
+    <color name="color_green_dark">#ff669900</color>
+</resources>

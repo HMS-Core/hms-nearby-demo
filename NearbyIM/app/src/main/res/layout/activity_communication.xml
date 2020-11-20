@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.GroupChatActivity">
+
+    <include layout="@layout/layout_action_bar"/>
+
+    <ListView
+        android:id="@+id/lv_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#eee"
+        android:divider="@null"
+        android:paddingLeft="@dimen/horizontal_margin"
+        android:paddingRight="@dimen/horizontal_margin"
+        android:scrollbars="none"
+        android:layout_above="@+id/line"
+        android:transcriptMode="alwaysScroll"
+        android:layout_below="@+id/rl_top"/>
+
+    <FrameLayout
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/color_ddd"
+        android:layout_above="@+id/ll_input"/>
+    <LinearLayout
+        android:id="@+id/ll_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/horizontal_margin"
+        android:gravity="center_vertical"
+        android:background="@color/color_main_bg">
+        <EditText
+            android:id="@+id/et_messageSend"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_round_corner_white"
+            android:padding="8dp"/>
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="@string/string_send"
+            android:textSize="@dimen/font_size_m"
+            android:textColor="@color/color_white"
+            android:background="@drawable/shape_round_corner_primary"
+            android:layout_marginLeft="12dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/view_sendProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:background="@drawable/shape_round_corner_white"
+        android:padding="20dp"
+        android:visibility="gone">
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ProgressBar>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发送中.."
+            android:textSize="@dimen/font_size_m">
+        </TextView>
+    </LinearLayout>
+</RelativeLayout>

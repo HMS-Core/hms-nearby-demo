@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/viewChat"
+    android:visibility="gone"
+    android:layout_below="@+id/rl_top">
+    <ListView
+        android:id="@+id/lv_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#eee"
+        android:divider="@null"
+        android:paddingLeft="@dimen/horizontal_margin"
+        android:paddingRight="@dimen/horizontal_margin"
+        android:scrollbars="none"
+        android:layout_above="@+id/line"/>
+
+    <FrameLayout
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/color_ddd"
+        android:layout_above="@+id/ll_input"/>
+
+    <include
+        android:id="@+id/ll_input"
+        layout="@layout/include_message_chat_bottom"/>
+
+    <LinearLayout
+        android:id="@+id/view_sendProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:background="@drawable/shape_round_corner_white"
+        android:padding="20dp"
+        android:visibility="gone">
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ProgressBar>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发送中.."
+            android:textSize="@dimen/font_size_m">
+        </TextView>
+    </LinearLayout>
+</RelativeLayout>
