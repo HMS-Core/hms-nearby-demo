@@ -5,13 +5,13 @@
 
 ## Introduction
 我们提供了示例代码，介绍如何使用Nearby Service的API。工程目录如下：
-1. [BeaconManager](https://github.com/HMS-Core/hms-nearby-demo/tree/master/BeaconManager): 该包中包含一个Android Studio工程，提供了Beacon Management示例。
-2. [NearbyCanteens](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyCanteens): 该包中包含一个Android Studio工程，提供了基于Beacon的消息发布和订阅的示例。
-3. [NearbyCardExchange](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyCardExchange): 该包中包含了一个Android Studio工程，介绍如何使用Message API开发名片交换功能。
-4. [NearbyConnection](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyConnection): 该包中包含一个Android Studio工程，提供了Connection示例。
-5. [NearbyDevices](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyDevices): 该包中包含了一个Android Studio工程，提供了一款既能够使用HMS Nearby Message，又能够兼容第三方移动服务的Message应用。
-6. [NearbyGameSnake](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyGameSnake): 该包中包含一个Android Studio工程，介绍如何使用Connection API开发一个简单的在线贪吃蛇游戏。
-7. [NearbySimpleconnection](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbySimpleconnection): 该包中包含一个Android Studio工程，介绍如何添加两行代码实现文件分享。
+
+1. [NearbyShopping](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyShopping): 该包中包含一个Android Studio工程，提供了Beacon Management示例。
+2. [NearbyWifiShare](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyWifiShare): 该包中包含一个Android Studio工程，展示了如何快速集成Wi-Fi分享功能。
+3. [NearbyIM](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyIM): 该包中包含一个Android Studio工程展示如何使用Message的相关接口，实现近场社交的应用。
+4. [NearbyGameSnake](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyGameSnake): 该包中包含一个Android Studio工程，介绍如何使用Connection API开发一个简单的在线贪吃蛇游戏。
+5. [NearbySimpleconnection](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbySimpleconnection): 该包中包含一个Android Studio工程，介绍如何添加两行代码实现文件分享。
+
 
 ## Precautions
 工程中包含了多个独立的工程。下载代码后，您可以在Android Studio中打开一个工程来构建您的应用，或者将多个应用添加到一个工程中。您不需要为每个应用创建单独的项目，您可以通过打开setting.gradle文件来选择要构建的工程。

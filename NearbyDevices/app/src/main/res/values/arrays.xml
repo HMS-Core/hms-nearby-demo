@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="mode">
-        <item>HMS</item>
-        <item>GMS</item>
-        <item>HMS+GMS</item>
-        <item>GMS+HMS</item>
-    </string-array>
-</resources>
