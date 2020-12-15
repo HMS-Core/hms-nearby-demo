@@ -11,7 +11,10 @@
  * [授权许可](#授权许可)
 
 ## 简介
-本Demo介绍如何使用API管理云上的信标。更多API信息，请参阅[API参考](https://developer.huawei.com/consumer/cn/doc/HMSCore-References/common-interface-0000001050151532).
+本Demo介绍了Nearby Service中基于信标的近距离通信服务功能。
+1.通过蓝牙功能是手机成为一个信标；
+2.通过管理该信标，商店、景区、机场等附近的设备可以订阅包含商品介绍、优惠信息、新闻、通知等信息的信标消息。
+更多API信息，请参阅[API参考](https://developer.huawei.com/consumer/cn/doc/HMSCore-References/common-interface-0000001050151532).
 
 <img src="https://github.com/HMS-Core/hms-nearby-demo/blob/master/BeaconManager/Result_1.jpg" width = 30% height = 30% /> <img src="https://github.com/HMS-Core/hms-nearby-demo/blob/master/BeaconManager/Result_2.jpg" width = 30% height = 30% /> <img src="https://github.com/HMS-Core/hms-nearby-demo/blob/master/BeaconManager/Result_3.jpg" width = 30% height = 30% />
 <img src="https://github.com/HMS-Core/hms-nearby-demo/blob/master/BeaconManager/Result_4.jpg" width = 30% height = 30% /> <img src="https://github.com/HMS-Core/hms-nearby-demo/blob/master/BeaconManager/Result_5.jpg" width = 30% height = 30% />
@@ -25,7 +28,7 @@
 
 2. 创建应用。参考[开发准备](https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/config-agc-0000001050040578)创建应用并开启Nearby Service。
 
-3. 构建App。在Android Studio 3.0及以上版本中导入Demo工程，然后在\app\build.gradle文件中设置MESSAGE_HOST参数。设置MESSAGE_HOST的方法请参见[api-call-process](https://developer.huawei.com/consumer/cn/doc/HMSCore-References/common-interface-0000001050151532)。准备一部华为手机和至少一个蓝牙信标设备，通过adb命令安装编译好的APK。
+3. 构建App。在Android Studio 3.0及以上版本中导入Demo工程，然后在\app\build.gradle文件中设置MESSAGE_HOST参数。设置MESSAGE_HOST的方法请参见[api-call-process](https://developer.huawei.com/consumer/cn/doc/HMSCore-References/common-interface-0000001050151532)。准备两部安装了HMS Core的手机，通过adb命令安装编译好的APK。
 
 * 快速入门
 1. 创建服务账号秘钥，并下载JSON文件。登录[开发者联盟](https://developer.huawei.com/consumer/cn/)，单击“管理中心”，选择“HMS API服务”>“凭证”，选择您创建的App工程。将鼠标移至“创建凭证”，单击“服务账号秘钥”。输入服务账号秘钥信息，然后单击“创建并下载JSON”下载JSON文件。
@@ -34,13 +37,19 @@
 
 3. 准备至少一个蓝牙信标设备。
 
-4. 打开手机App，单击“My Center”，选择JSON文件进行登录。
 
-5. 单击“未注册”，刷新页面，找到蓝牙信标。单击蓝牙信标进行注册，并进行信标附件配置等操作。
+1. 打开A手机App，单击“Merchants”，进入商家界面。
 
-6. 单击“已注册”，查看已注册的蓝牙信标。单击某个蓝牙信标可查看更多信息，并进行信标附件配置等操作。
+2. 单击"Set",为信标配置消息附件。
+> 说明:根据提示依次填写好消息附件相关字段。例如：{“notice”：“HUAWEI P40系列|5G，超感知影像。现已上架本店，地址南京路1024号。”，“name”：“HUAWEI”，“Desc”：“HUAWEI P40系列 超感知影像。华为 | 徕卡 联合设计，麒麟990 5G芯片，超感知徕卡五摄。”，“ImageUrl”：“https://XXX.jpg”}
 
-7. 接下来，就尽情使用App吧。
+3. 打开"Local Soft Beacon"的开关。通知栏提示“软beacon已开启，您的手机成为一个beacon”
+
+4. 您也可以通过单击“Unregistered Beacon nearby”列表中找到的蓝牙信标进行注册，并进行信标附件配置等操作。
+
+5. 您可以单击“Registered Beacon in Your Project”列表中已注册的蓝牙信标。单击某个蓝牙信标可查看更多信息，并进行信标附件配置等操作。
+
+6. 打开B手机App,单击“Consumer”。您就可以体验有趣的消息了！
 
 ## 环境要求
 推荐使用Android Studio 3.0及以上版本。
