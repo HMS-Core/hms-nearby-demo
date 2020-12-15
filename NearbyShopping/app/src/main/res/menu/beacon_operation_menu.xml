@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/update_beacon"
+        android:title="@string/beacon_update"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/activity_beacon"
+        android:title="@string/beacon_activate"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/deactivity_beacon"
+        android:title="@string/beacon_deactivate"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/delete_beacon"
+        android:title="@string/beacon_delete"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/decommission_beacon"
+        android:title="@string/beacon_decommission"
+        app:showAsAction="never" />
+</menu>

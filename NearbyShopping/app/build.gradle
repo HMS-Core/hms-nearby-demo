@@ -1,0 +1,71 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.huawei.agconnect'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "28.0.3"
+    defaultConfig {
+        applicationId "com.wmq.hms.nearby.beaconmanager"
+        minSdkVersion 26
+        targetSdkVersion 29
+        versionCode 1020
+        versionName "1.0.2.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "mode"
+    productFlavors {
+        product {
+            dimension "mode"
+            //China nearby server
+            buildConfigField("String", "MESSAGE_HOST", '"nearby-message-drcn.platform.hicloud.com"')
+            buildConfigField("String", "MESSAGE_PORT", '""')
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    applicationVariants.all { variant ->
+        def buildType = variant.buildType.name
+        def flavorName = getFlavorName()
+        variant.outputs.all { output ->
+            outputFileName = "BeaconManager_" + flavorName + "_" + buildType + "_" + defaultConfig.versionName + ".apk"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.annotation:annotation:1.0.2'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.7.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    implementation 'com.mikesamuel:json-sanitizer:1.2.0'
+    implementation 'com.huawei.hms:awareness:1.0.4.301'
+    implementation 'com.huawei.hms:nearby:5.0.4.301'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    api 'io.jsonwebtoken:jjwt-api:0.11.1'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.1'
+    runtimeOnly('io.jsonwebtoken:jjwt-orgjson:0.11.1') {
+        exclude group: 'org.json', module: 'json'
+    }
+}

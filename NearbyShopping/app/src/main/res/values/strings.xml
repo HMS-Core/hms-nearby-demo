@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">BeaconManager</string>
+    <string name="my_beacons">My Beacons</string>
+    <string name="my_beacons_title">My Beacons</string>
+    <string name="beacon_details">Beacon Details</string>
+    <string name="beacon_set_local_soft">Beacon Configuration</string>
+    <string name="beacon_id">ID</string>
+    <string name="beacon_desc">Beacon Description</string>
+    <string name="beacon_desc_tip">Please describe you beacon for administration</string>
+    <string name="beacon_mobility">Mobility</string>
+    <string name="beacon_properties">Properties</string>
+    <string name="beacon_properties_tip">Please categorise you beacon</string>
+    <string name="beacon_attachments">Beacon Attachments</string>
+    <string name="beacon_configuration_title">Beacon Configuration</string>
+    <string name="beacon_registration_title">Beacon Registration</string>
+    <string name="beacon_update">Update</string>
+    <string name="beacon_activate">Activate</string>
+    <string name="beacon_deactivate">Deactivate</string>
+    <string name="beacon_decommission">Abandon</string>
+    <string name="beacon_delete">Delete</string>
+    <string name="no_beacon_found">No beacon found</string>
+
+    <string name="consumer">Consumer</string>
+    <string name="merchants">Merchants</string>
+    <string name="beacon_phone">Local Soft Beacon</string>
+    <string name="beacon_unregister">Unregistered Beacon nearby</string>
+    <string name="beacon_register">Registered Beacon in Your Project</string>
+    <string name="beacon_choice">Nearby Beacon</string>
+    <string name="beacon_id_details">BeaconId</string>
+    <string name="beacon_status">Status</string>
+    <string name="beacon_set">Set</string>
+    <string name="beacon_submit">Submit</string>
+
+    <string name="search_tip">Searching for nearby stores...</string>
+    <string name="found_tip">Found these stores: </string>
+    <string name="warn">Warn</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="configuration_error">The configuration of APPGallery Connect is wrong. Please reconfigure agconnect-services.json!</string>
+    <string name="permission_error">There is not granted app permission to use Message API!</string>
+    <string name="start_get_beacon_message_success">Start get beacon message success!</string>
+    <string name="start_get_beacon_message_failed">Start get beacon message failed!</string>
+
+    <string name="soft_title">软Beacon</string>
+    <string name="soft_info">软beacon 已开启，您的手机成为一个beacon</string>
+    <string name="soft_close">关闭软beacon</string>
+</resources>
