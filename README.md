@@ -5,7 +5,7 @@ English | [中文](https://github.com/HMS-Core/hms-nearby-demo/blob/master/READM
 
 ## Introduction
  Several samples show how to use the APIs of the Nearby Service. The project directory is as follows:
-1. [NearbyShopping](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyShopping): The package contains an Android Studio project that provides a sample for Beacon Management.
+1. [NearbyStores](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyStores): The package contains an Android Studio project that provides a sample for Beacon Management.
 2. [NearbyWifiShare](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyWifiShare): The package contains a project that demonstrates how to quickly integrate the Wi-Fi sharing function.
 3. [NearbyIM](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyIM): The NearbyIM sample contains a project that demonstrates how to develop a nearby social networking app using Message APIs.
 4. [NearbyGameSnake](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyGameSnake): The package contains an Android Studio project that demonstrates how to develop a simple online Snake game using Connection APIs.
