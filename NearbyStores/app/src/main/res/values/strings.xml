@@ -8,6 +8,7 @@
     <string name="beacon_desc">Beacon Description</string>
     <string name="beacon_desc_tip">Please describe you beacon for administration</string>
     <string name="beacon_mobility">Mobility</string>
+    <string name="beacon_power">Power</string>
     <string name="beacon_properties">Properties</string>
     <string name="beacon_properties_tip">Please categorise you beacon</string>
     <string name="beacon_attachments">Beacon Attachments</string>

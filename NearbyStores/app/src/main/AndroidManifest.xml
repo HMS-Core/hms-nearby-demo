@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wmq.hms.nearby.beaconmanager">
+    package="com.huawei.hms.nearby.stores">
 
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -26,22 +26,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.wmq.hms.nearby.beaconmanager.ui.CanteenActivity"
+            android:name="com.huawei.hms.nearby.stores.ui.CanteenActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name="com.wmq.hms.nearby.beaconmanager.ui.MerchantsActivity"
+            android:name="com.huawei.hms.nearby.stores.ui.MerchantsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name="com.wmq.hms.nearby.beaconmanager.ui.ViewBeaconActivity"
+            android:name="com.huawei.hms.nearby.stores.ui.ViewBeaconActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name="com.wmq.hms.nearby.beaconmanager.ui.EditBeaconActivity"
+            android:name="com.huawei.hms.nearby.stores.ui.EditBeaconActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name="com.wmq.hms.nearby.beaconmanager.ui.MainActivity"
+            android:name="com.huawei.hms.nearby.stores.ui.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name="com.wmq.hms.nearby.beaconmanager.ui.SplashActivity"
+            android:name="com.huawei.hms.nearby.stores.ui.SplashActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/SplashTheme">
             <intent-filter>

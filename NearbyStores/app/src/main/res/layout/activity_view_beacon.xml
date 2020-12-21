@@ -104,6 +104,57 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:visibility="gone">
+                    <!-- power -->
+                    <LinearLayout
+                        android:id="@+id/iv_beacon_power_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/iv_beacon_power"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:src="@mipmap/btn_rating_star_on_pressed_holo_dark" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@id/iv_beacon_power"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tv_beacon_power_title"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/beacon_power"
+                                    android:textSize="10sp" />
+
+                                <Spinner
+                                    android:id="@+id/sp_beacon_power_spinner"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="@dimen/drawable_padding"
+                            android:layout_marginBottom="@dimen/drawable_padding"
+                            android:background="@color/colorPrimary" />
+                    </LinearLayout>
                     <!-- description -->
                     <LinearLayout
                         android:id="@+id/iv_beacon_desc_group"
@@ -411,7 +462,7 @@
                                 </RelativeLayout>
 
                                 <!-- all properties -->
-                                <com.wmq.hms.nearby.beaconmanager.ui.ExpandListView
+                                <com.huawei.hms.nearby.stores.ui.ExpandListView
                                     android:id="@+id/lv_beacon_properties"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent" />

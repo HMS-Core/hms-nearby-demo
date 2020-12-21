@@ -19,7 +19,7 @@
             android:scaleType="centerCrop"
             android:src="@mipmap/notice" />
 
-        <com.wmq.hms.nearby.beaconmanager.canteen.FocusTextView
+        <com.huawei.hms.nearby.stores.canteen.FocusTextView
             android:id="@+id/tv_discount_des"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
