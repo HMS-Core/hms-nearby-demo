@@ -9,6 +9,7 @@ English | [中文](https://github.com/HMS-Core/hms-nearby-demo/blob/master/Nearb
  * [Environment Requirements](#Environment Requirements)
  * [License](#License)
 
+
 ## Overview
 This demo shows how beacon-based message publishing and subscription work in Nearby Service.
 1. It includes demos for both the consumer and merchant, which can be switched as needed after the app is started.
