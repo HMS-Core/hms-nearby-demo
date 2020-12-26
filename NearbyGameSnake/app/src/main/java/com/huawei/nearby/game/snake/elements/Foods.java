@@ -56,8 +56,8 @@ public class Foods {
      */
     public Integer generateHelper(List<Integer> exclude) {
         Integer randomInt = Integer.valueOf(random.nextInt(HEIGHT * WIDTH - exclude.size()));
-        for (Integer e : exclude) {
-            if (randomInt.compareTo(e) < 0) {
+        for (Integer num : exclude) {
+            if (randomInt.compareTo(num) < 0) {
                 break;
             }
             randomInt += 1;
@@ -75,8 +75,8 @@ public class Foods {
             exclude.add(Utils.positionFromXy(0, i));
             exclude.add(Utils.positionFromXy(Constants.WIDTH - 1, i));
         }
-        for (Snake s : snakes) {
-            List<Integer> coords = s.getCoordinates();
+        for (Snake snake : snakes) {
+            List<Integer> coords = snake.getCoordinates();
             for (int i = 0; i < coords.size(); i += 2) {
                 exclude.add(Utils.positionFromXy(coords.get(i), coords.get(i + 1)));
             }

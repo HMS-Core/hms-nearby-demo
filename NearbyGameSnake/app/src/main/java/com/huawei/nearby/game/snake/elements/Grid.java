@@ -78,35 +78,39 @@ public class Grid {
             if (!snakes.get(i).isDead()) {
                 count += 1;
             }
-            positions = snakes.get(i).getLinearPositions();
-            boolean dead = snakes.get(i).isDead();
-            if (i != playerIndex) {
-                if (!dead) {
-                    for (int j = 0; j < positions.size(); ++j) {
-                        blockArr[positions.get(j)] |= Block.SNAKE_BODY.mask;
-                    }
-                } else {
-                    for (int j = 0; j < positions.size(); ++j) {
-                        blockArr[positions.get(j)] |= Block.DEAD_SNAKE_BODY.mask;
-                    }
-                }
-            } else {
-                if (!dead) {
-                    for (int j = 0; j < positions.size(); ++j) {
-                        blockArr[positions.get(j)] |= Block.PLAYER_SNAKE_BODY.mask;
-                    }
-                } else {
-                    for (int j = 0; j < positions.size(); ++j) {
-                        blockArr[positions.get(j)] |= Block.DEAD_PLAYER_SNAKE_BODY.mask;
-                    }
-                }
-            }
+            update(i,playerIndex);
         }
         aliveCount = count;
     }
 
-    public boolean checkCoordinate(int x, int y, Block blockType) {
-        return (blockArr[Utils.positionFromXy(x, y)] & blockType.mask) > 0;
+    private void update(int i, int playerIndex) {
+        List<Integer> positions = snakes.get(i).getLinearPositions();
+        boolean dead = snakes.get(i).isDead();
+        if (i != playerIndex) {
+            if (!dead) {
+                for (int j = 0; j < positions.size(); ++j) {
+                    blockArr[positions.get(j)] |= Block.SNAKE_BODY.mask;
+                }
+            } else {
+                for (int j = 0; j < positions.size(); ++j) {
+                    blockArr[positions.get(j)] |= Block.DEAD_SNAKE_BODY.mask;
+                }
+            }
+        } else {
+            if (!dead) {
+                for (int j = 0; j < positions.size(); ++j) {
+                    blockArr[positions.get(j)] |= Block.PLAYER_SNAKE_BODY.mask;
+                }
+            } else {
+                for (int j = 0; j < positions.size(); ++j) {
+                    blockArr[positions.get(j)] |= Block.DEAD_PLAYER_SNAKE_BODY.mask;
+                }
+            }
+        }
+    }
+
+    public boolean checkCoordinate(int numX, int numY, Block blockType) {
+        return (blockArr[Utils.positionFromXy(numX, numY)] & blockType.mask) > 0;
     }
 
     public boolean isSnakeDead(int index) {

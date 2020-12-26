@@ -18,6 +18,7 @@ package com.huawei.nearby.game.snake.states.client;
 
 import android.util.Log;
 
+import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -216,7 +217,9 @@ public class MainGameState extends GameState {
 
         Gdx.graphics.setContinuousRendering(false);
 
-        float w = Gdx.graphics.getWidth(), h = Gdx.graphics.getHeight(), ratio = w / h;
+        float width = Gdx.graphics.getWidth();
+        float height = Gdx.graphics.getHeight();
+        float ratio = width / height;
         camera = new OrthographicCamera();
         if (ratio >= GRID_RATIO) {
             // Black bars on both sides
@@ -235,8 +238,8 @@ public class MainGameState extends GameState {
         stage.setViewport(new ScreenViewport(stage.getCamera()));
         window = new VisWindow(" ", false);
         window.setColor(0, 1f, 0, 0.64f);
-        window.setSize(w * 0.9f, h * 0.3f);
-        window.setPosition((w - window.getWidth()) / 2f, (h - window.getHeight()) / 2f);
+        window.setSize(width * 0.9f, height * 0.3f);
+        window.setPosition((width - window.getWidth()) / 2f, (height - window.getHeight()) / 2f);
 
         table = new VisTable(true);
         window.add(table).row();
@@ -246,8 +249,8 @@ public class MainGameState extends GameState {
         stage.setViewport(new ScreenViewport(stage.getCamera()));
         lagWindow = new VisWindow("Lag:", false);
         lagWindow.setColor(0, 1f, 0, 0.64f);
-        lagWindow.setSize(w * 0.1f, h * 0.1f);
-        lagWindow.setPosition((w - lagWindow.getWidth()), (h - lagWindow.getHeight()));
+        lagWindow.setSize(width * 0.1f, height * 0.1f);
+        lagWindow.setPosition((width - lagWindow.getWidth()), (height - lagWindow.getHeight()));
         lagTable = new VisTable(true);
         lagLabel = new VisLabel("999 ms");
         lagTable.add(lagLabel).row();
@@ -273,7 +276,7 @@ public class MainGameState extends GameState {
                     long curMillis = System.currentTimeMillis();
                     if (curMillis - lastDetectTime > 180) {
                         String str = "ClientLagDetection" + lagDetectSeq;
-                        _app.getAgent().send(str.getBytes());
+                        _app.getAgent().send(str.getBytes(Charset.defaultCharset()));
                         _app.getAgent().setLagDetectionStartTime(str, curMillis);
                         lagDetectSeq++;
                         lastDetectTime = curMillis;

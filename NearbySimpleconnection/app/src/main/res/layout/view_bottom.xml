@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomLayout"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:weightSum="3"
+    android:background="@color/colorLightGray"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/id_tab1_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/id_tab1_imageview"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@null"
+            android:gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/file_sharing_logo" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/id_tab2_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/id_tab2_imageview"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@null"
+            android:gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/multi_files_sharing_logo" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/id_tab3_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/id_tab3_imageview"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@null"
+            android:gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/folder_sharing_logo" />
+    </LinearLayout>
+
+</LinearLayout>

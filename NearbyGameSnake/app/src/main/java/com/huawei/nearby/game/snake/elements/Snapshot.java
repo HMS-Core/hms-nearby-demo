@@ -53,22 +53,24 @@ public abstract class Snapshot {
         SortedMap<Integer, Integer> positions = new TreeMap<Integer, Integer>();
         boolean result = false;
         for (int i = 0; i < snakes.size(); ++i) {
-            if (!snakes.get(i).isDead()) {
-                List<Integer> coordinates = snakes.get(i).getCoordinates();
-                for (int j = 0; j < coordinates.size(); j += 2) {
-                    Integer position = Utils.positionFromXy(coordinates.get(j), coordinates.get(j + 1));
-                    Integer count = positions.get(position);
-                    if (count != null) {
-                        positions.put(position, count + 1);
-                    } else {
-                        positions.put(position, 1);
-                    }
+            if (snakes.get(i).isDead()) {
+                continue;
+            }
+            List<Integer> coordinates = snakes.get(i).getCoordinates();
+            for (int j = 0; j < coordinates.size(); j += 2) {
+                Integer position = Utils.positionFromXy(coordinates.get(j), coordinates.get(j + 1));
+                Integer count = positions.get(position);
+                if (count != null) {
+                    positions.put(position, count + 1);
+                } else {
+                    positions.put(position, 1);
                 }
             }
         }
         for (int i = 0; i < snakes.size(); ++i) {
             if (!snakes.get(i).isDead()) {
-                int headX = snakes.get(i).getHeadX(), headY = snakes.get(i).getHeadY();
+                int headX = snakes.get(i).getHeadX();
+                int headY = snakes.get(i).getHeadY();
                 if (headX <= 0 || headX >= Constants.WIDTH - 1 || headY <= 0 || headY >= Constants.HEIGHT - 1) {
                     snakes.get(i).die();
                     result = true;

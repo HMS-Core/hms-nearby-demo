@@ -27,7 +27,7 @@ import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisTable;
 
 public class IntroductionState extends GameState {
-   private final Stage stage;
+    private final Stage stage;
 
     private final VisTable table;
 
@@ -40,8 +40,8 @@ public class IntroductionState extends GameState {
         table.setFillParent(true);
         stage.addActor(table);
 
-        VisImage Introduction = new VisImage(AssetManager.INSTANCE.INTRO_DETAIL);
-        table.add(Introduction).padTop(10).row();
+        VisImage introduction = new VisImage(AssetManager.INSTANCE.INTRO_DETAIL);
+        table.add(introduction).padTop(10).row();
 
         VisImage btnToTitleScreenImg = new VisImage(AssetManager.INSTANCE.BACK_TO_MAIN);
         btnToTitleScreenImg.addListener(new ClickListener() {

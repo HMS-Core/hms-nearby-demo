@@ -20,6 +20,7 @@ import com.huawei.nearby.game.snake.helpers.Constants;
 import com.huawei.nearby.game.snake.protobuf.generated.ClientPacket;
 
 import java.util.Comparator;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class Input implements Comparable<Input> {
@@ -31,7 +32,7 @@ public class Input implements Comparable<Input> {
 
     public final int step;
 
-    public static final Comparator<Input> comparator = new InputComparator();
+    public static final Comparator<Input> COMPARATOR = new InputComparator();
 
     private static long STEP_LENGTH = TimeUnit.MILLISECONDS.toNanos(Constants.MOVE_EVERY_MS);
 
@@ -88,13 +89,13 @@ public class Input implements Comparable<Input> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null) {
+    public boolean equals(Object object) {
+        if (object == null) {
             return false;
-        } else if (this == o) {
+        } else if (this == object) {
             return true;
-        } else if (o instanceof Input) {
-            return this.id == ((Input) o).id;
+        } else if (object instanceof Input) {
+            return this.id == ((Input) object).id;
         } else {
             return false;
         }
@@ -102,7 +103,7 @@ public class Input implements Comparable<Input> {
 
     @Override
     public String toString() {
-        String str = String.format("Input: ID %d, direction %d, step %d", id, direction, step);
+        String str = String.format(Locale.ENGLISH, "Input: ID %d, direction %d, step %d", id, direction, step);
         return str;
     }
 }

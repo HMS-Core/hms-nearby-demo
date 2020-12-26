@@ -16,7 +16,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 package com.huawei.nearby.game.snake.agents;
 
-import com.esotericsoftware.kryonet.Listener;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.huawei.nearby.game.snake.protobuf.generated.ClientPacket;
 import com.huawei.nearby.game.snake.protobuf.generated.ServerPacket;
@@ -24,9 +23,9 @@ import com.huawei.nearby.game.snake.protobuf.generated.ServerPacket;
 import java.io.IOException;
 
 public abstract class IAgent {
-    public abstract void broadcast(Listener listener) throws IOException;
+    public abstract void broadcast() throws IOException;
 
-    public abstract void lookForServer(Listener listener, Runnable errorCallback);
+    public abstract void lookForServer(Runnable errorCallback);
 
     public abstract void send(byte[] packet);
 

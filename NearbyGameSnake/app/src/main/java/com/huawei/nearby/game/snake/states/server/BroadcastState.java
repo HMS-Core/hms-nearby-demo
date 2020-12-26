@@ -21,7 +21,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.esotericsoftware.kryonet.Listener;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -92,8 +91,8 @@ public class BroadcastState extends GameState {
         btnStart = new VisTextButton("\n        GO!        \n");
         btnStart.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
+            public void clicked(InputEvent event, float posX, float posY) {
+                super.clicked(event, posX, posY);
                 Gdx.app.debug(TAG, "START GAME button clicked");
                 synchronized (connectionIdsLock) {
                     if (connectionIds.size() > 0) {
@@ -132,7 +131,7 @@ public class BroadcastState extends GameState {
 
         // Start broadcasting
         try {
-            _app.getAgent().broadcast(new Listener());
+            _app.getAgent().broadcast();
             success.set(true);
         } catch (IOException e) {
             Gdx.app.error(TAG, e.getMessage());

@@ -22,10 +22,14 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.kotcrab.vis.ui.widget.*;
 import com.huawei.nearby.game.snake.App;
 import com.huawei.nearby.game.snake.helpers.AssetManager;
 import com.huawei.nearby.game.snake.helpers.Constants;
+import com.kotcrab.vis.ui.widget.LinkLabel;
+import com.kotcrab.vis.ui.widget.VisImage;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 
 import java.util.Locale;
 
@@ -36,9 +40,14 @@ public class InfoState extends GameState {
 
     private final VisImage imgTitle;
 
-    private final VisLabel lblGameInfo, lblAcknowledgements, lblModifyInfo;
+    private final VisLabel lblGameInfo;
+    private final VisLabel lblAcknowledgements;
+    private final VisLabel lblModifyInfo;
 
-    private final LinkLabel lkGitHub, lkLibGdx, lkKryonet, lkProtoBuf, lkNearby;
+    private final LinkLabel lkGitHub;
+    private final LinkLabel lkLibGdx;
+    private final LinkLabel lkProtoBuf;
+    private final LinkLabel lkNearby;
 
     private VisTextButton btnToTitleScreen;
 
@@ -64,9 +73,7 @@ public class InfoState extends GameState {
         table.add(lblAcknowledgements).row();
         lkLibGdx = new LinkLabel("libGDX - APLv2", "http://www.apache.org/licenses/LICENSE-2.0.html");
         table.add(lkLibGdx).row();
-        lkKryonet = new LinkLabel("Kryonet - Copyright 2008 Nathan Sweet - BSD-3-Clause",
-            "https://github.com/EsotericSoftware/kryonet/blob/master/license.txt");
-        table.add(lkKryonet).row();
+
         lkProtoBuf = new LinkLabel("Protobuf - Copyright 2008 Google Inc. - BSD-3-Clause",
             "https://github.com/google/protobuf/blob/master/LICENSE");
         table.add(lkProtoBuf).row();

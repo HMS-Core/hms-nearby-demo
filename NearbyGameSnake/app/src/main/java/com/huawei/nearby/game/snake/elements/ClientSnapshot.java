@@ -38,7 +38,7 @@ public class ClientSnapshot extends Snapshot {
 
     private final int clientId;
 
-    public static long SNAKE_MOVE_EVERY_NS = TimeUnit.MILLISECONDS.toNanos(Constants.MOVE_EVERY_MS);
+    public long SNAKE_MOVE_EVERY_NS = TimeUnit.MILLISECONDS.toNanos(Constants.MOVE_EVERY_MS);
 
     private final AtomicInteger serverUpdateVersion;
 
@@ -68,8 +68,6 @@ public class ClientSnapshot extends Snapshot {
         this.serverUpdateVersion = new AtomicInteger(initialUpdate.getVersion());
         this.nextRenderTime = new AtomicLong(0);
         this.startTimestamp = initialUpdateNanoTime - initialUpdate.getTimestamp();
-
-        Gdx.app.debug(TAG, String.format("startTimestamp: %,d", startTimestamp));
 
         List<ServerPacket.Update.PSnake> pSnakes = initialUpdate.getSnakesList();
         List<Snake> snakes = new ArrayList<Snake>(pSnakes.size());
@@ -149,44 +147,48 @@ public class ClientSnapshot extends Snapshot {
     public Grid getGrid() {
         SNAKE_MOVE_EVERY_NS = TimeUnit.MILLISECONDS.toNanos(Constants.MOVE_EVERY_MS);
         long currentTime = Utils.getNanoTime() - startTimestamp;
-        int currentStep = (int) (currentTime / SNAKE_MOVE_EVERY_NS);
-
         List<Snake> resultSnakes;
         Foods resultFoods;
+
         synchronized (lock) {
             resultSnakes = new ArrayList<Snake>(snakes.size());
             for (int i = 0; i < snakes.size(); ++i) {
                 resultSnakes.add(new Snake(snakes.get(i)));
             }
             resultFoods = new Foods(foods);
-
-            int stateStep = (int) (stateTime / SNAKE_MOVE_EVERY_NS);
-            int stepDiff = currentStep - stateStep;
-
-            int inputIndex = 0;
-            for (int i = 0; i <= stepDiff; ++i) {
-                long upper = (i == stepDiff ? currentTime : SNAKE_MOVE_EVERY_NS * (stateStep + i + 1));
-                for (int j = 0; j < resultSnakes.size(); ++j) {
-                    Snake currSnake = resultSnakes.get(j);
-                    if (currSnake.isDead())
-                        continue;
-                    if (j == clientId) {
-                        Input tmpInput;
-                        while (unackInputs.size() > inputIndex
-                            && (tmpInput = unackInputs.get(inputIndex)).timestamp < upper) {
-                            currSnake.handleInput(tmpInput);
-                            inputIndex += 1;
-                        }
-                    }
-                    if (i != stepDiff) {
-                        currSnake.forward();
-                        resultFoods.consumedBy(currSnake);
-                    }
-                }
-            }
-
-            nextRenderTime.set(SNAKE_MOVE_EVERY_NS * (currentStep + 1));
+            getGridInner(currentTime, resultSnakes, resultFoods);
         }
         return new Grid(Utils.getNanoTime(), resultSnakes, clientId, resultFoods);
     }
+
+    private void getGridInner(long currentTime, List<Snake> resultSnakes, Foods resultFoods) {
+        int currentStep = (int) (currentTime / SNAKE_MOVE_EVERY_NS);
+        int stateStep = (int) (stateTime / SNAKE_MOVE_EVERY_NS);
+        int stepDiff = currentStep - stateStep;
+
+        int inputIndex = 0;
+        for (int i = 0; i <= stepDiff; ++i) {
+            long upper = (i == stepDiff ? currentTime : SNAKE_MOVE_EVERY_NS * (stateStep + i + 1));
+            for (int j = 0; j < resultSnakes.size(); ++j) {
+                Snake currSnake = resultSnakes.get(j);
+                if (currSnake.isDead()) {
+                    continue;
+                }
+                if (j == clientId) {
+                    Input tmpInput;
+                    while (unackInputs.size() > inputIndex
+                            && (tmpInput = unackInputs.get(inputIndex)).timestamp < upper) {
+                        currSnake.handleInput(tmpInput);
+                        inputIndex += 1;
+                    }
+                }
+                if (i != stepDiff) {
+                    currSnake.forward();
+                    resultFoods.consumedBy(currSnake);
+                }
+            }
+            nextRenderTime.set(SNAKE_MOVE_EVERY_NS * (currentStep + 1));
+        }
+    }
+
 }

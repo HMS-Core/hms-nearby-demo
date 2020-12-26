@@ -18,9 +18,9 @@ package com.huawei.nearby.game.snake.agents;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
-import com.esotericsoftware.kryonet.Listener;
 import com.huawei.hms.nearby.StatusCode;
 import com.huawei.hms.nearby.discovery.BroadcastOption;
 import com.huawei.hms.nearby.discovery.ConnectCallback;
@@ -68,7 +68,7 @@ public class Server extends IAgent {
     }
 
     @Override
-    public void broadcast(Listener listener) throws IOException {
+    public void broadcast() throws IOException {
         Log.d(TAG, "Start Nearby broadcast.");
         try {
             doStartBroadcast();
@@ -78,7 +78,7 @@ public class Server extends IAgent {
     }
 
     @Override
-    public void lookForServer(Listener listener, Runnable errorCallback) {
+    public void lookForServer(Runnable errorCallback) {
 
     }
 
@@ -114,31 +114,21 @@ public class Server extends IAgent {
     /* Client Connected. Change UI */
     private void clientConnected(String endpointId) {
         GameState state = _app.getCurState();
-        if (state instanceof BroadcastState) {
-            BroadcastState broadcastState = (BroadcastState) state;
-            synchronized (broadcastState.connectionIdsLock) {
-                String remoteEndpointName = remoteIdNameMap.get(endpointId);
-                broadcastState.connectionIds.add(Integer.valueOf(remoteEndpointName));
-                if (broadcastState.connectionIds.size() == 0) {
-                    broadcastState.btnStart.setDisabled(true);
-                    broadcastState.lblPlayerCount.setText("0");
-                } else {
-
-                    broadcastState.lblPlayerCount.setText(
-                        String.format(broadcastState.PLAYERS_CONNECTED_FORMAT, broadcastState.connectionIds.size()));
-                    for (int i = 5; i > 0; i--) {
-                        String str = "1 other Snake has joined the game.\nYou can start game after " + i + " seconds.";
-                        broadcastState.btnStart.setText(String.format("\n          %d         \n", i));
-                        Log.d(TAG, str);
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    broadcastState.btnStart.setText("\n        GO!        \n");
-                    broadcastState.btnStart.setDisabled(false);
-                }
+        if (!(state instanceof BroadcastState)) {
+            return;
+        }
+        BroadcastState broadcastState = (BroadcastState) state;
+        synchronized (broadcastState.connectionIdsLock) {
+            String remoteEndpointName = remoteIdNameMap.get(endpointId);
+            broadcastState.connectionIds.add(Integer.valueOf(remoteEndpointName));
+            if (broadcastState.connectionIds.size() == 0) {
+                broadcastState.btnStart.setDisabled(true);
+                broadcastState.lblPlayerCount.setText("0");
+            } else {
+                broadcastState.lblPlayerCount.setText(
+                        String.format(Locale.ENGLISH, broadcastState.PLAYERS_CONNECTED_FORMAT, broadcastState.connectionIds.size()));
+                broadcastState.btnStart.setText("\n        GO!        \n");
+                broadcastState.btnStart.setDisabled(false);
             }
         }
     }
@@ -159,7 +149,7 @@ public class Server extends IAgent {
                     Log.d(TAG, broadcastState.connectionIds.size() + " snakes left after disconnect");
                     broadcastState.btnStart.setDisabled(false);
                     broadcastState.lblPlayerCount.setText(
-                        String.format(broadcastState.PLAYERS_CONNECTED_FORMAT, broadcastState.connectionIds.size()));
+                        String.format(Locale.ENGLISH, broadcastState.PLAYERS_CONNECTED_FORMAT, broadcastState.connectionIds.size()));
                 }
             }
         } else if (state instanceof SVMainGameState) {

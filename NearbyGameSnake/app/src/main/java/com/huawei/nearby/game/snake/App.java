@@ -22,7 +22,6 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Align;
-import com.esotericsoftware.minlog.Log;
 import com.huawei.hms.nearby.Nearby;
 import com.huawei.hms.nearby.discovery.DiscoveryEngine;
 import com.huawei.hms.nearby.transfer.TransferEngine;
@@ -61,7 +60,6 @@ public class App extends Game {
     @Override
     public void create() {
         Gdx.app.setLogLevel(Application.LOG_NONE);
-        Log.set(Log.LEVEL_NONE);
         VisUI.load(VisUI.SkinScale.X2);
         VisUI.setDefaultTitleAlign(Align.center);
 

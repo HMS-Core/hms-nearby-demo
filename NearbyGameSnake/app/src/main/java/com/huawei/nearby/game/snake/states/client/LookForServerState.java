@@ -22,7 +22,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.esotericsoftware.kryonet.Listener;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -76,7 +75,7 @@ public class LookForServerState extends GameState {
 
         gameStarted = new AtomicBoolean(false);
 
-        _app.getAgent().lookForServer(new Listener(), new Runnable() {
+        _app.getAgent().lookForServer(new Runnable() {
             @Override
             public void run() {
                 _app.gotoErrorScreen("Having trouble finding a host\nIs there someone hosting?\n");

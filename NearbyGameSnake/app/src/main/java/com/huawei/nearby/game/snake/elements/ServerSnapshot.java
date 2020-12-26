@@ -36,7 +36,7 @@ public class ServerSnapshot extends Snapshot {
 
     private final int serverId;
 
-    public static long SNAKE_MOVE_EVERY_NS = TimeUnit.MILLISECONDS.toNanos(Constants.MOVE_EVERY_MS);
+    public long SNAKE_MOVE_EVERY_NS = TimeUnit.MILLISECONDS.toNanos(Constants.MOVE_EVERY_MS);
 
     private static final long LAG_TOLERANCE_NS = TimeUnit.MILLISECONDS.toNanos(Constants.LAG_TOLERANCE_MS);
 
@@ -59,7 +59,6 @@ public class ServerSnapshot extends Snapshot {
 
     public ServerSnapshot(long startTimestamp, int[] snakeIds) {
         this.startTimestamp = startTimestamp;
-        Gdx.app.debug(TAG, String.format("startTimestamp: %,d", startTimestamp));
         serverId = 0;
         lock = new Object();
         stateTime = 0;
@@ -88,7 +87,7 @@ public class ServerSnapshot extends Snapshot {
             } else {
                 snakes.add(Snake.ghostSnake(i));
             }
-            inputBuffers.add(new TreeSet<Input>(Input.comparator));
+            inputBuffers.add(new TreeSet<Input>(Input.COMPARATOR));
         }
         foods.generate(snakes);
     }
@@ -162,27 +161,7 @@ public class ServerSnapshot extends Snapshot {
             int stateStep = (int) (stateTime / SNAKE_MOVE_EVERY_NS);
             int stepDiff = updatedStateStep - stateStep;
             // Update the game state
-            for (int i = 0; i <= stepDiff; ++i) {
-                for (int j = 0; j < snakes.size(); ++j) {
-                    Snake currSnake = snakes.get(j);
-                    if (currSnake.isDead())
-                        continue;
-                    Input tmpInput;
-                    long upper = (i == stepDiff ? updatedStateTime : SNAKE_MOVE_EVERY_NS * (stateStep + i + 1));
-                    while (!inputBuffers.get(j).isEmpty()
-                        && (tmpInput = inputBuffers.get(j).first()).timestamp < upper) {
-                        currSnake.handleInput(tmpInput);
-                        inputBuffers.get(j).remove(tmpInput);
-                    }
-                    if (i != stepDiff) {
-                        currSnake.forward();
-                        foods.consumedBy(currSnake);
-                        if (collisionDetection(snakes)) {
-                            version += 1;
-                        }
-                    }
-                }
-            }
+            updateGameState(stepDiff, stateStep, updatedStateTime);
 
             if (foods.shouldGenerate()) {
                 foods.generate(snakes);
@@ -205,8 +184,9 @@ public class ServerSnapshot extends Snapshot {
             for (int i = 0; i <= stepDiff; ++i) {
                 for (int j = 0; j < resultSnakes.size(); ++j) {
                     Snake currSnake = resultSnakes.get(j);
-                    if (currSnake.isDead())
+                    if (currSnake.isDead()) {
                         continue;
+                    }
                     long upper = (i == stepDiff ? currentTime : SNAKE_MOVE_EVERY_NS * (updatedStateStep + i + 1));
                     while (!inputQueues[j].isEmpty() && inputQueues[j].peek().timestamp < upper) {
                         currSnake.handleInput(inputQueues[j].poll());
@@ -221,5 +201,30 @@ public class ServerSnapshot extends Snapshot {
         }
 
         return new Grid(currentTime, resultSnakes, serverId, resultFoods);
+    }
+
+    private void updateGameState(int stepDiff, int stateStep, long updatedStateTime) {
+        for (int i = 0; i <= stepDiff; ++i) {
+            for (int j = 0; j < snakes.size(); ++j) {
+                Snake currSnake = snakes.get(j);
+                if (currSnake.isDead()) {
+                    continue;
+                }
+                Input tmpInput;
+                long upper = (i == stepDiff ? updatedStateTime : SNAKE_MOVE_EVERY_NS * (stateStep + i + 1));
+                while (!inputBuffers.get(j).isEmpty()
+                        && (tmpInput = inputBuffers.get(j).first()).timestamp < upper) {
+                    currSnake.handleInput(tmpInput);
+                    inputBuffers.get(j).remove(tmpInput);
+                }
+                if (i != stepDiff) {
+                    currSnake.forward();
+                    foods.consumedBy(currSnake);
+                    if (collisionDetection(snakes)) {
+                        version += 1;
+                    }
+                }
+            }
+        }
     }
 }

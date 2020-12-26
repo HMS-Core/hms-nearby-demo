@@ -40,7 +40,8 @@ public class Constants {
 
     public static final int MIN_FOOD_QUANTITY = 3;
 
-    public static final int WIDTH = 40, HEIGHT = 30;
+    public static final int WIDTH = 40;
+    public static final int HEIGHT = 30;
 
     public static final float BLOCK_LENGTH = 1f;
 

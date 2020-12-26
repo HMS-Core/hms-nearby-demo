@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class Snake {
     public final int id;
@@ -60,22 +61,23 @@ public class Snake {
         this.lastInput = input;
 
         this.coords = new LinkedList<Integer>();
-        int x = headX, y = headY;
+        int pointX = headX;
+        int pointY = headY;
         for (int i = 0; i < length; ++i) {
-            coords.add(Integer.valueOf(x));
-            coords.add(Integer.valueOf(y));
+            coords.add(Integer.valueOf(pointX));
+            coords.add(Integer.valueOf(pointY));
             switch (input.direction) {
                 case Constants.LEFT:
-                    x += 1;
+                    pointX += 1;
                     break;
                 case Constants.UP:
-                    y -= 1;
+                    pointY -= 1;
                     break;
                 case Constants.RIGHT:
-                    x -= 1;
+                    pointX -= 1;
                     break;
                 case Constants.DOWN:
-                    y += 1;
+                    pointY += 1;
                     break;
             }
         }
@@ -126,7 +128,8 @@ public class Snake {
             int size = coords.size();
             coords.remove(size - 1);
             coords.remove(size - 2);
-            int x0 = coords.get(0).intValue(), y0 = coords.get(1).intValue();
+            int x0 = coords.get(0).intValue();
+            int y0 = coords.get(1).intValue();
             switch (lastInput.direction) {
                 case Constants.LEFT:
                     --x0;
@@ -169,7 +172,8 @@ public class Snake {
     public List<Integer> getLinearPositions() {
         List<Integer> positions = new ArrayList<Integer>(coords.size() / 2);
         for (int i = 0; i < coords.size(); i += 2) {
-            int x = coords.get(i), y = coords.get(i + 1);
+            int x = coords.get(i);
+            int y = coords.get(i + 1);
             if (x >= 0 && x < Constants.WIDTH && y >= 0 && y < Constants.HEIGHT) {
                 positions.add(Utils.positionFromXy(x, y));
             }
@@ -197,7 +201,7 @@ public class Snake {
 
     @Override
     public String toString() {
-        String str = String.format("%s snake %d, direction %d, last input ID %d, head coordinates (%d, %d).",
+        String str = String.format(Locale.ENGLISH, "%s snake %d, direction %d, last input ID %d, head coordinates (%d, %d).",
             isDead ? "Dead" : "Live", id, lastInput.direction, lastInput.id, coords.get(0), coords.get(1));
         return str;
     }

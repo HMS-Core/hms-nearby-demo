@@ -20,7 +20,6 @@ import android.os.RemoteException;
 import android.util.Log;
 
 import com.badlogic.gdx.Gdx;
-import com.esotericsoftware.kryonet.Listener;
 import com.huawei.hms.nearby.StatusCode;
 import com.huawei.hms.nearby.discovery.ConnectCallback;
 import com.huawei.hms.nearby.discovery.ConnectInfo;
@@ -42,6 +41,8 @@ import com.huawei.nearby.game.snake.states.GameState;
 import com.huawei.nearby.game.snake.states.client.LookForServerState;
 import com.huawei.nearby.game.snake.states.client.MainGameState;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,12 +72,12 @@ public class Client extends IAgent {
     }
 
     @Override
-    public void broadcast(Listener listener) {
+    public void broadcast() throws IOException {
 
     }
 
     @Override
-    public void lookForServer(Listener listener, final Runnable errorCallback) {
+    public void lookForServer(final Runnable errorCallback) {
         try {
             doStartScan();
         } catch (RemoteException e) {
@@ -122,14 +123,14 @@ public class Client extends IAgent {
         return;
     }
 
-    // when client connected server. Change UI and Send Hello to Server.
+    // when client connected server. Change UI
     private void serverConnected() {
         GameState state = _app.getCurState();
         if (state instanceof LookForServerState) {
             LookForServerState lookforServerState = (LookForServerState) state;
             lookforServerState.lblInfo.setText("OK!");
-            String str = new String("Hello");
-            send(str.getBytes());
+            byte[] bytes = "Hello".getBytes(Charset.defaultCharset());
+            send(bytes);
         }
     }
 
@@ -144,14 +145,16 @@ public class Client extends IAgent {
             });
         } else if (state instanceof MainGameState) {
             MainGameState mainGameState = (MainGameState) state;
-            if (mainGameState.gameResult.get() == null) {
-                Gdx.app.postRunnable(new Runnable() {
-                    @Override
-                    public void run() {
-                        _app.gotoErrorScreen("No! We lost contact with the host!");
-                    }
-                });
+            if (mainGameState.gameResult.get() != null) {
+                return;
             }
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    _app.gotoErrorScreen("No! We lost contact with the host!");
+                }
+            });
+
         }
     }
 
@@ -220,21 +223,23 @@ public class Client extends IAgent {
                 return;
             }
 
-            if (!lookforServerState.gameStarted.get()) {
-                lookforServerState.gameStarted.set(true);
-                Log.d(TAG, "game Started");
-                // The MainGameState instance must be created by Gdx, because it initializes an OpenGL renderer,
-                // which must be created on the thread that has an OpenGL context.
-                final int id = randomEndpointName;
-                final long receivedNanoTime = Utils.getNanoTime();
-                final byte[] update = data.asBytes();
-                Gdx.app.postRunnable(new Runnable() {
-                    @Override
-                    public void run() {
-                        _app.setState(new MainGameState(_app, id, receivedNanoTime, update));
-                    }
-                });
+            if (lookforServerState.gameStarted.get()) {
+                return;
             }
+            lookforServerState.gameStarted.set(true);
+            Log.d(TAG, "game Started");
+            // The MainGameState instance must be created by Gdx, because it initializes an OpenGL renderer,
+            // which must be created on the thread that has an OpenGL context.
+            final int id = randomEndpointName;
+            final long receivedNanoTime = Utils.getNanoTime();
+            final byte[] update = data.asBytes();
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    _app.setState(new MainGameState(_app, id, receivedNanoTime, update));
+                }
+            });
+
         } else if (state instanceof MainGameState) {
             String str = new String(data.asBytes());
             MainGameState mainGameState = (MainGameState) state;

@@ -87,8 +87,9 @@ public enum AssetManager {
     }
 
     public Sprite getSpriteByType(Grid.Block type) {
-        if (type == null)
+        if (type == null) {
             return null;
+        }
         return spriteMap.get(type);
     }
 
