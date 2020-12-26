@@ -34,9 +34,9 @@
     <string name="common_lib_string_am">am</string>
     <string name="common_lib_string_pm">pm</string>
     <string name="nearby_friends">People nearby</string>
-    <string name="face_to_face_build_group">Join private group</string>
-    <string name="chat_with_all_nearby_friends">Group chat with nearby people</string>
-    <string name="chat_one_to_one">Private chat</string>
+    <string name="face_to_face_build_group">Join nearby private group</string>
+    <string name="chat_with_all_nearby_friends">Message broadcast with nearby people</string>
+    <string name="chat_one_to_one">Private chat without internet</string>
     <string name="transfer_chat_history">Transfer chat history</string>
     <string name="create_group_by_same_numbers">Join a group chat with friends nearby by entering the required four digits</string>
     <string name="string_create_group_hint">These friends will also enter the group</string>
@@ -49,4 +49,5 @@
     <string name="string_nearby_people_hint">Just around the corner</string>
     <string name="nearby_connection_scan_users_hint">In scanning, scan other people who use the function!</string>
     <string name="select_a_user_to_communicate">Select a user and chat with him or her</string>
+    <string name="transfer_chat_history_hint">You can refer to this demo as below to implement one app transfer chat history to another device</string>
 </resources>

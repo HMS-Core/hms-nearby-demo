@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.huawei.hms.nearby.im.utils.permission;
 
 import android.app.Activity;
@@ -25,22 +24,6 @@ import java.util.ArrayList;
 
 public final class PermissionUtil {
     private PermissionUtil() {
-    }
-
-    /**
-     * If has permission
-     *
-     * @param context Context
-     * @param permission permission
-     * @return true:has permission
-     */
-    public static boolean hasPermission(Context context, String permission) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (context.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**

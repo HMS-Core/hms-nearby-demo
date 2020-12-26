@@ -50,9 +50,9 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
         return position;
     }
 
-    public void addItem(T t){
-        if (t != null) {
-            this.data.add(t);
+    public void addItem(T item){
+        if (item != null) {
+            this.data.add(item);
             notifyDataSetChanged();
         }
     }
@@ -65,9 +65,9 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
         }
     }
 
-    public void removeItem(T t){
-        if (t != null) {
-            this.data.remove(t);
+    public void removeItem(T item){
+        if (item != null) {
+            this.data.remove(item);
             notifyDataSetChanged();
         }
     }

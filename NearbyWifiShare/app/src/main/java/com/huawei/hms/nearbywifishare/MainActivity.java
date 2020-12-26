@@ -60,13 +60,13 @@ public class MainActivity extends Activity implements View.OnClickListener{
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.button_share_wifi:
-                 mWiFiShare.shareWiFiConfig();
+                mWiFiShare.shareWiFiConfig();
                 break;
             case R.id.button_connect_wifi:
-                 mWiFiShare.requestWiFiConfig();
+                mWiFiShare.requestWiFiConfig();
                 break;
         }
     }

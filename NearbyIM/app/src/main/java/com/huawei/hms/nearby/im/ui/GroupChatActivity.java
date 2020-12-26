@@ -33,11 +33,11 @@ import com.huawei.hms.nearby.im.view.IGroupChatView;
 public class GroupChatActivity extends BaseActivity<GroupChatPresenter> implements IGroupChatView {
 
     public static final String ARG_GROUP_ID = "groupId";
-    private Button btn_send;
-    private EditText et_messageSend;
+    private Button sendButton;
+    private EditText messageSendEt;
     private ListView mListView;
     private ChatAdapter mChatAdapter;
-    private View view_sendProgress;
+    private View sendProgressView;
     private String groupId;
 
     @Override
@@ -55,25 +55,25 @@ public class GroupChatActivity extends BaseActivity<GroupChatPresenter> implemen
 
     private void initView() {
         groupId = getIntent().getStringExtra(ARG_GROUP_ID);
-        et_messageSend = findViewById(R.id.et_messageSend);
-        btn_send = findViewById(R.id.btn_send);
+        messageSendEt = findViewById(R.id.et_messageSend);
+        sendButton = findViewById(R.id.btn_send);
         mListView = findViewById(R.id.lv_chat);
         mChatAdapter = new ChatAdapter(this);
         mListView.setAdapter(mChatAdapter);
-        view_sendProgress = findViewById(R.id.view_sendProgress);
-        TextView tv_title = (TextView) findViewById(R.id.tv_actionBarTitle);
+        sendProgressView = findViewById(R.id.view_sendProgress);
+        TextView titleTv = (TextView) findViewById(R.id.tv_actionBarTitle);
         if (TextUtils.isEmpty(groupId)) {
-            tv_title.setText(R.string.group_chat_with_nearby);
+            titleTv.setText(R.string.group_chat_with_nearby);
         }else {
-            tv_title.setText("Group chat("+groupId+")");
+            titleTv.setText("Group chat(" + groupId + ")");
         }
-        btn_send.setOnClickListener(v -> {
-            String sendContent = et_messageSend.getText().toString().trim();
+        sendButton.setOnClickListener(view -> {
+            String sendContent = messageSendEt.getText().toString().trim();
             if (TextUtils.isEmpty(sendContent)) {
                 Toast.makeText(mContext, R.string.content_empty_tip, Toast.LENGTH_SHORT).show();
                 return;
             }
-            view_sendProgress.setVisibility(View.VISIBLE);
+            sendProgressView.setVisibility(View.VISIBLE);
             mPresenter.broadcastMessage(groupId,sendContent);
         });
     }
@@ -100,11 +100,11 @@ public class GroupChatActivity extends BaseActivity<GroupChatPresenter> implemen
      */
     @Override
     public void onMsgSendResult(boolean isSucceed, MessageBean item) {
-        view_sendProgress.setVisibility(View.GONE);
+        sendProgressView.setVisibility(View.GONE);
         if (isSucceed) {
             Toast.makeText(mContext, R.string.send_succeed, Toast.LENGTH_SHORT).show();
             mChatAdapter.addItem(item);
-            et_messageSend.setText("");
+            messageSendEt.setText("");
         }else {
             Toast.makeText(mContext, R.string.send_failed, Toast.LENGTH_SHORT).show();
         }

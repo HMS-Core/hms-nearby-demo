@@ -35,9 +35,6 @@
             android:name="com.huawei.hms.nearby.stores.ui.ViewBeaconActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name="com.huawei.hms.nearby.stores.ui.EditBeaconActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
-        <activity
             android:name="com.huawei.hms.nearby.stores.ui.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
@@ -53,9 +50,6 @@
         </activity>
 
         <service android:name=".softbeacon.BroadcasterService" />
-        <service
-            android:name=".softbeacon.HmsIntentService"
-            android:exported="false" />
 
         <receiver
             android:name=".softbeacon.BluetoothStateReceiver"
@@ -63,16 +57,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" />
-            </intent-filter>
-        </receiver>
-
-        <receiver
-            android:name=".softbeacon.BeaconBarrierReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:persistent="true">
-            <intent-filter>
-                <action android:name="com.huawei.nearby.broadcast.BARRIER_RECEIVER_ACTION" />
             </intent-filter>
         </receiver>
 

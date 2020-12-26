@@ -13,10 +13,23 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        release {
+            storeFile file(KEYSTORE_FILE)
+            storePassword KEYSTORE_PWD
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PWD
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.release
         }
     }
 
@@ -61,7 +74,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'
     implementation 'com.mikesamuel:json-sanitizer:1.2.0'
     implementation 'com.huawei.hms:awareness:1.0.4.301'
-    implementation 'com.huawei.hms:nearby:5.0.4.301'
+    implementation 'com.huawei.hms:nearby:5.1.0.300'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     api 'io.jsonwebtoken:jjwt-api:0.11.1'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.1'

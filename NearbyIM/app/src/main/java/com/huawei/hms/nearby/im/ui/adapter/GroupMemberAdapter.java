@@ -36,7 +36,7 @@ public class GroupMemberAdapter extends BaseAdapter<Custom> {
         GroupMemberAdapter.ViewHolder holder = new GroupMemberAdapter.ViewHolder();
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.group_member_item, parent, false);
-            holder.tv_userName = convertView.findViewById(R.id.tv_nickname);
+            holder.userNameTv = convertView.findViewById(R.id.tv_nickname);
             convertView.setTag(holder);
         } else {
             Object object = convertView.getTag();
@@ -44,12 +44,12 @@ public class GroupMemberAdapter extends BaseAdapter<Custom> {
                 holder = (GroupMemberAdapter.ViewHolder) object;
             }
         }
-        holder.tv_userName.setText(data.get(position).getNickName());
+        holder.userNameTv.setText(data.get(position).getNickName());
         return convertView;
     }
 
     static class ViewHolder {
-        TextView tv_userName;
+        TextView userNameTv;
     }
 
 }

@@ -39,6 +39,7 @@ import static com.huawei.hms.nearby.im.utils.Constants.CHART_TYPE;
 import static com.huawei.hms.nearby.im.utils.Constants.MESSAGE_NAMESPACE;
 import static com.huawei.hms.nearby.im.utils.Constants.TAG;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import java.nio.charset.Charset;
 
 public class NearbyAgent{
 
@@ -46,6 +47,7 @@ public class NearbyAgent{
      *  Sets the life cycle of the message. default:240s
      */
     private static final int TTL_SECONDS = Policy.POLICY_TTL_SECONDS_MAX;
+    private static final int DURATION_MESSAGE = 60 * 1000;
     private final INearbyMessageView view;
     private final Context mContext;
     private MessageEngine engine;
@@ -73,7 +75,6 @@ public class NearbyAgent{
     }
 
     public void startScan(String groupId) {
-        Log.i(Constants.TAG,"--startScan()--"+view.getClass().getName());
         if (engine == null) {
             Toast.makeText(mContext,"MessageEngine is null",Toast.LENGTH_SHORT).show();
             return;
@@ -82,40 +83,47 @@ public class NearbyAgent{
         GetOption getOption = new GetOption.Builder().setPolicy(policy).build();
         messageHandler = new MessageHandler() {
             /**
-             * This method is called upon receipt of the message. The first time it is received or after the message is lost.
+             * This method is called upon receipt of the message.
+             * The first time it is received or after the message is lost.
              * @param message
              */
             @Override
             public void onFound(Message message) {
                 super.onFound(message);
                 String json = new String(message.getContent(), UTF_8);
-                Log.i(Constants.TAG,"NearbyAgent onFound() json:"+json+",Namespace:"+message.getNamespace()+",type:"+message.getType());
-                if(!TextUtils.isEmpty(json) && json.contains("userName") && json.startsWith("{") && json.endsWith("}")){
-                    MessageBean bean = gson.fromJson(json, MessageBean.class);
-                    if (bean == null || view == null) { return; }
-                    long receivedTime = System.currentTimeMillis();
-                    if(receivedTime - lastReceiveTime > 60*1000){
-                        bean.setReceiveTime(receivedTime);
-                    }
-                    lastReceiveTime = receivedTime;
-                    bean.setType(MessageBean.TYPE_RECEIVE_TEXT);
-                    if (!TextUtils.isEmpty(groupId) && !groupId.equals(bean.getGroupId())) {//自建组 聊天
-                        return;
-                    }
-                    view.onMessageFound(bean);
+                Log.i(Constants.TAG,"NearbyAgent onFound() json:"+json);
+                if ((TextUtils.isEmpty(json)) || (!json.contains("userName")) || (!json.startsWith("{"))) {
+                    return;
                 }
+                MessageBean bean = gson.fromJson(json, MessageBean.class);
+                if ((bean == null) || (view == null)) {
+                    return;
+                }
+                long receivedTime = System.currentTimeMillis();
+                if(receivedTime - lastReceiveTime > DURATION_MESSAGE){
+                    bean.setReceiveTime(receivedTime);
+                }
+                lastReceiveTime = receivedTime;
+                bean.setType(MessageBean.TYPE_RECEIVE_TEXT);
+                if ((!TextUtils.isEmpty(groupId)) && (!groupId.equals(bean.getGroupId()))) {
+                    return;
+                }
+                view.onMessageFound(bean);
             }
 
             @Override
             public void onLost(Message message) {
                 super.onLost(message);
                 String json = new String(message.getContent(), UTF_8);
-                Log.i(Constants.TAG,"NearbyAgent onLost() json:"+json+",Namespace:"+message.getNamespace()+",type:"+message.getType());
-                if(!TextUtils.isEmpty(json) && json.contains("userName") && json.startsWith("{") && json.endsWith("}")){
-                    MessageBean bean = gson.fromJson(json, MessageBean.class);
-                    if (view == null || bean == null) {return;}
-                    view.onMessageLost(bean);
+                Log.i(Constants.TAG,"NearbyAgent onLost() json:" + json);
+                if ((TextUtils.isEmpty(json)) || (!json.contains("userName")) || (!json.startsWith("{"))) {
+                    return;
                 }
+                MessageBean bean = gson.fromJson(json, MessageBean.class);
+                if ((view == null) || (bean == null)) {
+                    return;
+                }
+                view.onMessageLost(bean);
             }
         };
         engine.get(messageHandler, getOption);
@@ -135,17 +143,16 @@ public class NearbyAgent{
         }
         MessageBean messageBean = generateMessageBean(groupId, CommonUtil.userName, content);
         String json = gson.toJson(messageBean);
-        Message message = new Message(json.getBytes(),CHART_TYPE,MESSAGE_NAMESPACE);// Message(byte[] content, String type, String namespace)
-        Log.i(TAG, "---------start sendMsg:"+json);
+        Message message = new Message(json.getBytes(Charset.defaultCharset()), CHART_TYPE,MESSAGE_NAMESPACE);
+        Log.i(TAG, "start sendMsg:"+json);
         engine.put(message,putOption).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onFailure(Exception e) {
-                Log.e(TAG, "-NearbyAgent----sendMsg failed:"+e.toString());
+            public void onFailure(Exception exception) {
                 if (view != null) {
                     view.onMsgSendResult(false,messageBean);
                 }
-                if (e instanceof ApiException) {
-                    ApiException apiException = (ApiException) e;
+                if (exception instanceof ApiException) {
+                    ApiException apiException = (ApiException) exception;
                     int errorStatusCode = apiException.getStatusCode();
                     Toast.makeText(mContext, StatusCode.getStatusCode(errorStatusCode), Toast.LENGTH_SHORT).show();
                     Log.e(Constants.TAG, "apiException.getStatusCode()===="+errorStatusCode);
@@ -154,7 +161,6 @@ public class NearbyAgent{
         }).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.i(TAG, "NearbyAgent--sendMsg succeed:"+json);
                 if (view != null) {
                     messageBean.setType(MessageBean.TYPE_SEND_TEXT);
                     view.onMsgSendResult(true,messageBean);

@@ -54,14 +54,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
          *  Simulate an account for test
          */
         CommonUtil.userName = Constants.NICKNAMES[new Random().nextInt(10)]+String.valueOf(System.currentTimeMillis()).substring(5);
-        TextView tv_userName = findViewById(R.id.tv_userName);
-        tv_userName.setText(CommonUtil.userName);
-        tv_userName.setTextColor(getResources().getColor(R.color.color_aaa));
+        TextView userNameTv = findViewById(R.id.tv_userName);
+        userNameTv.setText(CommonUtil.userName);
+        userNameTv.setTextColor(getResources().getColor(R.color.color_aaa));
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()){
+    public void onClick(View view) {
+        switch (view.getId()){
             case R.id.btn_nearbyFriends:
                 if (!NetCheckUtil.isNetworkAvailable(mContext)) {
                     Toast.makeText(mContext,R.string.no_network,Toast.LENGTH_SHORT).show();

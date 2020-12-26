@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.huawei.hms.simpleNearbyDemo">
+    package="com.huawei.hms.nearbyFileTransfer">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -20,12 +20,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MultiFileMainActivity"></activity>
-        <activity android:name=".FolderMainActivity" /> <!-- <activity -->
+        <activity android:name="com.huawei.hms.nearbyFileTransfer.MultiFileMainActivity"></activity>
+        <activity android:name="com.huawei.hms.nearbyFileTransfer.FolderMainActivity" /> <!-- <activity -->
         <!-- android:name=".ReceivedPhotoActivity" -->
         <!-- android:screenOrientation="portrait"/> -->
         <activity
-            android:name=".FileMainActivity"
+            android:name="com.huawei.hms.nearbyFileTransfer.FileMainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,7 +37,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.huawei.hms.simpleNearbyDemo.fileprovider"
+            android:authorities="com.huawei.hms.nearbyFileTransfer.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

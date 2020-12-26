@@ -22,7 +22,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -38,22 +37,21 @@ import com.huawei.hms.nearby.im.presenter.NearbyConnectionPresenter;
 import com.huawei.hms.nearby.im.ui.adapter.ChatAdapter;
 import com.huawei.hms.nearby.im.ui.adapter.FriendsListAdapter;
 import com.huawei.hms.nearby.im.utils.CommonUtil;
-import com.huawei.hms.nearby.im.utils.Constants;
 import com.huawei.hms.nearby.im.utils.FileUtil;
 import com.huawei.hms.nearby.im.view.INearbyConnectionView;
 import com.huawei.hms.nearby.transfer.Data;
 import java.util.LinkedList;
 
-public class SingleChatActivity extends BaseActivity<NearbyConnectionPresenter> implements INearbyConnectionView, View.OnTouchListener, View.OnClickListener {
-
+public class SingleChatActivity extends BaseActivity<NearbyConnectionPresenter> implements
+        INearbyConnectionView, View.OnTouchListener, View.OnClickListener {
     private static final int REQUEST_OPEN_DOCUMENT = 20;
-    private ImageView iv_spreadMenu;
-    private Button btn_send;
-    private EditText et_messageSend;
-    private View ll_funcMenu;
-    private ListView lv_chat;
+    private ImageView spreadMenuImageView;
+    private Button sendButton;
+    private EditText sendMsgEt;
+    private View menuView;
+    private ListView chatListView;
     private ChatAdapter chatAdapter;
-    private ListView lv_userList;
+    private ListView userListView;
     private FriendsListAdapter userAdapter;
     private View viewScan;
     private View viewChat;
@@ -76,44 +74,44 @@ public class SingleChatActivity extends BaseActivity<NearbyConnectionPresenter> 
     @SuppressLint("ClickableViewAccessibility")
     private void initView() {
         ((TextView) findViewById(R.id.tv_actionBarTitle)).setText("Private Chat");
-        iv_spreadMenu = findViewById(R.id.iv_spreadMenu);
-        btn_send = findViewById(R.id.btn_send);
-        et_messageSend = findViewById(R.id.et_messageSend);
-        ll_funcMenu = findViewById(R.id.ll_funcMenu);
-        lv_chat = findViewById(R.id.lv_chat);
+        spreadMenuImageView = findViewById(R.id.iv_spreadMenu);
+        sendButton = findViewById(R.id.btn_send);
+        sendMsgEt = findViewById(R.id.et_messageSend);
+        menuView = findViewById(R.id.ll_funcMenu);
+        chatListView = findViewById(R.id.lv_chat);
         chatAdapter = new ChatAdapter(mContext);
-        lv_chat.setAdapter(chatAdapter);
-        et_messageSend.setOnTouchListener(this);
+        chatListView.setAdapter(chatAdapter);
+        sendMsgEt.setOnTouchListener(this);
         viewScan = findViewById(R.id.viewScan);
         viewChat = findViewById(R.id.viewChat);
         viewScan.setVisibility(View.VISIBLE);
         viewChat.setVisibility(View.GONE);
         view_connectProgress = findViewById(R.id.view_connectProgress);
-        lv_userList = findViewById(R.id.lv_userList);
+        userListView = findViewById(R.id.lv_userList);
         userAdapter = new FriendsListAdapter(this);
-        lv_userList.setAdapter(userAdapter);
-        iv_spreadMenu.setOnClickListener(v -> ll_funcMenu.setVisibility(View.VISIBLE));
-        et_messageSend.addTextChangedListener(new TextWatcher() {
+        userListView.setAdapter(userAdapter);
+        spreadMenuImageView.setOnClickListener(view -> menuView.setVisibility(View.VISIBLE));
+        sendMsgEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0) {
-                    btn_send.setVisibility(View.VISIBLE);
-                    iv_spreadMenu.setVisibility(View.GONE);
+            public void onTextChanged(CharSequence sequence, int start, int before, int count) {
+                if (sequence.length() > 0) {
+                    sendButton.setVisibility(View.VISIBLE);
+                    spreadMenuImageView.setVisibility(View.GONE);
                 }else {
-                    btn_send.setVisibility(View.GONE);
-                    iv_spreadMenu.setVisibility(View.VISIBLE);
+                    sendButton.setVisibility(View.GONE);
+                    spreadMenuImageView.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {}
         });
-        btn_send.setOnClickListener(this);
+        sendButton.setOnClickListener(this);
         findViewById(R.id.iv_selectPicture).setOnClickListener(this);
-        lv_userList.setOnItemClickListener((parent, view, position, id) -> {
+        userListView.setOnItemClickListener((parent, view, position, id) -> {
             /**
              * requestConnect
              */
@@ -125,21 +123,21 @@ public class SingleChatActivity extends BaseActivity<NearbyConnectionPresenter> 
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        ll_funcMenu.setVisibility(View.GONE);
+        menuView.setVisibility(View.GONE);
         return false;
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.btn_send:
-                String msgStr = et_messageSend.getText().toString().trim();
+                String msgStr = sendMsgEt.getText().toString().trim();
                 /**
                  * send message
                  */
                 MessageBean messageBean = mPresenter.sendMessage(msgStr);
                 chatAdapter.addItem(messageBean);
-                et_messageSend.setText("");
+                sendMsgEt.setText("");
                 break;
             case R.id.iv_selectPicture:
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);

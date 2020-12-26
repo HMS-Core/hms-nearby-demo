@@ -15,8 +15,6 @@
  */
 package com.huawei.hms.nearby.im.ui;
 
-import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
@@ -45,7 +43,7 @@ public class NearbyFriendsActivity extends BaseActivity<NearbyPeoplePresenter> i
     private ListView friendsListView;
     private FriendsListAdapter mAdapter;
     private ArrayList<String> nickNameList = new ArrayList<>();
-    private TextView tv_userName;
+    private TextView userNameTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +60,7 @@ public class NearbyFriendsActivity extends BaseActivity<NearbyPeoplePresenter> i
 
     private void initView() {
         ((TextView) findViewById(R.id.tv_actionBarTitle)).setText(R.string.nearby_friends);
-        tv_userName = findViewById(R.id.tv_userName);
+        userNameTv = findViewById(R.id.tv_userName);
         scanGiv = findViewById(R.id.giv_scan);
         scanTipTv = findViewById(R.id.tv_bein_scan_tip);
         scanTipTv.setText(R.string.begin_scan_tip);
@@ -123,8 +121,8 @@ public class NearbyFriendsActivity extends BaseActivity<NearbyPeoplePresenter> i
 
     @Override
     public void onLoginResult(boolean isSucceed, MessageBean item) {
-         if(MessageBean.ACTION_TAG_ONLINE.equals(item.getMsg())){
-             tv_userName.setText(isSucceed?"Hi:"+ CommonUtil.userName :"offline");
+        if (MessageBean.ACTION_TAG_ONLINE.equals(item.getMsg())) {
+            userNameTv.setText(isSucceed?"Hi:"+ CommonUtil.userName :"offline");
         }
     }
 

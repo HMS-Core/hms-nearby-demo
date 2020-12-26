@@ -54,15 +54,15 @@ public class WiFiShareHelper {
     public void shareWiFiConfig() {
         Log.d(TAG, "Start to share WiFi");
         mWiFiShareEngine.startWifiShare(mWiFiShareCallback, WifiSharePolicy.POLICY_SHARE)
-                .addOnFailureListener(e -> {
-                    if (e instanceof ApiException) {
-                        int errorCode = ((ApiException) e).getStatusCode();
+                .addOnFailureListener(ex -> {
+                    if (ex instanceof ApiException) {
+                        int errorCode = ((ApiException) ex).getStatusCode();
                         String codeStr = StatusCode.getStatusCode(errorCode);
                         Toast.makeText(mContext, codeStr, Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "shareWiFiConfig apiException.getStatusCode()===="+ errorCode +",codeStr:"+codeStr);
                     }else {
                         Toast.makeText(mContext, "share failed", Toast.LENGTH_SHORT).show();
-                        Log.e(TAG, e.toString());
+                        Log.e(TAG, ex.toString());
                     }
                 });
         showListView();
@@ -74,15 +74,15 @@ public class WiFiShareHelper {
     public void requestWiFiConfig() {
         Log.d(TAG, "requestWiFiConfig");
         mWiFiShareEngine.startWifiShare(mWiFiShareCallback, WifiSharePolicy.POLICY_SET)
-                .addOnFailureListener(e -> {
-                    if (e instanceof ApiException) {
-                        int errorCode = ((ApiException) e).getStatusCode();
+                .addOnFailureListener(ex -> {
+                    if (ex instanceof ApiException) {
+                        int errorCode = ((ApiException) ex).getStatusCode();
                         String codeStr = StatusCode.getStatusCode(errorCode);
                         Toast.makeText(mContext, codeStr, Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "shareWiFiConfig apiException.getStatusCode()===="+ errorCode +",codeStr:"+codeStr);
                     }else {
                         Toast.makeText(mContext, "connect failed", Toast.LENGTH_SHORT).show();
-                        Log.e(TAG, e.toString());
+                        Log.e(TAG, ex.toString());
                     }
                 });
     }

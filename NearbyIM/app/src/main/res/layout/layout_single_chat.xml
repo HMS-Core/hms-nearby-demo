@@ -15,6 +15,7 @@
         android:paddingLeft="@dimen/horizontal_margin"
         android:paddingRight="@dimen/horizontal_margin"
         android:scrollbars="none"
+        android:transcriptMode="alwaysScroll"
         android:layout_above="@+id/line"/>
 
     <FrameLayout

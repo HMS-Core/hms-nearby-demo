@@ -36,8 +36,8 @@ public class ChatRecordTransferActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse("https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbySimpleconnection");
-                intent.setData(content_url);
+                Uri url = Uri.parse("https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbySimpleconnection");
+                intent.setData(url);
                 startActivity(intent);
             }
         });

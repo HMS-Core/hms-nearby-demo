@@ -39,11 +39,12 @@ import java.util.LinkedList;
 
 public class CreateGroupActivity extends BaseActivity<CreateGroupPresenter> implements ICreateGroupView {
 
-    private EditText ed_inputPwd;
-    private TextView tv_pwd;
+    private EditText inputPwdEt;
+    private TextView pwdTv;
     private GridView mGridView;
     private GroupMemberAdapter mAdapter;
-    private View group1,group2;
+    private View group1;
+    private View group2;
     private String groupId;
 
     @Override
@@ -61,15 +62,15 @@ public class CreateGroupActivity extends BaseActivity<CreateGroupPresenter> impl
 
     private void initView() {
         ((TextView) findViewById(R.id.tv_actionBarTitle)).setText(R.string.face_to_face_build_group);
-        ed_inputPwd = findViewById(R.id.ed_inputPwd);
-        ed_inputPwd.setFocusable(true);
-        ed_inputPwd.requestFocus();
-        tv_pwd = findViewById(R.id.tv_pwd);
+        inputPwdEt = findViewById(R.id.ed_inputPwd);
+        inputPwdEt.setFocusable(true);
+        inputPwdEt.requestFocus();
+        pwdTv = findViewById(R.id.tv_pwd);
         mGridView = findViewById(R.id.gridView);
         group1 = findViewById(R.id.groupView1);
         group2 = findViewById(R.id.groupView2);
         group2.setVisibility(View.GONE);
-        findViewById(R.id.btn_enterGroupChat).setOnClickListener(v -> {
+        findViewById(R.id.btn_enterGroupChat).setOnClickListener(view -> {
             Intent intent = new Intent(mContext, GroupChatActivity.class);
             intent.putExtra(GroupChatActivity.ARG_GROUP_ID,groupId);
             startActivity(intent);
@@ -80,22 +81,21 @@ public class CreateGroupActivity extends BaseActivity<CreateGroupPresenter> impl
     public void requestPermissionsSuccess() {
         mAdapter = new GroupMemberAdapter(mContext);
         mGridView.setAdapter(mAdapter);
-        ed_inputPwd.addTextChangedListener(new TextWatcher() {
+        inputPwdEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 4) {
+            public void onTextChanged(CharSequence sequence, int start, int before, int count) {
+                if (sequence.length() == 4) {
                     if (!NetCheckUtil.isNetworkAvailable(mContext)) {
                         Toast.makeText(mContext,R.string.no_network,Toast.LENGTH_SHORT).show();
                         finish();
                     }
-                    groupId = s.toString();
-                    tv_pwd.setText(groupId);
+                    groupId = sequence.toString();
+                    pwdTv.setText(groupId);
                     group1.setVisibility(View.GONE);
                     group2.setVisibility(View.VISIBLE);
-
                     mPresenter.joinGroup(groupId);
                 }
             }
@@ -115,7 +115,8 @@ public class CreateGroupActivity extends BaseActivity<CreateGroupPresenter> impl
                 return;
             }
         }
-        Toast.makeText(mContext, "Found " + messageBean.getUserName() + " nearby!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, "Found " + messageBean.getUserName() + " nearby!",
+                Toast.LENGTH_SHORT).show();
         mAdapter.addItem(new Custom(userName, R.mipmap.icon_message_person));
     }
 
@@ -129,5 +130,4 @@ public class CreateGroupActivity extends BaseActivity<CreateGroupPresenter> impl
             finish();
         }
     }
-
 }

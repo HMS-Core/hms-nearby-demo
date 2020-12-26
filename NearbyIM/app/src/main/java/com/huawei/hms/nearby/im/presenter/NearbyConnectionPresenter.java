@@ -22,8 +22,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 import com.google.gson.Gson;
-import com.huawei.hmf.tasks.OnFailureListener;
-import com.huawei.hmf.tasks.OnSuccessListener;
 import com.huawei.hms.nearby.Nearby;
 import com.huawei.hms.nearby.StatusCode;
 import com.huawei.hms.nearby.discovery.BroadcastOption;
@@ -136,18 +134,7 @@ public class NearbyConnectionPresenter extends BasePresenter<INearbyConnectionVi
         String filenameMessage = filePayload.getId() + ":" + fileName;
         Data filenameBytesPayload = Data.fromBytes(filenameMessage.getBytes(StandardCharsets.UTF_8));
         mTransferEngine.sendData(mEndpointId, filenameBytesPayload);
-
-        mTransferEngine.sendData(mEndpointId, filePayload).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.i(Constants.TAG, "mTransferEngine send file success");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(Exception e) {
-                Log.e(Constants.TAG, "mTransferEngine send file failure, cause: ", e);
-            }
-        });
+        mTransferEngine.sendData(mEndpointId, filePayload);
         return filePayload;
     }
 
@@ -164,7 +151,7 @@ public class NearbyConnectionPresenter extends BasePresenter<INearbyConnectionVi
                 @Override
                 public void onResult(String endpointId, ConnectResult result) {
                     if (result.getStatus().getStatusCode() == StatusCode.STATUS_SUCCESS) {
-                        Log.d(TAG, "onResult() -- Connection Established. Stop discovery. Start to send file.");
+                        Log.d(TAG, "onResult() -- Connection Established.Start to send file.");
                         Toast.makeText(mContext,"Let's chat!",Toast.LENGTH_SHORT).show();
                         NearbyConnectionPresenter.this.mEndpointId = endpointId;
                         mDiscoveryEngine.stopScan();
@@ -199,30 +186,9 @@ public class NearbyConnectionPresenter extends BasePresenter<INearbyConnectionVi
                     }
                     break;
                 case Data.Type.FILE:
-
-                    long payloadId = data.getId();
-                    String filename = filePayloadFilenames.get(payloadId);
-                    if (TextUtils.isEmpty(filename)) { return; }
-                    File payloadFile = data.asFile().asJavaFile();
-                    File targetFileName = new File(payloadFile.getParentFile(), filename);
-                    boolean renameResult = payloadFile.renameTo(targetFileName);
-                    Log.d(TAG, "onReceived, payloadFile name: " + payloadFile.getName()+",renameResult:"+renameResult+",filename:"+filename);
-                    if (renameResult) {
-                        MessageBean item = new MessageBean();
-                        item.setUserName(CommonUtil.userName);
-                        item.setType(FileUtil.isImage(filename) ? MessageBean.TYPE_RECEIVE_IMAGE:MessageBean.TYPE_RECEIVE_FILE);
-                        item.setSending(true);
-                        item.setFileUri(Uri.fromFile(targetFileName));
-                        item.setFileName(filename);
-                        item.setTotalBytes(targetFileName.length());
-                        item.setPayloadId(payloadId);
-                        view.addFileItem(item);
-                    } else {
-                        Log.e(TAG, "rename the file failed. please check the permission");
-                    }
+                    dearWithFile(data);
                     break;
                 default:
-                    Log.d(TAG, "received stream. ");
                     return;
             }
         }
@@ -232,7 +198,6 @@ public class NearbyConnectionPresenter extends BasePresenter<INearbyConnectionVi
             long transferredBytes = update.getBytesTransferred();
             long totalBytes = update.getTotalBytes();
             long payloadId = update.getDataId();
-            Log.d(TAG, "onTransferUpdate, payloadId============" + payloadId);
             switch (update.getStatus()) {
                 case TransferStateUpdate.Status.TRANSFER_STATE_SUCCESS:
                     Log.d(TAG, "onTransferUpdate.Status============success.");
@@ -245,15 +210,40 @@ public class NearbyConnectionPresenter extends BasePresenter<INearbyConnectionVi
                         return;
                     }
                     int progress = (int) (transferredBytes * 100 / totalBytes);
-                    Log.d(TAG, "onTransferUpdate.==========transfer in progress. progress=="+progress);
+                    Log.d(TAG, "onTransferUpdate.===transfer in progress:" + progress);
                     view.updateProgress(transferredBytes, totalBytes, progress, payloadId, true);
                     break;
                 default:
-                    Log.d(TAG, "onTransferUpdate.Status=======" + update.getStatus());
                     return;
             }
         }
     };
+
+    private void dearWithFile(Data data) {
+        long payloadId = data.getId();
+        String filename = filePayloadFilenames.get(payloadId);
+        if (TextUtils.isEmpty(filename)) {
+            return;
+        }
+        File payloadFile = data.asFile().asJavaFile();
+        File targetFileName = new File(payloadFile.getParentFile(), filename);
+        boolean renameResult = payloadFile.renameTo(targetFileName);
+        Log.d(TAG, "onReceived, payloadFile:" + payloadFile.getName() + ",filename:"+filename);
+        if (renameResult) {
+            MessageBean item = new MessageBean();
+            item.setUserName(CommonUtil.userName);
+            item.setType(FileUtil.isImage(filename) ? MessageBean.TYPE_RECEIVE_IMAGE
+                    :MessageBean.TYPE_RECEIVE_FILE);
+            item.setSending(true);
+            item.setFileUri(Uri.fromFile(targetFileName));
+            item.setFileName(filename);
+            item.setTotalBytes(targetFileName.length());
+            item.setPayloadId(payloadId);
+            view.addFileItem(item);
+        } else {
+            Log.e(TAG, "rename the file failed. please check the permission");
+        }
+    }
 
     @Override
     public void onDestroy() {
