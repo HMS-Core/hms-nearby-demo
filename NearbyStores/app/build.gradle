@@ -15,10 +15,11 @@ android {
 
     signingConfigs {
         release {
-            storeFile file(KEYSTORE_FILE)
-            storePassword KEYSTORE_PWD
-            keyAlias KEY_ALIAS
-            keyPassword KEY_PWD
+            storeFile file("xxx.xxx")
+            storePassword xxxxxx
+            keyAlias xxxxxx
+            keyPassword xxxxxx
+            v2SigningEnabled true
         }
     }
 
