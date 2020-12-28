@@ -38,6 +38,7 @@
 1. 在两部手机上打开应用，在其中一部手机上单击“Create Game”，另一部手机上单击“Join Game”，开始发现对方。
 
 2. 发现对方后，点击“Go”开始游戏。
+>该应用已上架华为应用市场，你可以点击[下载](https://appgallery.huawei.com/#/app/C103275471)体验该游戏！
 
 ## 环境要求
 推荐使用Android Studio 3.X及以上版本。
