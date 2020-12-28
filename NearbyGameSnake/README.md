@@ -42,7 +42,7 @@ Create an app and enable Nearby Service by referring the [Nearby Service Prepara
 
 1. open the app on both phones, one side clicks "Create Game", and another side clicks "Join Game" to start discovering each other.
 2. After discovery is successful, the host clicks "Go" to start the game.
-
+>This app has been released on Huawei AppGallery. You can click [Download](https://appgallery.huawei.com/#/app/C103275471) to experience the game.
 ## Supported Environments
 Android Studio 3.X or a later version is recommended.
 
