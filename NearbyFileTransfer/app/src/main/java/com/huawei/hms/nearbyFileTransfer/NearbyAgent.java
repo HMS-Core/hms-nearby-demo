@@ -92,7 +92,6 @@ public class NearbyAgent {
     private String mRcvedFilename = null;
     private Bitmap mResultImage;
     private ImageView mBarcodeImage;
-    private File mDestFile;
     private String mFileName;
     private ProgressBar mProgress;
     private TextView mDescText;
@@ -100,6 +99,7 @@ public class NearbyAgent {
     private float mSpeed = 60;
     private String mSpeedStr = "60";
     private boolean isTransfer = false;
+    private Data incomingFile = null;
 
     public NearbyAgent(Context context) {
         mContext = context;
@@ -198,23 +198,6 @@ public class NearbyAgent {
         try {
             mFileName = mFiles.get(0).getName();
             filePayload = Data.fromFile(mFiles.get(0));
-            File payloadfile = filePayload.asFile().asJavaFile();
-            File targetFileName = new File(payloadfile.getParentFile(),mFileName);
-            Uri uri = filePayload.asFile().asUri();
-            if (uri == null) {
-                boolean result = payloadfile.renameTo(targetFileName);
-                if (!result) {
-                    Log.e(TAG, "rename failed  ");
-                }
-            }else {
-                try {
-                    openStream(uri,targetFileName);
-                } catch (IOException e) {
-                    Log.e(TAG, e.toString());
-                } finally {
-                    delFile(uri,payloadfile);
-                }
-            }
             mFiles.remove(0);
         } catch (FileNotFoundException e) {
             Log.e(TAG, "File not found", e);
@@ -225,48 +208,6 @@ public class NearbyAgent {
         mTransferEngine.sendData(mRemoteEndpointId, filenameMsg);
         Log.d(TAG, "Send Payload.");
         mTransferEngine.sendData(mRemoteEndpointId, filePayload);
-    }
-
-    private void delFile(Uri uri, File payloadfile) {
-        // Delete the original file.
-        mContext.getContentResolver().delete(uri, null, null);
-        if (!payloadfile.exists()) {
-            Log.e(TAG, "delete original file by uri successfully");
-        } else {
-            Log.e(TAG, "delete  original file by uri failed and try to delete it by File delete");
-            payloadfile.delete();
-            if (payloadfile.exists()) {
-                Log.e(TAG, "fail to delete original file");
-            } else {
-                Log.e(TAG, "delete original file successfully");
-            }
-        }
-    }
-
-    private void openStream(Uri uri, File targetFileName) throws IOException {
-        InputStream in = mContext.getContentResolver().openInputStream(uri);
-        Log.e(TAG, "open input stream successfuly");
-        try {
-            copyStream(in, new FileOutputStream(targetFileName));
-            Log.e(TAG, "copyStream successfuly");
-        } catch (IOException e){
-            Log.e(TAG, e.toString());
-        } finally {
-            in.close();
-        }
-    }
-
-    private void copyStream(InputStream in, OutputStream out) throws IOException {
-        try {
-            byte[] buffer = new byte[1024];
-            int read;
-            while ((read = in.read(buffer)) != -1) {
-                out.write(buffer, 0, read);
-            }
-            out.flush();
-        } finally {
-            out.close();
-        }
     }
 
     public static String getFileRealNameFromUri(Context context, Uri fileUri) {
@@ -399,11 +340,7 @@ public class NearbyAgent {
                         mDescText.setText("Receiving file " + mRcvedFilename + " from " + mRemoteEndpointName + ".");
                         mProgress.setVisibility(View.VISIBLE);
                     } else if (data.getType() == Data.Type.FILE) {
-                        File rawFile = data.asFile().asJavaFile();
-                        Log.d(TAG, "received raw file: " + rawFile.getAbsolutePath());
-                        mDestFile = new File(rawFile.getParent(), mRcvedFilename);
-                        Log.d(TAG, "rename to : " + mDestFile.getAbsolutePath());
-                        rawFile.renameTo(mDestFile);
+                        incomingFile = data;
                     } else {
                         Log.d(TAG, "received stream. ");
                     }
@@ -415,7 +352,9 @@ public class NearbyAgent {
                     } else if (update.getStatus() == TransferStateUpdate.Status.TRANSFER_STATE_IN_PROGRESS) {
                         showProgressSpeed(update);
                         if (update.getBytesTransferred() == update.getTotalBytes()) {
-                            Log.d(TAG, "File transfer done. Send Ack.");
+                            Log.d(TAG, "File transfer done. Rename File.");
+                            renameFile();
+                            Log.d(TAG, "Send Ack.");
                             mDescText.setText("Transfer success. Speed: " + mSpeedStr + "MB/s. \nView the File at /Sdcard/Download/Nearby");
                             mTransferEngine.sendData(mRemoteEndpointId, Data.fromBytes("Receive Success".getBytes(StandardCharsets.UTF_8)));
                             isTransfer = false;
@@ -427,6 +366,76 @@ public class NearbyAgent {
                     }
                 }
             };
+
+    private void renameFile() {
+        if (incomingFile == null) {
+            Log.d(TAG, "incomingFile is null");
+            return;
+        }
+        File rawFile = incomingFile.asFile().asJavaFile();
+        Log.d(TAG, "raw file: " + rawFile.getAbsolutePath());
+        File targetFileName = new File(rawFile.getParentFile(),mRcvedFilename);
+        Log.d(TAG, "rename to : " + targetFileName.getAbsolutePath());
+        Uri uri = incomingFile.asFile().asUri();
+        if (uri  == null){
+            boolean result = rawFile.renameTo(targetFileName);
+            if (!result){
+                Log.e(TAG, "rename failed");
+            }else {
+                Log.e(TAG, "rename Succeeded ");
+            }
+        }else {
+            try {
+                openStream(uri,targetFileName);
+            } catch (IOException e) {
+                Log.e(TAG, e.toString());
+            } finally {
+                delFile(uri,rawFile);
+            }
+        }
+    }
+
+    private void openStream(Uri uri, File targetFileName) throws IOException {
+        InputStream in = mContext.getContentResolver().openInputStream(uri);
+        Log.e(TAG, "open input stream successfuly");
+        try {
+            copyStream(in, new FileOutputStream(targetFileName));
+            Log.e(TAG, "copyStream successfuly");
+        } catch (IOException e){
+            Log.e(TAG, e.toString());
+        } finally {
+            in.close();
+        }
+    }
+
+    private void copyStream(InputStream in, OutputStream out) throws IOException {
+        try {
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+            out.flush();
+        } finally {
+            out.close();
+        }
+    }
+
+    private void delFile(Uri uri, File payloadfile) {
+        // Delete the original file.
+        mContext.getContentResolver().delete(uri, null, null);
+        if (!payloadfile.exists()) {
+            Log.e(TAG, "delete original file by uri successfully");
+        } else {
+            Log.e(TAG, "delete  original file by uri failed and try to delete it by File delete");
+            payloadfile.delete();
+            if (payloadfile.exists()) {
+                Log.e(TAG, "fail to delete original file");
+            } else {
+                Log.e(TAG, "delete original file successfully");
+            }
+        }
+    }
 
     private void showProgressSpeed(TransferStateUpdate update) {
         long transferredBytes = update.getBytesTransferred();
