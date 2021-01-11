@@ -10,7 +10,7 @@
 2. [NearbyWifiShare](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyWifiShare): 该包中包含一个Android Studio工程，展示了如何快速集成Wi-Fi分享功能。
 3. [NearbyIM](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyIM): 该包中包含一个Android Studio工程展示如何使用Message的相关接口，实现近场社交的应用。
 4. [NearbyGameSnake](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyGameSnake): 该包中包含一个Android Studio工程，介绍如何使用Connection API开发一个简单的在线贪吃蛇游戏。
-5. [NearbySimpleconnection](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbySimpleconnection): 该包中包含一个Android Studio工程，介绍如何添加两行代码实现文件分享。
+5. [NearbyFileTransfer](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyFileTransfer): 该包中包含一个Android Studio工程，介绍如何添加两行代码实现文件分享。
 
 
 ## Precautions
