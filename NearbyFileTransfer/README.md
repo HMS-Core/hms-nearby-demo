@@ -28,11 +28,11 @@ Prepare two Huawei phones, and install the compiled APK by running the adb comma
 2. Tap "SEND FILE" and select the file to be sent.
 3. Tap "RECEIVE FILE" on the other phone.
 
+>P.S
+If error code 907135701 appears during running, please check the file "agconnect-services.json". You should use the corresponding "agconnect-services.json" of your project.
+
 ## Result
 <img src="result.jpg">
 
 ## License
 NearbyFileTransfer is licensed under the [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
-
->P.S
-If error code 907135701 appears during running, please check the file "agconnect-services.json". You should use the corresponding "agconnect-services.json" of your project.
