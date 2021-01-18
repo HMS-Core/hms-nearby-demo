@@ -34,5 +34,5 @@ Prepare two Huawei phones, and install the compiled APK by running the adb comma
 ## License
 NearbyFileTransfer is licensed under the [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
-## P.S
+>P.S
 If error code 907135701 appears during running, please check the file "agconnect-services.json". You should use the corresponding "agconnect-services.json" of your project.
