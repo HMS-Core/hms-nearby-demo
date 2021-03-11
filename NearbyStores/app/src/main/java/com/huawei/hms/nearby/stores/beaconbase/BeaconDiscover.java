@@ -141,7 +141,7 @@ public class BeaconDiscover {
     }
 
     private void initSoftBeacon() {
-        String beaconType = "0215"; //按照apple iBeacon协议
+        String beaconType = "0215"; // 按照apple iBeacon协议
         String measuredPower = Conversion.formatStringLenth(2,
                 Integer.toHexString(SafeSharedPreferences.getInstance(BeaconApplication.context, Constant.SP_FILE_NAME,
                         MODE_PRIVATE).getInt(Constant.IBEACON_POWER_RSSI, -56)), '0');
