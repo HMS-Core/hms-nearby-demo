@@ -20,7 +20,7 @@ public final class Constants {
 
     public static final String TAG = "NearbyIM";
     public static final String CHART_TYPE = "chart";
-    public static final String MESSAGE_NAMESPACE = "message";//default: _reserved_namespace
+    public static final String MESSAGE_NAMESPACE = "message"; // default: _reserved_namespace
     public static final String[] NICKNAMES = {"Wang","Lily","Mac","Judy","Ling","Mady","Uni","Dav","Sam","Yao"};
 
     /**

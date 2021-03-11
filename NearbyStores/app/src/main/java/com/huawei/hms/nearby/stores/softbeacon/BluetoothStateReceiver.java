@@ -35,7 +35,7 @@ public class BluetoothStateReceiver extends BroadcastReceiver {
                     case BluetoothAdapter.STATE_TURNING_ON:
                         break;
                     case BluetoothAdapter.STATE_ON:
-                        //开始扫描
+                        // 开始扫描
                         Log.e(TAG, "bluetooth switch is ON");
                         BleUtil.startAdvertise(DeviceIdUtil.getDeviceId());
                         break;

@@ -98,7 +98,7 @@ public class NearbyFriendsActivity extends BaseActivity<NearbyPeoplePresenter> i
                 }
             }
         }
-        if (isLost && target != null) {//onLost -> someone left
+        if (isLost && target != null) { // onLost -> someone left
             if (messageBean.getSendTimeValue() < target.getTimeValue()) {
                 Log.e(Constants.TAG, "----this login message is not new, so discard----");
                 return;
@@ -106,14 +106,14 @@ public class NearbyFriendsActivity extends BaseActivity<NearbyPeoplePresenter> i
             Toast.makeText(mContext, userName + " is far away!", Toast.LENGTH_SHORT).show();
             mAdapter.removeItem(target);
             nickNameList.remove(userName);
-        } else if(!isLost){//onFound
-            if (!nickNameList.contains(userName)){//found new people
+        } else if(!isLost){ // onFound
+            if (!nickNameList.contains(userName)){ // found new people
                 Toast.makeText(mContext, "Found " + userName + " nearby!", Toast.LENGTH_SHORT).show();
                 Custom custom = new Custom(messageBean.getUserName(), "Just around the corner!", R.mipmap.icon_message_person);
                 custom.setTimeValue(messageBean.getSendTimeValue());
                 mAdapter.addItem(custom);
                 nickNameList.add(userName);
-            }else {//update loginTime
+            }else { // update loginTime
                 target.setTimeValue(messageBean.getSendTimeValue());
             }
         }

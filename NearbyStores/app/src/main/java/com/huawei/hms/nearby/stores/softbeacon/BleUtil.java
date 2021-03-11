@@ -57,7 +57,7 @@ public class BleUtil {
 
         AdvertiseSettings settings = createAdvertiseSettings();
         AdvertiseData data = createAdvertiseData();
-        //-59是 measuredPower,一般设备默认都是-59，这里固定了
+        // -59是 measuredPower,一般设备默认都是-59，这里固定了
         Log.e(TAG, "开始广播");
         bluetoothLeAdv.startAdvertising(settings, data, advCb);
     }
@@ -95,7 +95,7 @@ public class BleUtil {
 
     private static AdvertiseData createAdvertiseData() {
         AdvertiseData.Builder mDataBuilder = new AdvertiseData.Builder();
-        String beaconType = "0215"; //按照apple iBeacon协议
+        String beaconType = "0215"; // 按照apple iBeacon协议
         String measuredPower = Conversion.formatStringLenth(2,
                 Integer.toHexString(SafeSharedPreferences.getInstance(BeaconApplication.context, Constant.SP_FILE_NAME,
                         MODE_PRIVATE).getInt(Constant.IBEACON_POWER_RSSI, -56)), '0');
@@ -103,7 +103,7 @@ public class BleUtil {
         Log.d(TAG, "AdvertiseSettings dataStr : " + dataStr);
 
         byte[] data = Conversion.hexStringToBytes(dataStr);
-        mDataBuilder.addManufacturerData(0x004C, data);//004c是厂商id，代表apple公司
+        mDataBuilder.addManufacturerData(0x004C, data); // 004c是厂商id，代表apple公司
         return mDataBuilder.build();
     }
 }
