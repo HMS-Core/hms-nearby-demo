@@ -8,8 +8,7 @@ English | [中文](https://github.com/HMS-Core/hms-nearby-demo/blob/master/READM
 1. [NearbyStores](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyStores): The package contains an Android Studio project that provides a sample for Beacon Management.
 2. [NearbyWifiShare](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyWifiShare): The package contains a project that demonstrates how to quickly integrate the Wi-Fi sharing function.
 3. [NearbyIM](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyIM): The NearbyIM sample contains a project that demonstrates how to develop a nearby social networking app using Message APIs.
-4. [NearbyGameSnake](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyGameSnake): The package contains an Android Studio project that demonstrates how to develop a simple LAN Snake game using Connection APIs.
-5. [NearbyFileTransfer](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyFileTransfer): The package contains an Android Studio project that demonstrates how to implement file sharing only by adding two lines of code.
+4. [NearbyFileTransfer](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyFileTransfer): The package contains an Android Studio project that demonstrates how to implement file sharing only by adding two lines of code.
 
 ## Precautions
 The project contains multiple independent projects. After downloading code, you can open a project in Android Studio to build your app or add multiple apps to a project. You do not have to create a separate project for each app. You can open setting.gradle to select the project to build.
