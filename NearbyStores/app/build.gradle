@@ -39,7 +39,7 @@ android {
         product {
             dimension "mode"
             //China nearby server
-            buildConfigField("String", "MESSAGE_HOST", '"nearby-message-drcn.platform.hicloud.com"')
+            buildConfigField("String", "MESSAGE_HOST", '"nearby-drcn.cloud.huawei.com.cn"')
             buildConfigField("String", "MESSAGE_PORT", '""')
         }
     }
