@@ -317,7 +317,7 @@ public class MainActivity extends AppCompatActivity implements PermissionInterfa
         ServiceAccountSignInClient signInClient = ServiceAccountSignInClient.buildFromJsonData(serviceAccountKey);
         if (signInClient.signIn() != 0) {
             return;
-        }
+        } 
         BeaconRestfulClient.getInstance().setAccessToken(signInClient.getJwt());
         BeaconRestfulClient.getInstance().setAccessTokenTimeExpiredCallback(() -> {
             Handler handler = new Handler(Looper.getMainLooper());
