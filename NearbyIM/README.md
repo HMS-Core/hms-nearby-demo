@@ -10,12 +10,12 @@
  * [License](#license)
 
 ## Introduction
-Data Communication consists of Nearby Connection and Nearby Message(https://developer.huawei.com/consumer/cn/hms/huawei-nearbyservice/).
+Data Communication consists of Nearby Connection and [Nearby Message](https://developer.huawei.com/consumer/cn/hms/huawei-nearbyservice/).
 This app demonstrates a few of Nearby Service typical use cases:
 Socialization with nearby strangers, accurately locate nearby persons using short-distance communication technologies, send message and shares files such as photos and videos.
 
 ## Installation
-1.Configuring app information in appGallery connect.Create an app and enable Nearby Service by referring the [Nearby Service Preparations](https://developer.huawei.com/consumer/en/doc/development/HMS-Guides/nearby-service-preparation).
+1.Configuring app information in appGallery connect.Create an app and enable Nearby Service by referring the [Nearby Service Preparations](https://developer.huawei.com/consumer/en/doc/development/system-Guides/config-agc-0000001050040578?ha_source=hms1).
 <img src="process01.png">
 
 (1)Registering as a Developer,register a [HUAWEI account](https://developer.huawei.com/consumer/en/).Before you get started, you will need to register as a HUAWEI developer and complete identity verification on the HUAWEI Developer website. For details, please refer to Register a HUAWEI ID.Before you get started,you will need to register as a HUAWEI developer and complete identity verification on the HUAWEI Developer website. For details, please refer to Register a HUAWEI ID.
@@ -31,14 +31,14 @@ Note: If you need to develop the Nearby Message service, perform service configu
   (b)Find your project from the project list and click the app on the project card.
   (c)On the Project Setting page, set SHA-256 certificate fingerprint to the SHA-256 fingerprint from Generating a Signing Certificate Fingerprint.
   <img src="process03.png">
-  
+
 2.Build the demo.
 
 (1)To build this demo, please first import the demo in the Android Studio (3.x+).
 
 (2)Change the value of applicationid in the app-level build.gradle file of the sample project to the package name of your app.
 
-(3)Then download the file "agconnect-services.json" of the app on AGC, and add the file to the app root directory(\app) of the demo. Please refer to the Chapter [Integrating HMS SDK](https://developer.huawei.com/consumer/en/doc/development/HMS-Guides/nearby-service-integratesdk) of the Development Guide.
+(3)Then download the file "agconnect-services.json" of the app on AGC, and add the file to the app root directory(\app) of the demo. Please refer to the Chapter [Integrating HMS SDK](https://developer.huawei.com/consumer/en/doc/development/system-Guides/android-integrating-sdk-0000001050126093?ha_source=hms1) of the Development Guide.
 
 <img src="process.png">
 
@@ -56,7 +56,7 @@ Note: If you need to develop the Nearby Message service, perform service configu
 Android Studio 3.X or a later version is recommended.
 
 ## Result
-<img src="result01.jpg">
+<img src="result01.jpg" width = 30% height = 30%>
 <img src="result02.jpg">
 <img src="result03.jpg">
 <img src="result04.jpg">

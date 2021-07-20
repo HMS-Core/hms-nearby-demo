@@ -1,7 +1,7 @@
 # HMS Nearby Demo
-[![](https://camo.githubusercontent.com/ce1c195eb2524e4e67a2e74bf6e9619555aa0913/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446f63732d686d736775696465732d627269676874677265656e)](https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/introduction-0000001050040566) ![](https://github.com/HMS-Core/hms-ml-demo/workflows/Android%20CI/badge.svg)
+[![](https://camo.githubusercontent.com/ce1c195eb2524e4e67a2e74bf6e9619555aa0913/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446f63732d686d736775696465732d627269676874677265656e)](https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/introduction-0000001050040566) 
 
-[English](https://github.com/HMS-Core/hms-nearby-demo) | 中文
+[English](README.md) | 中文
 
 ## Introduction
 我们提供了示例代码，介绍如何使用Nearby Service的API。工程目录如下：

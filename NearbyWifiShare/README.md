@@ -4,7 +4,7 @@
  * [Introduction](#introduction)
  * [Installation](#installation)
  * [Configuration ](#configuration )
- * [Supported Environments](#supported-environments)
+ * [Supported Environment](#supported-environment)
  * [Result](#result)
  * [License](#license)
 
@@ -12,7 +12,7 @@
 The NearbyWifiShareDemo program demonstrates how to complete an Android app providing nearby Wi-Fi share feature.
 
 ## Installation
-1. Configuring app information in appGallery connect.Create an app and enable Nearby Service by referring the [Nearby Service Preparations](https://developer.huawei.com/consumer/en/doc/development/HMS-Guides/nearby-service-preparation).
+1. Configuring app information in appGallery connect.Create an app and enable Nearby Service by referring the [Nearby Service Preparations](https://developer.huawei.com/consumer/en/doc/development/system-Guides/config-agc-0000001050040578?ha_source=hms1).
                                  <img src="process01.png">
                                  
 (1).Registering as a Developer,register a [HUAWEI account](https://developer.huawei.com/consumer/en/).Before you get started, you will need to register as a HUAWEI developer and complete identity verification on the HUAWEI Developer website. For details, please refer to Register a HUAWEI ID.Before you get started,you will need to register as a HUAWEI developer and complete identity verification on the HUAWEI Developer website. For details, please refer to Register a HUAWEI ID.
@@ -26,9 +26,9 @@ The NearbyWifiShareDemo program demonstrates how to complete an Android app prov
 Note: If you need to develop the Nearby Message service, perform service configuration in AppGallery Connect first and then configure the signing certificate fingerprint.
 
   (a)Sign in to AppGallery Connect and select My apps.
-  
+
   (b)Find your project from the project list and click the app on the project card.
-  
+
   (c)On the Project Setting page, set SHA-256 certificate fingerprint to the SHA-256 fingerprint from Generating a Signing Certificate Fingerprint.
 <img src="process03.png">
 
@@ -38,7 +38,7 @@ Note: If you need to develop the Nearby Message service, perform service configu
 
 (2)Change the value of applicationid in the app-level build.gradle file of the sample project to the package name of your app.
 
-(3)Then download the file "agconnect-services.json" of the app on AGC, and add the file to the app root directory(\app) of the demo. Please refer to the Chapter [Integrating HMS SDK](https://developer.huawei.com/consumer/en/doc/development/HMS-Guides/nearby-service-integratesdk) of the Development Guide.
+(3)Then download the file "agconnect-services.json" of the app on AGC, and add the file to the app root directory(\app) of the demo. Please refer to the Chapter [Integrating HMS SDK](https://developer.huawei.com/consumer/en/doc/development/system-Guides/android-integrating-sdk-0000001050126093?ha_source=hms1) of the Development Guide.
 
 (4)Prepare two Huawei phones, and install this app by adb command to phones.
 
@@ -48,11 +48,11 @@ Note: If you need to develop the Nearby Message service, perform service configu
 3. Tap the button of "Connect Wi-Fi" on B to connect Wi-Fi.
 4. When A found B, there will be a dialog of Connection Request after click the item, and select OK to share Wi-Fi to B.
 
-## Supported Environments
+## Supported Environment
    Android Studio 3.X.
 
 ## Result
-<img src="deviceA.jpg">
+<img src="deviceA.jpg" width = 30% height = 30%>
 <img src="deviceB.jpg">
 
 ## License
