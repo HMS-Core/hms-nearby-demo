@@ -53,7 +53,7 @@ Note: If you need to develop the Nearby Message service, perform service configu
 
 ## Result
 <img src="deviceA.jpg" width = 30% height = 30%>
-<img src="deviceB.jpg">
+<img src="deviceB.jpg" width = 30% height = 30%>
 
 ## License
 NearbyWifiShareDemo is licensed under the [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
