@@ -57,10 +57,10 @@ Android Studio 3.X or a later version is recommended.
 
 ## Result
 <img src="result01.jpg" width = 30% height = 30%>
-<img src="result02.jpg">
-<img src="result03.jpg">
-<img src="result04.jpg">
-<img src="result05.jpg">
+<img src="result02.jpg" width = 30% height = 30%>
+<img src="result03.jpg" width = 30% height = 30%>
+<img src="result04.jpg" width = 30% height = 30%>
+<img src="result05.jpg" width = 30% height = 30%>
 
 ## License
 NearbyIM sample is licensed under the [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
