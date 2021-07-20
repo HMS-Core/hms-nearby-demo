@@ -1,4 +1,4 @@
-# HUAWEI Nearby Service Demo
+# 华为近距离通信服务示例代码
 [![](https://camo.githubusercontent.com/ce1c195eb2524e4e67a2e74bf6e9619555aa0913/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446f63732d686d736775696465732d627269676874677265656e)](https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/introduction-nearby-0000001060363166)
 
 English | [中文](README_ZH.md)
