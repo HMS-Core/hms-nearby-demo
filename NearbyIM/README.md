@@ -49,7 +49,7 @@ Note: If you need to develop the Nearby Message service, perform service configu
 2. Click on "People nearby" and you'll see nearby users;
 3. Click on "Join private group", join a group chat with friends nearby by entering the required four digits;
 4. Click on "Group chat with nearby people",you can communicate with people nearby;
-5. Click on "Private chat", You can send text and files using the Nearby Connection" (https://developer.huawei.com/consumer/cn/hms/huawei-nearbyservice/).
+5. Click on "Private chat", You can send text and files using the [Nearby Connection](https://developer.huawei.com/consumer/en/hms/huawei-nearbyservice/?ha_source=hms1).
 6. Finally, enjoy with your nearby friends!
 
 ## Supported Environments
