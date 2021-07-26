@@ -20,20 +20,20 @@ For more information about the APIs, please refer to [API Reference](https://dev
 ## Procedure
 * Quick Tutorial
 1. Start the app on phone A, and tap Merchants. The merchant screen will display.
-<img src="Result_1.jpg" width = 30% height = 30%> 
+<img src=images/Result_1.jpg width = 30% height = 30%> 
 
 2. Tap Set to configure a beacon attachment.
-<img src="Result_3.jpg" width = 30% height = 30%>
+<img src=images/Result_3-english.png width = 30% height = 30%>
 
 3. Enable Local Soft Beacon. A message will display in the notification panel, indicating that the soft beacon is enabled and that the phone is now a beacon.
-<img src="Result_2.jpg" width = 30% height = 30% > 
+<img src=images/Result_2.jpg width = 30% height = 30% > 
 
 4. Tap Bluetooth beacon in Unregistered Beacon nearby to register a beacon and configure the beacon attachment.
 
 5. Tap the registered Bluetooth beacon in Registered Beacon in Your Project. You can tap a Bluetooth beacon to view more information about it and perform operations such as beacon attachment configuration.
 
 6. Start the app on phone B, and tap Consumer. You will be able to receive messages published by phone A.
-<img src="Result_4.jpg" width = 30% height = 30%> 
+<img src=images/Result_4-english.png width = 30% height = 30%> 
 
 >Note: In this demo, the corresponding account authentication file has been set in the code to facilitate user operations. To update your account authentication file, perform the following steps:
 >1. Register as a developer. Register a [HUAWEI ID](https://developer.huawei.com/consumer/en/).

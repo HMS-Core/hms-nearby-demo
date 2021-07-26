@@ -20,20 +20,20 @@
 ## 操作流程
 * 快速入门
 1. 打开A手机App，单击“Merchants”，进入商家界面。
-<img src="Result_1.jpg" width = 30% height = 30%> 
+<img src=images/Result_1.jpg width = 30% height = 30%> 
 
 2. 单击"Set",为信标配置消息附件。
-<img src="Result_3.jpg" width = 30% height = 30%>
+<img src=images/Result_3-chinese.jpg width = 30% height = 30%>
 
 3. 打开"Local Soft Beacon"的开关。通知栏提示“软beacon已开启，您的手机成为一个beacon”
-<img src="Result_2.jpg" width = 30% height = 30% > 
+<img src=images/Result_2.jpg width = 30% height = 30% > 
 
 4. 您也可以通过单击“Unregistered Beacon nearby”列表中找到的蓝牙信标进行注册，并进行信标附件配置等操作。
 
 5. 您可以单击“Registered Beacon in Your Project”列表中已注册的蓝牙信标。单击某个蓝牙信标可查看更多信息，并进行信标附件配置等操作。
 
 6. 打开B手机App,单击“Consumer”。您就可以体验有趣的消息了！
-<img src="Result_4.jpg" width = 30% height = 30% /> 
+<img src=images/Result_4-chinese.jpg width = 30% height = 30% /> 
 
 >说明：本demo为了方便用户使用，已经把将相应的账号认证文件直接置于代码之中。如果需要更新自己的账号认证文件，您可以按照以下步骤操作：
 >1. 成为开发者。注册[华为帐号](https://developer.huawei.com/consumer/cn/)。
