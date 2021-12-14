@@ -1,49 +1,50 @@
-# NearbyStores
+﻿# HMS Core Nearby Service Sample Code (Nearby Stores)
 English | [中文](README_ZH.md)
 
-[![](https://camo.githubusercontent.com/ce1c195eb2524e4e67a2e74bf6e9619555aa0913/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446f63732d686d736775696465732d627269676874677265656e)](https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/introduction-0000001050040566)
+[![](https://camo.githubusercontent.com/ce1c195eb2524e4e67a2e74bf6e9619555aa0913/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446f63732d686d736775696465732d627269676874677265656e)](https://developer.huawei.com/consumer/en/doc/development/system-Guides/introduction-nearby-0000001060363166)
 
 ## Contents
- * [Overview](#Overview)
+ * [Introduction](#Introduction)
  * [Procedure](#Procedure)
- * [Environment Requirements](#environment-requirement)
+ * [Environment Requirements](#Environment-Requirements)
  * [License](#License)
 
-## Overview
-This demo shows how beacon-based message publishing and subscription work in Nearby Service.
-1. It includes demos for both the consumer and merchant, which can be switched as needed after the app is started.
-2. Consumers can receive marketing messages from beacons.
-3. Merchants can configure nearby beacon attachments, or use the Bluetooth function to simulate a mobile phone as a beacon to publish messages.
+## Introduction
+This demo shows how to use the beacon-based message publishing and subscription capabilities of Nearby Service.
+1. Sample code for both the user side and the merchant side is provided. After starting the demo app, you can switch between the user side and the merchant side.
+2. On the user side, you can receive marketing messages published by nearby beacons.
+3. On the merchant side, you can publish messages by configuring message attachments for a nearby beacon or using the phone as a Bluetooth beacon.
 
-For more information about the APIs, please refer to [API Reference](https://developer.huawei.com/consumer/en/doc/development/system-References/overview2-0000001061766323?ha_source=hms1).
+For details, please refer to [API Reference](https://developer.huawei.com/consumer/en/doc/development/system-References/overview2-0000001061766323?ha_source=hms1).
 
 ## Procedure
-* Quick Tutorial
-1. Start the app on phone A, and tap Merchants. The merchant screen will display.
+* Quick Start
+1. Start the demo app on phone A and tap **Merchants**.
 <img src=images/Result_1.jpg width = 30% height = 30%> 
 
-2. Tap Set to configure a beacon attachment.
-<img src=images/Result_3-english.png width = 30% height = 30%>
+2. Tap **Set** to configure message attachments for your phone.
+<img src=images/Result_3-chinese.jpg width = 30% height = 30%>
 
-3. Enable Local Soft Beacon. A message will display in the notification panel, indicating that the soft beacon is enabled and that the phone is now a beacon.
+3. Enable **Local Soft Beacon**. You will receive a notification indicating that soft beacon is enabled and your phone now functions as a beacon.
 <img src=images/Result_2.jpg width = 30% height = 30% > 
 
-4. Tap Bluetooth beacon in Unregistered Beacon nearby to register a beacon and configure the beacon attachment.
+4. Tap a Bluetooth beacon listed under **Unregistered Beacon nearby** to register the beacon and configure message attachments for the beacon.
 
-5. Tap the registered Bluetooth beacon in Registered Beacon in Your Project. You can tap a Bluetooth beacon to view more information about it and perform operations such as beacon attachment configuration.
+5. Tap a Bluetooth beacon listed under **Registered Beacon in Your Project** to view the beacon details and configure message attachments for it.
 
-6. Start the app on phone B, and tap Consumer. You will be able to receive messages published by phone A.
-<img src=images/Result_4-english.png width = 30% height = 30%> 
+6. Start the demo app on phone B and tap **Consumer**. You will be able to receive messages published by nearby beacons.
+<img src=images/Result_4-chinese.jpg width = 30% height = 30% /> 
 
->Note: In this demo, the corresponding account authentication file has been set in the code to facilitate user operations. To update your account authentication file, perform the following steps:
->1. Register as a developer. Register a [HUAWEI ID](https://developer.huawei.com/consumer/en/).
->2. Create an app. Create an app and enable Nearby Service by referring to [Preparations](https://developer.huawei.com/consumer/en/doc/development/system-Guides/config-agc-0000001050040578?ha_source=hms1).
->3. Create a service account key and download the JSON file. Sign in to HUAWEI Developers, go to Console > HMS API Services > Credentials, select your project, move the pointer to Create credentials, and click Service account key. Enter the information about the service account key, and click Create and download JSON to download the JSON file.
->4. Replace the JSON file in the code. The path is NearbyStores\app\src\main\assets.
->5. Use the signing certificate to compile the executable APK. For details , please refer to [Generating a Signing Certificate]( https://developer.huawei.com/consumer/en/codelab/HMSPreparation/index.html#2).
+>Note: A service account authentication file is preset in the demo. To update it, perform the following operations:
+>1. Register as a developer on [HUAWEI Developers](https://developer.huawei.com/consumer/en/).
+>2. Create an app and enable Nearby Service by referring to [Preparations](https://developer.huawei.com/consumer/en/doc/development/system-Guides/config-agc-0000001050040578?ha_source=hms1).
+>3. Create a service account key and download the JSON file. Sign in to HUAWEI Developers and go to **Console** > **HMS API Services** > **Credentials**. Select an existing project. Move your cursor to **Create credential** and click **Service account key**. Complete the required information and click **Create and download JSON** to download the JSON file.
+>4. Replace the JSON file in the demo in **NearbyStores\app\src\main\assets** with the JSON file you have downloaded.
+>5. Generate a signing certificate for the APK. For details, please refer to [Generating a Signing Certificate](https://developer.huawei.com/consumer/en/codelab/HMSPreparation/index.html#2).
 
-## Environment Requirement
+## Environment Requirements
 Android Studio 3.0 or later is recommended.
 
 ## License
-The sample code is licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+The sample code is licensed under [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+

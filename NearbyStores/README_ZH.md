@@ -1,7 +1,7 @@
-# NearbyStores
-[English](README.md) | 中文
+﻿# NearbyStores
+中文 | [English](README.md)
 
-[![](https://camo.githubusercontent.com/ce1c195eb2524e4e67a2e74bf6e9619555aa0913/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446f63732d686d736775696465732d627269676874677265656e)](https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/introduction-0000001050040566)
+[![](https://camo.githubusercontent.com/ce1c195eb2524e4e67a2e74bf6e9619555aa0913/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446f63732d686d736775696465732d627269676874677265656e)](https://developer.huawei.com/consumer/cn/doc/development/system-Guides/introduction-nearby-0000001060363166)
 
 ## 目录
  * [简介](#简介)
@@ -47,3 +47,4 @@
 
 ## 授权许可
 NearbyStores示例代码经过 [Apache 2.0 授权许可](http://www.apache.org/licenses/LICENSE-2.0)。
+

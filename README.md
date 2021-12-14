@@ -1,24 +1,31 @@
-# HUAWEI Nearby Service Sample
-[![](https://camo.githubusercontent.com/ce1c195eb2524e4e67a2e74bf6e9619555aa0913/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446f63732d686d736775696465732d627269676874677265656e)](https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/introduction-nearby-0000001060363166)
+﻿# HMS Core Nearby Service Sample Code
+[![](https://camo.githubusercontent.com/ce1c195eb2524e4e67a2e74bf6e9619555aa0913/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446f63732d686d736775696465732d627269676874677265656e)](https://developer.huawei.com/consumer/en/doc/development/system-Guides/introduction-nearby-0000001060363166) 
 
 English | [中文](README_ZH.md)
 
+## Contents
+ * [Introduction](#Introduction)
+ * [Precautions](#Precautions)
+ * [Technical Support](#Technical-Support)
+
 ## Introduction
- Several samples show how to use the APIs of the Nearby Service. The project directory is as follows:
-1. [NearbyStores](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyStores): The package contains an Android Studio project that provides a sample for Beacon Management.
-2. [NearbyWifiShare](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyWifiShare): The package contains a project that demonstrates how to quickly integrate the Wi-Fi sharing function.
-3. [NearbyIM](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyIM): The NearbyIM sample contains a project that demonstrates how to develop a nearby social networking app using Message APIs.
-4. [NearbyFileTransfer](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyFileTransfer): The package contains an Android Studio project that demonstrates how to implement file sharing only by adding two lines of code.
+This sample code shows how to use APIs of Nearby Service. The project directory is as follows:
+
+1. [NearbyStores](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyStores): provides an Android Studio demo project for beacon management.
+2. [NearbyWifiShare](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyWifiShare): provides an Android Studio demo project for Wi-Fi sharing.
+3. [NearbyIM](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyIM): provides an Android Studio demo project that shows how to call Nearby Message APIs and implement nearby social functions.
+4. [NearbyFileTransfer](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyFileTransfer): provides an Android Studio demo project that shows how to develop the file sharing function with only few lines of code.
+
 
 ## Precautions
-The project contains multiple independent projects. After downloading code, you can open a project in Android Studio to build your app or add multiple apps to a project. You do not have to create a separate project for each app. You can open setting.gradle to select the project to build.
+The sample code contains multiple independent projects. After downloading the code, you can open a project in Android Studio to build a single app or add multiple apps to one project. You can specify the app to build in the **setting.gradle** file.
 
-## Question or issues
-If you want to evaluate more about HMS Core, [HMSCore on Reddit](https://www.reddit.com/r/HuaweiDevelopers/) is for you to keep up with latest news about HMS Core, and to exchange insights with other developers.
+## Technical Support
+You can visit the [Reddit community](https://www.reddit.com/r/HuaweiDevelopers/) to obtain the latest information about HMS Core and communicate with other developers.
 
-If you have questions about how to use HMS samples, try the following options:
-- [Stack Overflow](https://stackoverflow.com/questions/tagged/huawei-mobile-services) is the best place for any programming questions. Be sure to tag your question with 
-`huawei-mobile-services`.
-- [Huawei Developer Forum](https://forums.developer.huawei.com/forumPortal/en/home?fid=0101187876626530001) HMS Core Module is great for general questions, or seeking recommendations and opinions.
+If you have any questions about the sample code, try the following:
+- Visit [Stack Overflow](https://stackoverflow.com/questions/tagged/huawei-mobile-services?tab=Votes), submit your questions, and tag them with `huawei-mobile-services`. Huawei experts will answer your questions.
+- Visit the HMS Core section in the [HUAWEI Developer Forum](https://forums.developer.huawei.com/forumPortal/en/home?fid=0101187876626530001?ha_source=hms1) and communicate with other developers.
 
-If you run into a bug in our samples, please submit an [issue](https://github.com/HMS-Core/hms-nearby-demo/issues) to the Repository. Even better you can submit a [Pull Request](https://github.com/HMS-Core/hms-nearby-demo/pulls) with a fix.
+If you encounter any issues when using the sample code, submit your [issues](https://github.com/HMS-Core/hms-nearby-demo/issues) or submit a [pull request](https://github.com/HMS-Core/hms-nearby-demo/pulls).
+
