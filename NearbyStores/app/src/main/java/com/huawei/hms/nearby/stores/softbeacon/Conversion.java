@@ -46,10 +46,10 @@ public class Conversion {
     }
 
     /**
-     * @param targetLenth   补齐后的长度
-     * @param src           需要补齐的字符串
-     * @param leftCharacter 用来补齐长度的字符
-     * @return 补齐字符串
+     * @param targetLenth   mininum length of target string
+     * @param src           source string
+     * @param leftCharacter character to append with
+     * @return target string
      */
     public static String formatStringLenth(int targetLenth, String src, char leftCharacter) {
 

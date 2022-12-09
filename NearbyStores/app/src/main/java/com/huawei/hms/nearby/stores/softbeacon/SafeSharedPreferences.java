@@ -41,9 +41,9 @@ public class SafeSharedPreferences {
     /**
      * 初始化SafeSharedPreferences
      *
-     * @param context 上下文
-     * @param name sp文件名
-     * @param mode 访问模式
+     * @param context context
+     * @param name sp file name
+     * @param mode operating mode
      */
     public SafeSharedPreferences(Context context, String name, int mode) {
         try {

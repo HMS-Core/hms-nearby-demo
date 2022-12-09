@@ -10,7 +10,7 @@ buildscript {
         maven { url 'https://maven.huawei.com' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath 'com.android.tools.build:gradle:3.5.4'
         classpath 'com.huawei.agconnect:agcp:1.6.0.300'
     }
 }
