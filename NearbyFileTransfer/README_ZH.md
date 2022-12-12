@@ -31,7 +31,7 @@
 若运行demo时出现错误码907135701，请检查项目的agconnect-services.json文件是否正确。
 
 ## 结果
-<img src="result.jpg" width = 30% height = 30%>
+<img src="result.png" width = 30% height = 30%>
 
 ## 授权许可
 本示例代码经过[Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)授权许可。

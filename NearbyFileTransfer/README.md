@@ -31,7 +31,7 @@ The sample code demonstrates how to build the nearby file transfer function for 
 If the error code 907135701 is reported when you run the demo, verify that the **agconnect-services.json** file is correct for your project.  
 
 ## Result
-<img src="result.jpg" width = 30% height = 30%>
+<img src="result.png" width = 30% height = 30%>
 
 ## License
 The sample code is licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
