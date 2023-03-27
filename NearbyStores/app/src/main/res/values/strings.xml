@@ -21,7 +21,8 @@
     <string name="beacon_delete">Delete</string>
     <string name="no_beacon_found">No beacon found</string>
 
-    <string name="consumer">Consumer</string>
+    <string name="store">Consumer2</string>
+    <string name="new_store">Consumer1</string>
     <string name="merchants">Merchants</string>
     <string name="beacon_phone">Local Soft Beacon</string>
     <string name="beacon_unregister">Unregistered Beacon nearby</string>

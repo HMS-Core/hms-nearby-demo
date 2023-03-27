@@ -6,7 +6,7 @@
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
     android:orientation="vertical"
-    tools:context=".ui.ViewBeaconActivity">
+    tools:context="com.huawei.hms.nearby.beacondemo.merchants.beaconmanager.ui.ViewBeaconActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -462,7 +462,7 @@
                                 </RelativeLayout>
 
                                 <!-- all properties -->
-                                <com.huawei.hms.nearby.stores.ui.ExpandListView
+                                <com.huawei.hms.nearby.beacondemo.merchants.beaconmanager.ui.ExpandListView
                                     android:id="@+id/lv_beacon_properties"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent" />
@@ -574,22 +574,22 @@
                                         android:layout_marginTop="20dp">
 
                                         <ImageView
-                                            android:id="@+id/iv_canteen"
+                                            android:id="@+id/iv_store"
                                             android:layout_width="150dp"
                                             android:layout_height="150dp"
                                             android:layout_margin="5dp"
                                             android:scaleType="centerCrop"
-                                            android:src="@mipmap/canteen_a" />
+                                            android:src="@mipmap/store_a" />
 
                                         <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
 
-                                            android:layout_toEndOf="@id/iv_canteen"
+                                            android:layout_toEndOf="@id/iv_store"
                                             android:orientation="vertical">
 
                                             <EditText
-                                                android:id="@+id/et_attachment_canteenName"
+                                                android:id="@+id/et_attachment_storeName"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginStart="16dp"
@@ -598,7 +598,7 @@
                                                 android:maxLength="2048" />
 
                                             <EditText
-                                                android:id="@+id/et_attachment_canteenDesc"
+                                                android:id="@+id/et_attachment_storeDesc"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginStart="16dp"
@@ -607,7 +607,7 @@
                                                 android:maxLength="2048" />
 
                                             <EditText
-                                                android:id="@+id/et_attachment_canteenImageUrl"
+                                                android:id="@+id/et_attachment_storeImageUrl"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginStart="16dp"

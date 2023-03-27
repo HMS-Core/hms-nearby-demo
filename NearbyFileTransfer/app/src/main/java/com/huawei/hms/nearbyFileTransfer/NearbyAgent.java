@@ -30,7 +30,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
-import androidx.documentfile.provider.DocumentFile;
 
 import com.huawei.hms.hmsscankit.ScanUtil;
 import com.huawei.hms.hmsscankit.WriterException;
@@ -209,18 +208,6 @@ public class NearbyAgent {
         Log.d(TAG, "Send Payload.");
         mTransferEngine.sendData(mRemoteEndpointId, filePayload);
     }
-
-    public static String getFileRealNameFromUri(Context context, Uri fileUri) {
-        if (context == null || fileUri == null) {
-            return "UnknownFile";
-        }
-        DocumentFile documentFile = DocumentFile.fromSingleUri(context, fileUri);
-        if (documentFile == null) {
-            return "UnknownFile";
-        }
-        return documentFile.getName();
-    }
-
 
     private ScanEndpointCallback mDiscCb =
             new ScanEndpointCallback() {

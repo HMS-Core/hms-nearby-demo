@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="ui.MainActivity">
+    tools:context="com.huawei.hms.nearby.beacondemo.common.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,13 +31,25 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/btn_consumer"
+            android:id="@+id/btn_new_store"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shapecircle"
+            android:text="@string/new_store"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_store"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="50dp"
             android:background="@drawable/shapecircle"
-            android:text="@string/consumer"
+            android:text="@string/store"
             android:textAllCaps="false"
             android:textColor="#ffffff"
             android:textSize="16sp" />

@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.huawei.hms.nearby.stores">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.huawei.hms.nearby.beacondemo">
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <!-- Android 12使用的蓝牙权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -17,30 +22,40 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <application
-        android:name=".BeaconApplication"
-        android:allowBackup="true"
+    <application tools:replace="android:allowBackup"
+        android:name="com.huawei.hms.nearby.beacondemo.common.BeaconApplication"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
-            android:name="com.huawei.hms.nearby.stores.ui.CanteenActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
-        <activity
-            android:name="com.huawei.hms.nearby.stores.ui.MerchantsActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
-        <activity
-            android:name="com.huawei.hms.nearby.stores.ui.ViewBeaconActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
-        <activity
-            android:name="com.huawei.hms.nearby.stores.ui.MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
-        <activity
-            android:name="com.huawei.hms.nearby.stores.ui.SplashActivity"
+            android:name="com.huawei.hms.nearby.beacondemo.consumer.ui.NewStoreActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@style/SplashTheme">
+            android:exported="true"/>
+        <activity
+            android:name="com.huawei.hms.nearby.beacondemo.consumer.ui.StoreActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"/>
+        <activity
+            android:name="com.huawei.hms.nearby.beacondemo.merchants.beaconmanager.ui.MerchantsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"/>
+        <activity
+            android:name="com.huawei.hms.nearby.beacondemo.merchants.beaconmanager.ui.ViewBeaconActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"/>
+        <activity
+            android:name="com.huawei.hms.nearby.beacondemo.common.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"/>
+        <activity
+            android:name="com.huawei.hms.nearby.beacondemo.merchants.beaconmanager.ui.SplashActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/SplashTheme"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -49,10 +64,11 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".softbeacon.BroadcasterService" />
+        <service android:name="com.huawei.hms.nearby.beacondemo.merchants.softbeacon.BroadcasterService"
+            android:exported="true"/>
 
         <receiver
-            android:name=".softbeacon.BluetoothStateReceiver"
+            android:name="com.huawei.hms.nearby.beacondemo.merchants.softbeacon.BluetoothStateReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -60,10 +76,17 @@
             </intent-filter>
         </receiver>
 
-        <receiver
-            android:name=".canteen.CanteenNotificationClickReceiver"
+        <service android:name=".consumer.BeaconService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"/>
 
+        <receiver
+            android:name=".consumer.BeaconBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.huawei.hms.nearby.action.ONFOUND_BEACON" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>
