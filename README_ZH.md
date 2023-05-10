@@ -12,9 +12,8 @@
 我们提供了示例代码，介绍如何使用Nearby Service的API。工程目录如下：
 
 1. [NearbyStores](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyStores): 该包中包含一个Android Studio工程，提供了Beacon Management示例。
-2. [NearbyWifiShare](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyWifiShare): 该包中包含一个Android Studio工程，展示了如何快速集成Wi-Fi分享功能。
-3. [NearbyIM](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyIM): 该包中包含一个Android Studio工程展示如何使用Message的相关接口，实现近场社交的应用。
-4. [NearbyFileTransfer](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyFileTransfer): 该包中包含一个Android Studio工程，介绍如何添加两行代码实现文件分享。
+2. [NearbyIM](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyIM): 该包中包含一个Android Studio工程展示如何使用Message的相关接口，实现近场社交的应用。
+3. [NearbyFileTransfer](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyFileTransfer): 该包中包含一个Android Studio工程，介绍如何添加两行代码实现文件分享。
 
 
 ## 注意事项
