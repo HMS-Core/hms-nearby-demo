@@ -12,8 +12,7 @@ English | [中文](README_ZH.md)
 This sample code shows how to use APIs of Nearby Service. The project directory is as follows:
 
 1. [NearbyStores](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyStores): provides an Android Studio demo project for beacon management.
-2. [NearbyIM](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyIM): provides an Android Studio demo project that shows how to call Nearby Message APIs and implement nearby social functions.
-3. [NearbyFileTransfer](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyFileTransfer): provides an Android Studio demo project that shows how to develop the file sharing function with only few lines of code.
+2. [NearbyFileTransfer](https://github.com/HMS-Core/hms-nearby-demo/tree/master/NearbyFileTransfer): provides an Android Studio demo project that shows how to develop the file sharing function with only few lines of code.
 
 
 ## Precautions
