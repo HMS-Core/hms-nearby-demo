@@ -24,7 +24,7 @@ public class MessageBean {
     public static final int TYPE_RECEIVE_IMAGE = 3;
     public static final int TYPE_SEND_FILE = 4;
     public static final int TYPE_RECEIVE_FILE = 5;
-    public static final String ACTION_TAG_ONLINE = "The user is online!";
+    public static final String ACTION_TAG_ONLINE = "Hello";
     private int type;
     private String msg;
     private long receiveTime;
